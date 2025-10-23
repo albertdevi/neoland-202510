@@ -106,3 +106,27 @@ $ git config user.email "albertdemures@gmail.com"
 
 $ git config user.name "Albert Demures
 ```
+
+## git commit -m message
+
+Consolidates the changes in local repository.
+
+```sh
+$ git commit -m "add bash and git docs"
+```
+
+## git push
+
+Pushes the changes from local to rempote repository (origin).
+
+```sh
+ git push
+Enumerating objects: 10, done.
+Counting objects: 100% (10/10), done.
+Delta compression using up to 4 threads
+Compressing objects: 100% (5/5), done.
+Writing objects: 100% (9/9), 2.02 KiB | 414.00 KiB/s, done.
+Total 9 (delta 0), reused 0 (delta 0), pack-reused 0 (from 0)
+To https://github.com/albertdevi/neoland-202510
+   c0018b0..3d6eb45  main -> main
+```
