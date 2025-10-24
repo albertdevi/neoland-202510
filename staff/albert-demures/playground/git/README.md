@@ -130,3 +130,20 @@ Total 9 (delta 0), reused 0 (delta 0), pack-reused 0 (from 0)
 To https://github.com/albertdevi/neoland-202510
    c0018b0..3d6eb45  main -> main
 ```
+
+## git log
+
+Shows commits history ordered descending by time
+
+```sh
+$ git log
+commit 2397833e9f3b82ebd6f2ac1de5b02448041ffe34 (HEAD -> main, origin/main, origin/HEAD)
+Author: Albert Demures <albertdemures@gmail.com>
+Date:   Thu Oct 23 22:07:12 2025 +0200
+
+    add git commit and git push command to git doc
+
+commit 3d6eb453983e8f238e7c036bf220baa629d254d4
+Author: Albert Demures <albertdemures@gmail.com>
+Date:   Thu Oct 23 21:52:28 2025 +0200
+```
