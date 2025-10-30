@@ -7,17 +7,43 @@
     <title>Draw</title>
     <style>
         body {
-            background-color: gray;
+            background-color: rgb(226, 226, 226);
         }
 
-        /* shreck */
 
-.shreck{
-
-    position: absolute;
-    top:60px;
-    left: 250px;
+            
+.width-40{
+    width:40px;
 }
+
+.height-80{
+    height:80px;
+}
+
+.right-10{
+    right:10 px;
+}
+
+.top-55{
+    top:55px;
+}
+
+.color-gray{
+background-color: rgb(114, 114, 114);
+}
+
+.absolute{
+position: absolute;
+}
+
+       
+
+        .shreck {
+
+            position: absolute;
+            top: 60px;
+            left: 250px;
+        }
 
         #face {
             width: 100px;
@@ -40,13 +66,14 @@
         }
 
 
-        .ceja{
+        .ceja {
             width: 30px;
             height: 6px;
             background-color: rgb(58, 6, 6);
             position: absolute;
             top: 6px;
         }
+
         .left-ceja {
             left: 10px;
         }
@@ -251,87 +278,99 @@
             top: 160px;
         }
 
-.arm {
-  position: absolute;
-  left: 120px; /* posición del hombro respecto a la cabeza */
-  top: 120px;
-  width: 130px;
-  height: 50px;
-  background-color: #C8BCA0;
-  
-  transform-origin: left center; /* 🔸 pivote en el hombro */
-  
-}
+        .arm {
+            position: absolute;
+            left: 120px;
+            /* posición del hombro respecto a la cabeza */
+            top: 120px;
+            width: 130px;
+            height: 50px;
+            background-color: #C8BCA0;
+
+            transform-origin: left center;
+            /* 🔸 pivote en el hombro */
+
+        }
 
 
-.shreck:hover .arm {
-  animation: saludo 2s ease-in-out infinite;
-}
+        .shreck:hover .arm {
+            animation: saludo 2s ease-in-out infinite;
+        }
 
-/* Movimiento del saludo */
-@keyframes saludo {
-0% { transform: rotate(20deg); }
-  50% { transform: rotate(-20deg); }
-  100% { transform: rotate(20deg); }
-}
+        /* Movimiento del saludo */
+        @keyframes saludo {
+            0% {
+                transform: rotate(20deg);
+            }
 
-.arm1{
-width: 140px;
+            50% {
+                transform: rotate(-20deg);
+            }
+
+            100% {
+                transform: rotate(20deg);
+            }
+        }
+
+        .arm1 {
+            width: 140px;
             height: 50px;
             background-color: #C8BCA0;
             position: absolute;
-            left:120px;
+            left: 120px;
             top: 00px;
             transform: rotate(-45deg);
-transform-origin: bottom left;
-}
+            transform-origin: bottom left;
+        }
 
-.hand{
-width: 60px;
-            height:60px;
+        .hand {
+            width: 60px;
+            height: 60px;
             background-color: rgb(108, 172, 72);
             /* border-radius: 50px; */
             position: absolute;
             left: 100px;
             top: -5px;
 
-}
+        }
 
-.arm-left {
-  position: absolute;
-  right: 100px; /* posición del hombro respecto a la cabeza */
-  top: 210px;
-  width: 130px;
-  height: 50px;
-  background-color: #C8BCA0;
-  transform: rotate(-45deg);
-  
-  transform-origin: left top; /* 🔸 pivote en el hombro */
-  
-}
+        .arm-left {
+            position: absolute;
+            right: 100px;
+            /* posición del hombro respecto a la cabeza */
+            top: 210px;
+            width: 130px;
+            height: 50px;
+            background-color: #C8BCA0;
+            transform: rotate(-45deg);
+
+            transform-origin: left top;
+            /* 🔸 pivote en el hombro */
+
+        }
 
 
 
-.arm1-left{
-width: 140px;
+        .arm1-left {
+            width: 140px;
             height: 50px;
             background-color: #C8BCA0;
             position: absolute;
-            right:38px;
+            right: 38px;
             top: -50px;
             transform: rotate(90deg);
-transform-origin: bottom top;
-}
+            transform-origin: bottom top;
+        }
 
-.hand-left{
-width: 60px;
-            height:60px;
+        .hand-left {
+            width: 60px;
+            height: 60px;
             background-color: rgb(108, 172, 72);
             /* border-radius: 50px; */
             position: absolute;
             right: 100px;
             top: -5px;
-}
+        }
 
 
         #leg-left {
@@ -521,68 +560,75 @@ width: 60px;
 <body>
 
 
+   <!-- Donkey -->
+
+    <div class=" width-40 height-80 right-10 top-55 color-gray absolute"></div>
+
+
+<!-- Shreck -->
+
     <div class="shreck">
-    <div id="face">
-        <div id="papada"></div>
-        <div id="left-ear"></div>
-        <div id="left-ear-end"></div>
-        <div id="right-ear"></div>
-        <div id="right-ear-end"></div>
-        <div class="ceja left-ceja"></div>
-        <div class="ceja right-ceja"></div>
-        <div class="eye eye-left">
-            <div id="left-pupil"></div>
-        </div>
-        <div class="eye eye-right">
-            <div id="right-pupil"></div>
-        </div>
-
-        <div id="topnose"></div>
-        <div id="nose">
-            <div id="top-nose"></div>
-            <div id="bottom-nose">
-                <div id="left-hole"></div>
-                <div id="right-hole"></div>
+        <div id="face">
+            <div id="papada"></div>
+            <div id="left-ear"></div>
+            <div id="left-ear-end"></div>
+            <div id="right-ear"></div>
+            <div id="right-ear-end"></div>
+            <div class="ceja left-ceja"></div>
+            <div class="ceja right-ceja"></div>
+            <div class="eye eye-left">
+                <div id="left-pupil"></div>
             </div>
+            <div class="eye eye-right">
+                <div id="right-pupil"></div>
+            </div>
+
+            <div id="topnose"></div>
+            <div id="nose">
+                <div id="top-nose"></div>
+                <div id="bottom-nose">
+                    <div id="left-hole"></div>
+                    <div id="right-hole"></div>
+                </div>
+            </div>
+
+            <div id="mouth"></div>
+            <div id="neck"></div>
+
+            <div class="arm">
+                <div class="arm1">
+                    <div class="hand"></div>
+                </div>
+            </div>
+
+
+
+            <div class="arm-left">
+                <div class="arm1-left">
+                    <div class="hand-left"></div>
+                </div>
+            </div>
+
+            <div id="body-shreck">
+                <div id="correa"></div>
+                <div id="chaleco-left"></div>
+                <div id="chaleco-right"></div>
+                <div id="cinturon"></div>
+
+            </div>
+
+
+
+
+
+            <div id="leg-left"></div>
+            <div id="leg-right"></div>
+            <div id="top-left-boot"></div>
+            <div id="left-boot"></div>
+            <div id="top-right-boot"></div>
+            <div id="right-boot"></div>
+
         </div>
-
-        <div id="mouth"></div>
-        <div id="neck"></div>
-
-        <div class="arm">
-<div class="arm1">
-    <div class="hand"></div>
-</div>
-</div>
-
-
-
-        <div class="arm-left">
-<div class="arm1-left">
-    <div class="hand-left"></div>
-</div>
-</div>
-
-        <div id="body-shreck">
-            <div id="correa"></div>
-            <div id="chaleco-left"></div>
-            <div id="chaleco-right"></div>
-            <div id="cinturon"></div>
-
-        </div>
-
-
-
-
-
-        <div id="leg-left"></div>
-        <div id="leg-right"></div>
-        <div id="top-left-boot"></div>
-        <div id="left-boot"></div>
-        <div id="top-right-boot"></div>
-        <div id="right-boot"></div>
-
-    </div>
 
     </div>
 
