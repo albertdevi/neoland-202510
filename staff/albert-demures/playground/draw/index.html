@@ -10,12 +10,19 @@
             background-color: gray;
         }
 
-        /* pig */
+        /* shreck */
+
+.shreck{
+
+    position: absolute;
+    top:60px;
+    left: 250px;
+}
 
         #face {
             width: 100px;
             height: 100px;
-            background-color: green;
+            background-color: rgb(108, 172, 72);
             /* border-radius: 50px; */
             position: absolute;
             left: 100px;
@@ -25,20 +32,23 @@
         #papada {
             width: 110px;
             height: 40px;
-            background-color: green;
+            background-color: rgb(108, 172, 72);
             /* border-radius: 50px; */
             position: absolute;
             left: -5px;
             top: 60px;
         }
 
-        #left-ceja {
+
+        .ceja{
             width: 30px;
             height: 6px;
             background-color: rgb(58, 6, 6);
             position: absolute;
-            left: 10px;
             top: 6px;
+        }
+        .left-ceja {
+            left: 10px;
         }
 
 
@@ -52,31 +62,28 @@
         }
 
 
-        #right-ceja {
-            width: 30px;
-            height: 6px;
-            background-color: rgb(58, 6, 6);
-            position: absolute;
+        .right-ceja {
+
             right: 10px;
-            top: 6px;
+
         }
 
-      
 
 
-         .eye{
+
+        .eye {
             width: 30px;
             height: 30px;
             background-color: white;
             position: absolute;
             top: 20px;
         }
-        
-        .eye-right{
-         right: 10px;   
+
+        .eye-right {
+            right: 10px;
         }
 
-        .eye-left{
+        .eye-left {
             left: 10px;
         }
 
@@ -93,7 +100,7 @@
         #top-nose {
             width: 22px;
             height: 10px;
-            background-color: rgb(3, 53, 3);
+            background-color: rgb(74, 109, 47);
             position: absolute;
             top: -4px;
             left: 5px;
@@ -102,7 +109,7 @@
         #topnose {
             width: 10px;
             height: 16px;
-            background-color: rgb(3, 53, 3);
+            background-color: rgb(74, 109, 47);
             position: absolute;
             top: 50px;
             left: 46px;
@@ -111,7 +118,7 @@
         #nose {
             width: 30px;
             height: 10px;
-            background-color: rgb(3, 53, 3);
+            background-color: rgb(74, 109, 47);
             position: absolute;
             top: 65px;
             left: 35px;
@@ -129,7 +136,8 @@
         #neck {
             width: 80px;
             height: 14px;
-            background-color: green;
+            background-color: rgb(108, 172, 72);
+            ;
             /* border-radius: 50px; */
             position: absolute;
             left: 10px;
@@ -157,7 +165,8 @@
         #left-ear {
             width: 20px;
             height: 8px;
-            background-color: green;
+            background-color: rgb(108, 172, 72);
+            ;
             position: absolute;
             left: -20px;
             top: 10px;
@@ -167,7 +176,8 @@
         #left-ear-end {
             width: 10px;
             height: 15px;
-            background-color: green;
+            background-color: rgb(108, 172, 72);
+            ;
             position: absolute;
             left: -20px;
             top: 7px;
@@ -176,7 +186,8 @@
         #right-ear {
             width: 20px;
             height: 8px;
-            background-color: green;
+            background-color: rgb(108, 172, 72);
+            ;
             position: absolute;
             right: -20px;
             top: 10px;
@@ -185,7 +196,8 @@
         #right-ear-end {
             width: 10px;
             height: 15px;
-            background-color: green;
+            background-color: rgb(108, 172, 72);
+            ;
             position: absolute;
             right: -20px;
             top: 7px;
@@ -194,7 +206,7 @@
         #body-shreck {
             width: 180px;
             height: 240px;
-            background-color: bisque;
+            background: linear-gradient(to bottom, #C8BCA0, #a79d86);
             position: absolute;
             left: -40px;
             top: 112px;
@@ -238,6 +250,89 @@
             left: 0px;
             top: 160px;
         }
+
+.arm {
+  position: absolute;
+  left: 120px; /* posición del hombro respecto a la cabeza */
+  top: 120px;
+  width: 130px;
+  height: 50px;
+  background-color: #C8BCA0;
+  
+  transform-origin: left center; /* 🔸 pivote en el hombro */
+  
+}
+
+
+.shreck:hover .arm {
+  animation: saludo 2s ease-in-out infinite;
+}
+
+/* Movimiento del saludo */
+@keyframes saludo {
+0% { transform: rotate(20deg); }
+  50% { transform: rotate(-20deg); }
+  100% { transform: rotate(20deg); }
+}
+
+.arm1{
+width: 140px;
+            height: 50px;
+            background-color: #C8BCA0;
+            position: absolute;
+            left:120px;
+            top: 00px;
+            transform: rotate(-45deg);
+transform-origin: bottom left;
+}
+
+.hand{
+width: 60px;
+            height:60px;
+            background-color: rgb(108, 172, 72);
+            /* border-radius: 50px; */
+            position: absolute;
+            left: 100px;
+            top: -5px;
+
+}
+
+.arm-left {
+  position: absolute;
+  right: 100px; /* posición del hombro respecto a la cabeza */
+  top: 210px;
+  width: 130px;
+  height: 50px;
+  background-color: #C8BCA0;
+  transform: rotate(-45deg);
+  
+  transform-origin: left top; /* 🔸 pivote en el hombro */
+  
+}
+
+
+
+.arm1-left{
+width: 140px;
+            height: 50px;
+            background-color: #C8BCA0;
+            position: absolute;
+            right:38px;
+            top: -50px;
+            transform: rotate(90deg);
+transform-origin: bottom top;
+}
+
+.hand-left{
+width: 60px;
+            height:60px;
+            background-color: rgb(108, 172, 72);
+            /* border-radius: 50px; */
+            position: absolute;
+            right: 100px;
+            top: -5px;
+}
+
 
         #leg-left {
             width: 40px;
@@ -420,19 +515,21 @@
             border-radius: 50%;
             z-index: -10;
         }
-
     </style>
 </head>
 
 <body>
+
+
+    <div class="shreck">
     <div id="face">
         <div id="papada"></div>
         <div id="left-ear"></div>
         <div id="left-ear-end"></div>
         <div id="right-ear"></div>
         <div id="right-ear-end"></div>
-        <div id="left-ceja"></div>
-        <div id="right-ceja"></div>
+        <div class="ceja left-ceja"></div>
+        <div class="ceja right-ceja"></div>
         <div class="eye eye-left">
             <div id="left-pupil"></div>
         </div>
@@ -451,6 +548,21 @@
 
         <div id="mouth"></div>
         <div id="neck"></div>
+
+        <div class="arm">
+<div class="arm1">
+    <div class="hand"></div>
+</div>
+</div>
+
+
+
+        <div class="arm-left">
+<div class="arm1-left">
+    <div class="hand-left"></div>
+</div>
+</div>
+
         <div id="body-shreck">
             <div id="correa"></div>
             <div id="chaleco-left"></div>
@@ -458,12 +570,19 @@
             <div id="cinturon"></div>
 
         </div>
+
+
+
+
+
         <div id="leg-left"></div>
         <div id="leg-right"></div>
         <div id="top-left-boot"></div>
         <div id="left-boot"></div>
         <div id="top-right-boot"></div>
         <div id="right-boot"></div>
+
+    </div>
 
     </div>
 
@@ -478,6 +597,8 @@
         </div>
 
     </div>
+
+
     <div id="spaceship">
         <div id="head"></div>
         <div id="wings"></div>
