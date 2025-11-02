@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Draw</title>
+    <style>
+        body {
+            background-color: rgb(226, 226, 226);
+        }
+
+
+
+        .width-25 {
+            width: 25px;
+        }
+
+        .width-100 {
+            width: 100px;
+        }
+
+        .height-25 {
+            height: 25px;
+        }
+
+        .height-180 {
+            height: 180px;
+        }
+
+
+        .left-20 {
+            left: 20px;
+        }
+
+
+        .left-70 {
+            left: 70px;
+        }
+
+        .left-800 {
+            left: 800px;
+        }
+
+  .top-22 {
+            top: 22px;
+        }
+
+
+        .top-60 {
+            top: 60px;
+        }
+
+        .top-270 {
+            top: 270px;
+        }
+
+        .color-gray {
+            background-color: rgb(114, 114, 114);
+        }
+
+        .color-brown {
+            background-color: brown;
+        }
+
+
+        .absolute {
+            position: absolute;
+        }
+
+
+
+        .shreck {
+
+            position: absolute;
+            top: 60px;
+            left: 250px;
+        }
+
+        #face {
+            width: 100px;
+            height: 100px;
+            background-color: rgb(108, 172, 72);
+            /* border-radius: 50px; */
+            position: absolute;
+            left: 100px;
+        }
+
+
+        #papada {
+            width: 110px;
+            height: 40px;
+            background-color: rgb(108, 172, 72);
+            /* border-radius: 50px; */
+            position: absolute;
+            left: -5px;
+            top: 60px;
+        }
+
+
+        .ceja {
+            width: 30px;
+            height: 6px;
+            background-color: rgb(58, 6, 6);
+            position: absolute;
+            top: 6px;
+        }
+
+        .left-ceja {
+            left: 10px;
+        }
+
+
+        #left-pupil {
+            width: 18px;
+            height: 18px;
+            background-color: brown;
+            position: absolute;
+            left: 5px;
+            top: 5px;
+        }
+
+
+        .right-ceja {
+
+            right: 10px;
+
+        }
+
+
+
+
+        .eye {
+            width: 30px;
+            height: 30px;
+            background-color: white;
+            position: absolute;
+            top: 20px;
+        }
+
+        .eye-right {
+            right: 10px;
+        }
+
+        .eye-left {
+            left: 10px;
+        }
+
+        #right-pupil {
+            width: 18px;
+            height: 18px;
+            background-color: brown;
+            position: absolute;
+            left: 5px;
+            top: 5px;
+        }
+
+
+        #top-nose {
+            width: 22px;
+            height: 10px;
+            background-color: rgb(74, 109, 47);
+            position: absolute;
+            top: -4px;
+            left: 5px;
+        }
+
+        #topnose {
+            width: 10px;
+            height: 16px;
+            background-color: rgb(74, 109, 47);
+            position: absolute;
+            top: 50px;
+            left: 46px;
+        }
+
+        #nose {
+            width: 30px;
+            height: 10px;
+            background-color: rgb(74, 109, 47);
+            position: absolute;
+            top: 65px;
+            left: 35px;
+        }
+
+        #left-hole {
+            width: 8px;
+            height: 8px;
+            background-color: black;
+            position: absolute;
+            left: 5px;
+            top: 1px;
+        }
+
+        #neck {
+            width: 80px;
+            height: 14px;
+            background-color: rgb(108, 172, 72);
+            ;
+            /* border-radius: 50px; */
+            position: absolute;
+            left: 10px;
+            top: 100px;
+        }
+
+        #right-hole {
+            width: 8px;
+            height: 8px;
+            background-color: black;
+            position: absolute;
+            right: 5px;
+            top: 1px;
+        }
+
+        #mouth {
+            width: 40px;
+            height: 12px;
+            background-color: red;
+            position: absolute;
+            left: 32px;
+            bottom: 6px;
+        }
+
+        #left-ear {
+            width: 20px;
+            height: 8px;
+            background-color: rgb(108, 172, 72);
+            ;
+            position: absolute;
+            left: -20px;
+            top: 10px;
+        }
+
+
+        #left-ear-end {
+            width: 10px;
+            height: 15px;
+            background-color: rgb(108, 172, 72);
+            ;
+            position: absolute;
+            left: -20px;
+            top: 7px;
+        }
+
+        #right-ear {
+            width: 20px;
+            height: 8px;
+            background-color: rgb(108, 172, 72);
+            ;
+            position: absolute;
+            right: -20px;
+            top: 10px;
+        }
+
+        #right-ear-end {
+            width: 10px;
+            height: 15px;
+            background-color: rgb(108, 172, 72);
+            ;
+            position: absolute;
+            right: -20px;
+            top: 7px;
+        }
+
+        #body-shreck {
+            width: 180px;
+            height: 240px;
+            background: linear-gradient(to bottom, #C8BCA0, #a79d86);
+            position: absolute;
+            left: -40px;
+            top: 112px;
+        }
+
+        #chaleco-left {
+            width: 70px;
+            height: 130px;
+            background-color: rgb(82, 16, 16);
+
+
+            left: 0px;
+            top: 112px;
+        }
+
+
+        #chaleco-right {
+            width: 70px;
+            height: 130px;
+            background-color: rgb(82, 16, 16);
+            position: absolute;
+            right: 0px;
+            top: 0px;
+        }
+
+
+        #correa {
+            width: 40px;
+            height: 15px;
+            background-color: black;
+            position: absolute;
+            left: 70px;
+            top: 25px;
+        }
+
+        #cinturon {
+            width: 180px;
+            height: 40px;
+            background-color: rgb(82, 16, 16);
+            position: absolute;
+            left: 0px;
+            top: 160px;
+        }
+
+        .arm {
+            position: absolute;
+            left: 120px;
+            /* posición del hombro respecto a la cabeza */
+            top: 120px;
+            width: 130px;
+            height: 50px;
+            background-color: #C8BCA0;
+
+            transform-origin: left center;
+            /* 🔸 pivote en el hombro */
+
+        }
+
+
+        .shreck:hover .arm {
+            animation: saludo 2s ease-in-out infinite;
+        }
+
+        /* Movimiento del saludo */
+        @keyframes saludo {
+            0% {
+                transform: rotate(20deg);
+            }
+
+            50% {
+                transform: rotate(-20deg);
+            }
+
+            100% {
+                transform: rotate(20deg);
+            }
+        }
+
+        .arm1 {
+            width: 140px;
+            height: 50px;
+            background-color: #C8BCA0;
+            position: absolute;
+            left: 120px;
+            top: 00px;
+            transform: rotate(-45deg);
+            transform-origin: bottom left;
+        }
+
+        .hand {
+            width: 60px;
+            height: 60px;
+            background-color: rgb(108, 172, 72);
+            /* border-radius: 50px; */
+            position: absolute;
+            left: 100px;
+            top: -5px;
+
+        }
+
+        .arm-left {
+            position: absolute;
+            right: 100px;
+            /* posición del hombro respecto a la cabeza */
+            top: 210px;
+            width: 130px;
+            height: 50px;
+            background-color: #C8BCA0;
+            transform: rotate(-45deg);
+
+            transform-origin: left top;
+            /* 🔸 pivote en el hombro */
+
+        }
+
+
+
+        .arm1-left {
+            width: 140px;
+            height: 50px;
+            background-color: #C8BCA0;
+            position: absolute;
+            right: 38px;
+            top: -50px;
+            transform: rotate(90deg);
+            transform-origin: bottom top;
+        }
+
+        .hand-left {
+            width: 60px;
+            height: 60px;
+            background-color: rgb(108, 172, 72);
+            /* border-radius: 50px; */
+            position: absolute;
+            right: 100px;
+            top: -5px;
+        }
+
+
+        #leg-left {
+            width: 40px;
+            height: 100px;
+            background-color: rgb(82, 16, 16);
+            position: absolute;
+            left: -20px;
+            top: 352px;
+        }
+
+        #leg-right {
+            width: 40px;
+            height: 100px;
+            background-color: rgb(82, 16, 16);
+            position: absolute;
+            right: -20px;
+            top: 352px;
+        }
+
+
+        #top-left-boot {
+            width: 60px;
+            height: 40px;
+            background-color: black;
+            position: absolute;
+            left: -30px;
+            top: 450px;
+        }
+
+        #left-boot {
+            width: 80px;
+            height: 40px;
+            background-color: black;
+            position: absolute;
+            left: -50px;
+            top: 480px;
+        }
+
+        #right-boot {
+            width: 80px;
+            height: 40px;
+            background-color: black;
+            position: absolute;
+            right: -50px;
+            top: 480px;
+        }
+
+
+        #top-right-boot {
+            width: 60px;
+            height: 40px;
+            background-color: black;
+            position: absolute;
+            right: -30px;
+            top: 450px;
+        }
+
+        /* car */
+        #car {
+            width: 150px;
+            height: 50px;
+            background-color: red;
+            position: absolute;
+            left: 100px;
+            top: 800px;
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+        }
+
+
+
+        #windows {
+            width: 100px;
+            height: 20px;
+            position: absolute;
+            top: -20px;
+            left: 25px;
+            background-color: aquamarine;
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+        }
+
+        #front-wheel {
+            width: 40px;
+            height: 40px;
+            background-color: rgb(3, 0, 0);
+            border-radius: 20px;
+            position: absolute;
+            top: 30px;
+            left: 20px;
+        }
+
+
+        #front-rim {
+            width: 30px;
+            height: 30px;
+            background-color: rgb(53, 53, 53);
+            border-radius: 15x;
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            border-radius: 20px;
+        }
+
+
+        #back-wheel {
+            width: 40px;
+            height: 40px;
+            background-color: rgb(3, 0, 0);
+            border-radius: 20px;
+            position: absolute;
+            top: 30px;
+            right: 20px;
+        }
+
+        #back-rim {
+            width: 30px;
+            height: 30px;
+            background-color: rgb(53, 53, 53);
+            border-radius: 15x;
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            border-radius: 20px;
+        }
+
+        /*spaceship */
+        #spaceship {
+            width: 50px;
+            height: 100px;
+            background-color: rgb(248, 72, 116);
+            position: absolute;
+            left: 500px;
+            top: 800px;
+        }
+
+        #head {
+            width: 50px;
+            height: 100px;
+            background-color: rgb(235, 85, 227);
+            position: absolute;
+            left: 0px;
+            top: -50px;
+            border-radius: 50%;
+        }
+
+
+
+        #wings {
+            width: 100px;
+            height: 50px;
+            background-color: rgb(21, 207, 67);
+            position: absolute;
+            left: -25px;
+            top: 0px;
+            border-bottom: 50px lightgray;
+            border-left: 50px solid transparent;
+            border-right: 50px solid transparent;
+        }
+
+        #fire {
+            width: 50px;
+            height: 100px;
+            background-color: rgb(235, 85, 85);
+            position: absolute;
+            left: 0px;
+            bottom: -50px;
+            border-radius: 50%;
+            z-index: -10;
+        }
+
+
+        #innerfire {
+            width: 40px;
+            height: 80px;
+            background-color: rgb(241, 146, 3);
+            position: absolute;
+            left: 10px;
+            bottom: 10px;
+            border-radius: 50%;
+            z-index: -10;
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <!-- Donkey -->
+
+    <div class=" width-100 height-180 left-800 top-270 color-gray absolute">
+
+        <div class=" width-25 height-25 left-20  top-22 color-brown absolute"> </div>
+        <div class=" width-25 height-25 left-20  top-60 color-brown absolute"> </div>
+        <div class=" width-25 height-25 left-70  top-60 color-brown absolute"> </div>
+
+    </div>
+
+
+    <!-- Shreck -->
+
+    <div class="shreck">
+        <div id="face">
+            <div id="papada"></div>
+            <div id="left-ear"></div>
+            <div id="left-ear-end"></div>
+            <div id="right-ear"></div>
+            <div id="right-ear-end"></div>
+            <div class="ceja left-ceja"></div>
+            <div class="ceja right-ceja"></div>
+            <div class="eye eye-left">
+                <div id="left-pupil"></div>
+            </div>
+            <div class="eye eye-right">
+                <div id="right-pupil"></div>
+            </div>
+
+            <div id="topnose"></div>
+            <div id="nose">
+                <div id="top-nose"></div>
+                <div id="bottom-nose">
+                    <div id="left-hole"></div>
+                    <div id="right-hole"></div>
+                </div>
+            </div>
+
+            <div id="mouth"></div>
+            <div id="neck"></div>
+
+            <div class="arm">
+                <div class="arm1">
+                    <div class="hand"></div>
+                </div>
+            </div>
+
+
+
+            <div class="arm-left">
+                <div class="arm1-left">
+                    <div class="hand-left"></div>
+                </div>
+            </div>
+
+            <div id="body-shreck">
+                <div id="correa"></div>
+                <div id="chaleco-left"></div>
+                <div id="chaleco-right"></div>
+                <div id="cinturon"></div>
+
+            </div>
+
+
+
+
+
+            <div id="leg-left"></div>
+            <div id="leg-right"></div>
+            <div id="top-left-boot"></div>
+            <div id="left-boot"></div>
+            <div id="top-right-boot"></div>
+            <div id="right-boot"></div>
+
+        </div>
+
+    </div>
+
+
+    <div id="car">
+        <div id="windows"></div>
+        <div id="front-wheel">
+            <div id="front-rim"></div>
+        </div>
+        <div id="back-wheel">
+            <div id="back-rim"></div>
+        </div>
+
+    </div>
+
+
+    <div id="spaceship">
+        <div id="head"></div>
+        <div id="wings"></div>
+        <div id="fire">
+            <div id="innerfire"></div>
+        </div>
+    </div>
+
+</body>
+
+</html>

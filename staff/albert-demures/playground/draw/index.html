@@ -5,654 +5,178 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Draw</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+
+
     <style>
-        body {
-            background-color: rgb(226, 226, 226);
-        }
+        @keyframes pulse-mouth {
 
-
-            
-.width-40{
-    width:40px;
-}
-
-.height-80{
-    height:80px;
-}
-
-.right-10{
-    right:10 px;
-}
-
-.top-55{
-    top:55px;
-}
-
-.color-gray{
-background-color: rgb(114, 114, 114);
-}
-
-.absolute{
-position: absolute;
-}
-
-       
-
-        .shreck {
-
-            position: absolute;
-            top: 60px;
-            left: 250px;
-        }
-
-        #face {
-            width: 100px;
-            height: 100px;
-            background-color: rgb(108, 172, 72);
-            /* border-radius: 50px; */
-            position: absolute;
-            left: 100px;
-        }
-
-
-        #papada {
-            width: 110px;
-            height: 40px;
-            background-color: rgb(108, 172, 72);
-            /* border-radius: 50px; */
-            position: absolute;
-            left: -5px;
-            top: 60px;
-        }
-
-
-        .ceja {
-            width: 30px;
-            height: 6px;
-            background-color: rgb(58, 6, 6);
-            position: absolute;
-            top: 6px;
-        }
-
-        .left-ceja {
-            left: 10px;
-        }
-
-
-        #left-pupil {
-            width: 18px;
-            height: 18px;
-            background-color: brown;
-            position: absolute;
-            left: 5px;
-            top: 5px;
-        }
-
-
-        .right-ceja {
-
-            right: 10px;
-
-        }
-
-
-
-
-        .eye {
-            width: 30px;
-            height: 30px;
-            background-color: white;
-            position: absolute;
-            top: 20px;
-        }
-
-        .eye-right {
-            right: 10px;
-        }
-
-        .eye-left {
-            left: 10px;
-        }
-
-        #right-pupil {
-            width: 18px;
-            height: 18px;
-            background-color: brown;
-            position: absolute;
-            left: 5px;
-            top: 5px;
-        }
-
-
-        #top-nose {
-            width: 22px;
-            height: 10px;
-            background-color: rgb(74, 109, 47);
-            position: absolute;
-            top: -4px;
-            left: 5px;
-        }
-
-        #topnose {
-            width: 10px;
-            height: 16px;
-            background-color: rgb(74, 109, 47);
-            position: absolute;
-            top: 50px;
-            left: 46px;
-        }
-
-        #nose {
-            width: 30px;
-            height: 10px;
-            background-color: rgb(74, 109, 47);
-            position: absolute;
-            top: 65px;
-            left: 35px;
-        }
-
-        #left-hole {
-            width: 8px;
-            height: 8px;
-            background-color: black;
-            position: absolute;
-            left: 5px;
-            top: 1px;
-        }
-
-        #neck {
-            width: 80px;
-            height: 14px;
-            background-color: rgb(108, 172, 72);
-            ;
-            /* border-radius: 50px; */
-            position: absolute;
-            left: 10px;
-            top: 100px;
-        }
-
-        #right-hole {
-            width: 8px;
-            height: 8px;
-            background-color: black;
-            position: absolute;
-            right: 5px;
-            top: 1px;
-        }
-
-        #mouth {
-            width: 40px;
-            height: 12px;
-            background-color: red;
-            position: absolute;
-            left: 32px;
-            bottom: 6px;
-        }
-
-        #left-ear {
-            width: 20px;
-            height: 8px;
-            background-color: rgb(108, 172, 72);
-            ;
-            position: absolute;
-            left: -20px;
-            top: 10px;
-        }
-
-
-        #left-ear-end {
-            width: 10px;
-            height: 15px;
-            background-color: rgb(108, 172, 72);
-            ;
-            position: absolute;
-            left: -20px;
-            top: 7px;
-        }
-
-        #right-ear {
-            width: 20px;
-            height: 8px;
-            background-color: rgb(108, 172, 72);
-            ;
-            position: absolute;
-            right: -20px;
-            top: 10px;
-        }
-
-        #right-ear-end {
-            width: 10px;
-            height: 15px;
-            background-color: rgb(108, 172, 72);
-            ;
-            position: absolute;
-            right: -20px;
-            top: 7px;
-        }
-
-        #body-shreck {
-            width: 180px;
-            height: 240px;
-            background: linear-gradient(to bottom, #C8BCA0, #a79d86);
-            position: absolute;
-            left: -40px;
-            top: 112px;
-        }
-
-        #chaleco-left {
-            width: 70px;
-            height: 130px;
-            background-color: rgb(82, 16, 16);
-
-
-            left: 0px;
-            top: 112px;
-        }
-
-
-        #chaleco-right {
-            width: 70px;
-            height: 130px;
-            background-color: rgb(82, 16, 16);
-            position: absolute;
-            right: 0px;
-            top: 0px;
-        }
-
-
-        #correa {
-            width: 40px;
-            height: 15px;
-            background-color: black;
-            position: absolute;
-            left: 70px;
-            top: 25px;
-        }
-
-        #cinturon {
-            width: 180px;
-            height: 40px;
-            background-color: rgb(82, 16, 16);
-            position: absolute;
-            left: 0px;
-            top: 160px;
-        }
-
-        .arm {
-            position: absolute;
-            left: 120px;
-            /* posición del hombro respecto a la cabeza */
-            top: 120px;
-            width: 130px;
-            height: 50px;
-            background-color: #C8BCA0;
-
-            transform-origin: left center;
-            /* 🔸 pivote en el hombro */
-
-        }
-
-
-        .shreck:hover .arm {
-            animation: saludo 2s ease-in-out infinite;
-        }
-
-        /* Movimiento del saludo */
-        @keyframes saludo {
-            0% {
-                transform: rotate(20deg);
+            0%,
+            100% {
+                transform: scaleX(0.55) scaleY(0.7);
             }
 
             50% {
-                transform: rotate(-20deg);
-            }
-
-            100% {
-                transform: rotate(20deg);
+                transform: scale(1.1);
             }
         }
 
-        .arm1 {
-            width: 140px;
-            height: 50px;
-            background-color: #C8BCA0;
-            position: absolute;
-            left: 120px;
-            top: 00px;
-            transform: rotate(-45deg);
-            transform-origin: bottom left;
+        .pulsing {
+            animation: pulse-mouth 1.2s ease-in-out infinite;
         }
-
-        .hand {
-            width: 60px;
-            height: 60px;
-            background-color: rgb(108, 172, 72);
-            /* border-radius: 50px; */
-            position: absolute;
-            left: 100px;
-            top: -5px;
-
-        }
-
-        .arm-left {
-            position: absolute;
-            right: 100px;
-            /* posición del hombro respecto a la cabeza */
-            top: 210px;
-            width: 130px;
-            height: 50px;
-            background-color: #C8BCA0;
-            transform: rotate(-45deg);
-
-            transform-origin: left top;
-            /* 🔸 pivote en el hombro */
-
-        }
-
-
-
-        .arm1-left {
-            width: 140px;
-            height: 50px;
-            background-color: #C8BCA0;
-            position: absolute;
-            right: 38px;
-            top: -50px;
-            transform: rotate(90deg);
-            transform-origin: bottom top;
-        }
-
-        .hand-left {
-            width: 60px;
-            height: 60px;
-            background-color: rgb(108, 172, 72);
-            /* border-radius: 50px; */
-            position: absolute;
-            right: 100px;
-            top: -5px;
-        }
-
-
-        #leg-left {
-            width: 40px;
-            height: 100px;
-            background-color: rgb(82, 16, 16);
-            position: absolute;
-            left: -20px;
-            top: 352px;
-        }
-
-        #leg-right {
-            width: 40px;
-            height: 100px;
-            background-color: rgb(82, 16, 16);
-            position: absolute;
-            right: -20px;
-            top: 352px;
-        }
-
-
-        #top-left-boot {
-            width: 60px;
-            height: 40px;
-            background-color: black;
-            position: absolute;
-            left: -30px;
-            top: 450px;
-        }
-
-        #left-boot {
-            width: 80px;
-            height: 40px;
-            background-color: black;
-            position: absolute;
-            left: -50px;
-            top: 480px;
-        }
-
-        #right-boot {
-            width: 80px;
-            height: 40px;
-            background-color: black;
-            position: absolute;
-            right: -50px;
-            top: 480px;
-        }
-
-
-        #top-right-boot {
-            width: 60px;
-            height: 40px;
-            background-color: black;
-            position: absolute;
-            right: -30px;
-            top: 450px;
-        }
-
-        /* car */
-        #car {
-            width: 150px;
-            height: 50px;
-            background-color: red;
-            position: absolute;
-            left: 100px;
-            top: 800px;
-            border-top-left-radius: 20px;
-            border-top-right-radius: 20px;
-        }
-
-
-
-        #windows {
-            width: 100px;
-            height: 20px;
-            position: absolute;
-            top: -20px;
-            left: 25px;
-            background-color: aquamarine;
-            border-top-left-radius: 20px;
-            border-top-right-radius: 20px;
-        }
-
-        #front-wheel {
-            width: 40px;
-            height: 40px;
-            background-color: rgb(3, 0, 0);
-            border-radius: 20px;
-            position: absolute;
-            top: 30px;
-            left: 20px;
-        }
-
-
-        #front-rim {
-            width: 30px;
-            height: 30px;
-            background-color: rgb(53, 53, 53);
-            border-radius: 15x;
-            position: absolute;
-            top: 5px;
-            left: 5px;
-            border-radius: 20px;
-        }
-
-
-        #back-wheel {
-            width: 40px;
-            height: 40px;
-            background-color: rgb(3, 0, 0);
-            border-radius: 20px;
-            position: absolute;
-            top: 30px;
-            right: 20px;
-        }
-
-        #back-rim {
-            width: 30px;
-            height: 30px;
-            background-color: rgb(53, 53, 53);
-            border-radius: 15x;
-            position: absolute;
-            top: 5px;
-            left: 5px;
-            border-radius: 20px;
-        }
-
-        /*spaceship */
-        #spaceship {
-            width: 50px;
-            height: 100px;
-            background-color: rgb(248, 72, 116);
-            position: absolute;
-            left: 500px;
-            top: 800px;
-        }
-
-        #head {
-            width: 50px;
-            height: 100px;
-            background-color: rgb(235, 85, 227);
-            position: absolute;
-            left: 0px;
-            top: -50px;
-            border-radius: 50%;
-        }
-
-
-
-        #wings {
-            width: 100px;
-            height: 50px;
-            background-color: rgb(21, 207, 67);
-            position: absolute;
-            left: -25px;
-            top: 0px;
-            border-bottom: 50px lightgray;
-            border-left: 50px solid transparent;
-            border-right: 50px solid transparent;
-        }
-
-        #fire {
-            width: 50px;
-            height: 100px;
-            background-color: rgb(235, 85, 85);
-            position: absolute;
-            left: 0px;
-            bottom: -50px;
-            border-radius: 50%;
-            z-index: -10;
-        }
-
-
-        #innerfire {
-            width: 40px;
-            height: 80px;
-            background-color: rgb(241, 146, 3);
-            position: absolute;
-            left: 10px;
-            bottom: 10px;
-            border-radius: 50%;
-            z-index: -10;
         }
     </style>
+
 </head>
 
 <body>
 
 
-   <!-- Donkey -->
+    <!-- Gingerbread man  -->
 
-    <div class=" width-40 height-80 right-10 top-55 color-gray absolute"></div>
+    <!-- Body -->
+    <div class=" w-150 h-250 rounded-[15%] left-200 top-190  absolute bg-[#D28C5A]">
+        <!-- Button1 -->
+        <div
+            class=" w-40 h-40  rounded-full left-60 top-30 absolute bg-[radial-gradient(circle,_#CBA0E8_0%,_#7B3FA1_100%)]  shadow-xl/20">
+        </div>
 
+        <!-- Button2 -->
+        <div
+            class=" w-40 h-40  rounded-full left-60 top-100 absolute bg-[radial-gradient(circle,_#CBA0E8_0%,_#7B3FA1_100%)] shadow-xl/20">
+        </div>
 
-<!-- Shreck -->
+        <!-- Cinturón-->
+        <div class=" w-120 h-20 rounded-[20%] left-1/2 -translate-x-1/2 bottom-60 absolute bg-white  shadow-xl/20">
+        </div>
 
-    <div class="shreck">
-        <div id="face">
-            <div id="papada"></div>
-            <div id="left-ear"></div>
-            <div id="left-ear-end"></div>
-            <div id="right-ear"></div>
-            <div id="right-ear-end"></div>
-            <div class="ceja left-ceja"></div>
-            <div class="ceja right-ceja"></div>
-            <div class="eye eye-left">
-                <div id="left-pupil"></div>
-            </div>
-            <div class="eye eye-right">
-                <div id="right-pupil"></div>
-            </div>
+        <!-- Head -->
+        <div class=" w-150 h-150  rounded-full -left-0 -top-140 absolute bg-[#D28C5A]">
 
-            <div id="topnose"></div>
-            <div id="nose">
-                <div id="top-nose"></div>
-                <div id="bottom-nose">
-                    <div id="left-hole"></div>
-                    <div id="right-hole"></div>
-                </div>
-            </div>
-
-            <div id="mouth"></div>
-            <div id="neck"></div>
-
-            <div class="arm">
-                <div class="arm1">
-                    <div class="hand"></div>
-                </div>
+            <!-- Left ceja -->
+            <div
+                class="absolute w-35 h-10  rounded-full top-38 left-20 bg-[radial-gradient(circle,_#5E859A_50%,_#6F96AC_100%)]  rotate-[-15deg]  shadow-xl/20">
             </div>
 
 
-
-            <div class="arm-left">
-                <div class="arm1-left">
-                    <div class="hand-left"></div>
-                </div>
+            <!-- Right ceja -->
+            <div
+                class="absolute w-35 h-10  rounded-full top-38 right-20 bg-[radial-gradient(circle,_#5E859A_50%,_#6F96AC_100%)]  rotate-[15deg]  shadow-xl/20">
             </div>
 
-            <div id="body-shreck">
-                <div id="correa"></div>
-                <div id="chaleco-left"></div>
-                <div id="chaleco-right"></div>
-                <div id="cinturon"></div>
+            <!-- Left eye -->
+            <div
+                class=" w-28 h-28  rounded-full left-30 top-55 absolute bg-[radial-gradient(circle,_#FFFFFF_30%,_#D9D9D9_100%)]  shadow-xl/20">
+            </div>
 
+            <!-- Right eye -->
+            <div
+                class=" w-28 h-28  rounded-full right-30 top-55 absolute bg-[radial-gradient(circle,_#FFFFFF_30%,_#D9D9D9_100%)]  shadow-xl/20">
+            </div>
+
+            <!-- Mouth -->
+            <div id="mouth"
+                class="absolute w-70 h-30 rounded-t-[30%]  rounded-b-[50%] left-40 top-96 border-[32px] border-[#D63A3A] shadow-xl/20 transition-transform duration-20 ease-in-out hover:scale-120 cursor-pointer">
             </div>
 
 
 
+            <!-- Audio -->
+            <audio id="allstar" src="audio/All-star.mp3"></audio>
 
 
-            <div id="leg-left"></div>
-            <div id="leg-right"></div>
-            <div id="top-left-boot"></div>
-            <div id="left-boot"></div>
-            <div id="top-right-boot"></div>
-            <div id="right-boot"></div>
+
 
         </div>
+
+        <!-- Left Arm -->
+        <div class=" w-170 h-80 rounded-[32%] left-110 -top-25 absolute -rotate-30 bg-[#D28C5A]">
+
+            <!-- Left white Arm -->
+            <div class=" w-15 h-40 rounded-[20%] right-25 bottom-20 absolute rotate-0 bg-white  shadow-xl/20"></div>
+
+        </div>
+
+
+
+        <!-- Right Arm -->
+        <div class=" w-170 h-80 rounded-[32%] -left-130 -top-24 absolute rotate-30 bg-[#D28C5A]">
+
+            <!-- Right white Arm -->
+            <div class=" w-15 h-40 rounded-[20%] left-25 top-20 absolute rotate-0 bg-white  shadow-xl/20"></div>
+
+        </div>
+
+
+        <!-- Left Leg -->
+        <div class=" w-200 h-80 rounded-[15%] left-30 top-280 absolute rotate-80 bg-[#D28C5A]">
+
+            <!-- Tirita Left Leg 3 -->
+            <div class=" w-60 h-15 rounded-[20%] left-58 top-5 absolute -rotate-4 bg-white  shadow-xl/20"></div>
+            <!-- Tirita Left Leg 2 -->
+            <div class=" w-60 h-15 rounded-[20%] left-62 top-30 absolute rotate-2 bg-white  shadow-xl/20"></div>
+            <!-- Tirita Left Leg 1 -->
+            <div class=" w-60 h-15 rounded-[20%] left-61 top-52 absolute -rotate-5 bg-white  shadow-xl/20"></div>
+
+
+
+        </div>
+
+
+        <!-- Left Leg -->
+        <div class=" w-200 h-80 rounded-[15%] -left-80 top-280 absolute -rotate-80 bg-[#D28C5A]">
+
+
+
+            <!-- Tirita Left Leg 3 -->
+            <div class=" w-60 h-15 rounded-[20%] left-80 bottom-5 absolute -rotate-3 bg-white  shadow-xl/20"></div>
+            <!-- Tirita Left Leg 2 -->
+            <div class=" w-60 h-15 rounded-[20%] left-82 bottom-30 absolute rotate-3 bg-white  shadow-xl/20"></div>
+            <!-- Tirita Left Leg 1 -->
+            <div class=" w-60 h-15 rounded-[20%] left-78 bottom-58 absolute -rotate-2 bg-white  shadow-xl/20"></div>
+
+        </div>
+
+
+
 
     </div>
 
 
-    <div id="car">
-        <div id="windows"></div>
-        <div id="front-wheel">
-            <div id="front-rim"></div>
-        </div>
-        <div id="back-wheel">
-            <div id="back-rim"></div>
-        </div>
+
+    <!-- Donkey -->
+
+    <div
+        class=" w-100 h-180 left-800 top-200 bg-radial from-[rgb(40,100,100)] from-25% to-fuchsia-700 absolute shadow-[10px_20px_50px_-15px_rgba(0,0,255,0.8)]">
+
+        <div class=" w-25 h-25 left-24  top-22 bg-[rgb(40,54,100)] absolute"> </div>
+        <div class=" w-25 h-25 left-74  top-22 bg-[rgb(40,54,100)] absolute"> </div>
+        <div class=" w-25 h-25 left-20  top-60 bg-[brown] absolute"> </div>
+        <div class=" w-25 h-25 left-70  top-60 bg-[brown] absolute"> </div>
 
     </div>
 
 
-    <div id="spaceship">
-        <div id="head"></div>
-        <div id="wings"></div>
-        <div id="fire">
-            <div id="innerfire"></div>
-        </div>
-    </div>
+
 
 </body>
+
+
+<script>
+    const mouth = document.getElementById('mouth');
+    const song = document.getElementById('allstar');
+
+    mouth.addEventListener('click', () => {
+        song.currentTime = 0; // empieza desde el inicio
+        song.play();
+        mouth.classList.toggle('pulsing');
+    });
+
+    mouth.addEventListener('mouseleave', () => {
+        song.pause();
+        mouth.classList.remove('pulsing'); // detiene la animación al salir
+    });
+</script>
 
 </html>
