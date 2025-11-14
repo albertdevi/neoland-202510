@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM</title>
+    <!--
+    <style>
+        
+        .mi-clase{
+            border-style: solid;
+            background-color: dodgerblue;
+            color: darksalmon;
+            padding: 9px;
+        }
+-->
+    </style>
+</head>
+
+<body>
+    <h1>Hello, DOM!</h1>
+
+    <div>
+        <p>
+            One step from zero.
+        </p>
+    </div>
+
+    <script>
+        document.childNodes[1].childNodes[2].childNodes[1].style.backgroundColor = 'silver'
+        document.childNodes[1].childNodes[2].childNodes[1].style.color = 'brown'
+        document.childNodes[1].childNodes[2].childNodes[1].style.paddingLeft = '.5rem'
+        document.childNodes[1].childNodes[2].childNodes[3].childNodes[1].style.color = 'brown'
+        document.body.style.backgroundColor = 'gray'
+        const div = document.createElement('div')
+        div.textContent = 'Descubriendo DOM'
+        //div.className = 'mi-clase'
+        div.style.borderStyle = 'solid'
+        div.style.backgroundColor = 'rgb(126, 222, 89)'
+        document.body.appendChild(div)
+
+
+        const face = document.createElement('div')
+        face.style.width = '180px'
+        face.style.height = '180px'
+        face.style.backgroundColor = '#f0f0f0'
+        face.style.position = 'absolute'
+        face.style.top = '400px'
+        face.style.left = '150px'
+        face.style.borderBottomLeftRadius = '35px'
+        face.style.borderBottomRightRadius = '35px'
+        face.style.borderTopLeftRadius = '15px'
+        face.style.borderTopRightRadius = '15px'
+        document.body.appendChild(face)
+
+        const eyeLeft = document.createElement('div')
+        eyeLeft.style.width = '55px'
+        eyeLeft.style.height = '60px'
+        eyeLeft.style.backgroundColor = 'black'
+        eyeLeft.style.position = 'absolute'
+        eyeLeft.style.top = '65px'
+        eyeLeft.style.left = '22px'
+        eyeLeft.style.borderRadius = '33px'
+        face.appendChild(eyeLeft)
+
+        const eyeRight = document.createElement('div')
+        eyeRight.style.width = '55px'
+        eyeRight.style.height = '60px'
+        eyeRight.style.backgroundColor = 'black'
+        eyeRight.style.position = 'absolute'
+        eyeRight.style.top = '65px'
+        eyeRight.style.right = '22px'
+        eyeRight.style.borderRadius = '33px'
+        face.appendChild(eyeRight)
+
+
+
+        const cuernoLeft = document.createElement('div')
+        cuernoLeft.style.width = '52px'
+        cuernoLeft.style.height = '200px'
+        cuernoLeft.style.backgroundColor = '#f0f0f0'
+        cuernoLeft.style.position = 'absolute'
+        cuernoLeft.style.top = '-150px'
+        cuernoLeft.style.left = '-28px'
+        cuernoLeft.style.borderTopLeftRadius = '15px'
+        cuernoLeft.style.borderTopRightRadius = '15px'
+        cuernoLeft.style.borderBottomLeftRadius = '15px'
+        face.appendChild(cuernoLeft)
+
+
+
+        const hastaLeftTop = document.createElement('div')
+        hastaLeftTop.style.width = '90px'
+        hastaLeftTop.style.height = '20px'
+        hastaLeftTop.style.backgroundColor = '#f0f0f0'
+        hastaLeftTop.style.position = 'absolute'
+        hastaLeftTop.style.top = '0px'
+        hastaLeftTop.style.left = '0px'
+        hastaLeftTop.style.borderTopLeftRadius = '15px'
+        hastaLeftTop.style.borderTopRightRadius = '15px'
+        hastaLeftTop.style.borderBottomLeftRadius = '15px'
+        cuernoLeft.appendChild(hastaLeftTop)
+
+
+        const hastaLeftBottom = document.createElement('div')
+        hastaLeftBottom.style.width = '90px'
+        hastaLeftBottom.style.height = '20px'
+        hastaLeftBottom.style.backgroundColor = '#f0f0f0'
+        hastaLeftBottom.style.position = 'absolute'
+        hastaLeftBottom.style.top = '40px'
+        hastaLeftBottom.style.left = '0px'
+        hastaLeftBottom.style.borderTopLeftRadius = '15px'
+        hastaLeftBottom.style.borderBottomRightRadius = '15px'
+        hastaLeftBottom.style.borderBottomLeftRadius = '15px'
+        cuernoLeft.appendChild(hastaLeftBottom)
+
+
+        const cuernoRight = document.createElement('div')
+        cuernoRight.style.width = '52px'
+        cuernoRight.style.height = '200px'
+        cuernoRight.style.backgroundColor = '#f0f0f0'
+        cuernoRight.style.position = 'absolute'
+        cuernoRight.style.top = '-150px'
+        cuernoRight.style.right = '-28px'
+        cuernoRight.style.borderTopLeftRadius = '15px'
+        cuernoRight.style.borderTopRightRadius = '15px'
+        cuernoRight.style.borderBottomRightRadius = '15px'
+        face.appendChild(cuernoRight)
+
+        const hastaRightTop = document.createElement('div')
+        hastaRightTop.style.width = '90px'
+        hastaRightTop.style.height = '20px'
+        hastaRightTop.style.backgroundColor = '#f0f0f0'
+        hastaRightTop.style.position = 'absolute'
+        hastaRightTop.style.top = '0px'
+        hastaRightTop.style.right = '0px'
+        hastaRightTop.style.borderTopLeftRadius = '15px'
+        hastaRightTop.style.borderTopRightRadius = '15px'
+        hastaRightTop.style.borderBottomRightRadius = '15px'
+        cuernoRight.appendChild(hastaRightTop)
+
+
+        const hastaRightBottom = document.createElement('div')
+        hastaRightBottom.style.width = '90px'
+        hastaRightBottom.style.height = '20px'
+        hastaRightBottom.style.backgroundColor = '#f0f0f0'
+        hastaRightBottom.style.position = 'absolute'
+        hastaRightBottom.style.top = '40px'
+        hastaRightBottom.style.right = '0px'
+        hastaRightBottom.style.borderTopLeftRadius = '0px'
+        hastaRightBottom.style.borderBottomLeftRadius = '15px'
+        hastaRightBottom.style.borderTopRightRadius = '15px'
+        cuernoRight.appendChild(hastaRightBottom)
+
+
+
+
+
+
+
+    </script>
+
+
+
+</body>
+
+</html>

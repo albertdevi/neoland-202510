@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Draw</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+
+
+    <style>
+        @keyframes pulse-mouth {
+
+            0%,
+            100% {
+                transform: scaleX(0.55) scaleY(0.7);
+            }
+
+            50% {
+                transform: scale(1.1);
+            }
+        }
+
+        .pulsing {
+            animation: pulse-mouth 1.2s ease-in-out infinite;
+        }
+        }
+    </style>
+
+</head>
+
+<body>
+
+
+    <!-- Gingerbread man  -->
+
+    <!-- Body -->
+    <div class=" w-150 h-250 rounded-[15%] left-200 top-190  absolute bg-[#D28C5A]">
+        <!-- Button1 -->
+        <div
+            class=" w-40 h-40  rounded-full left-60 top-30 absolute bg-[radial-gradient(circle,_#CBA0E8_0%,_#7B3FA1_100%)]  shadow-xl/20">
+        </div>
+
+        <!-- Button2 -->
+        <div
+            class=" w-40 h-40  rounded-full left-60 top-100 absolute bg-[radial-gradient(circle,_#CBA0E8_0%,_#7B3FA1_100%)] shadow-xl/20">
+        </div>
+
+        <!-- Cinturón-->
+        <div class=" w-120 h-20 rounded-[20%] left-1/2 -translate-x-1/2 bottom-60 absolute bg-white  shadow-xl/20">
+        </div>
+
+        <!-- Head -->
+        <div class=" w-150 h-150  rounded-full -left-0 -top-140 absolute bg-[#D28C5A]">
+
+            <!-- Left ceja -->
+            <div
+                class="absolute w-35 h-10  rounded-full top-38 left-20 bg-[radial-gradient(circle,_#5E859A_50%,_#6F96AC_100%)]  rotate-[-15deg]  shadow-xl/20">
+            </div>
+
+
+            <!-- Right ceja -->
+            <div
+                class="absolute w-35 h-10  rounded-full top-38 right-20 bg-[radial-gradient(circle,_#5E859A_50%,_#6F96AC_100%)]  rotate-[15deg]  shadow-xl/20">
+            </div>
+
+            <!-- Left eye -->
+            <div
+                class=" w-28 h-28  rounded-full left-30 top-55 absolute bg-[radial-gradient(circle,_#FFFFFF_30%,_#D9D9D9_100%)]  shadow-xl/20">
+            </div>
+
+            <!-- Right eye -->
+            <div
+                class=" w-28 h-28  rounded-full right-30 top-55 absolute bg-[radial-gradient(circle,_#FFFFFF_30%,_#D9D9D9_100%)]  shadow-xl/20">
+            </div>
+
+            <!-- Mouth -->
+            <div id="mouth"
+                class="absolute w-70 h-30 rounded-t-[30%]  rounded-b-[50%] left-40 top-96 border-[32px] border-[#D63A3A] shadow-xl/20 transition-transform duration-20 ease-in-out hover:scale-120 cursor-pointer">
+            </div>
+
+
+
+            <!-- Audio -->
+            <audio id="allstar" src="audio/All-star.mp3"></audio>
+
+
+
+
+        </div>
+
+        <!-- Left Arm -->
+        <div id="left-arm" class=" w-170 h-80 rounded-[32%] left-110 -top-25 absolute -rotate-30 bg-[#D28C5A]">
+
+            <!-- Left white Arm -->
+            <div class=" w-15 h-40 rounded-[20%] right-25 bottom-20 absolute rotate-0 bg-white  shadow-xl/20"></div>
+
+        </div>
+
+
+
+        <!-- Right Arm -->
+        <div id="right-arm" class=" w-170 h-80 rounded-[32%] -left-130 -top-24 absolute rotate-30 bg-[#D28C5A]">
+
+            <!-- Right white Arm -->
+            <div class=" w-15 h-40 rounded-[20%] left-25 top-20 absolute rotate-0 bg-white  shadow-xl/20"></div>
+
+        </div>
+
+
+        <!-- Left Leg -->
+        <div class=" w-200 h-80 rounded-[15%] left-30 top-280 absolute rotate-80 bg-[#D28C5A]">
+
+            <!-- Tirita Left Leg 3 -->
+            <div class=" w-60 h-15 rounded-[20%] left-58 top-5 absolute -rotate-4 bg-white  shadow-xl/20"></div>
+            <!-- Tirita Left Leg 2 -->
+            <div class=" w-60 h-15 rounded-[20%] left-62 top-30 absolute rotate-2 bg-white  shadow-xl/20"></div>
+            <!-- Tirita Left Leg 1 -->
+            <div class=" w-60 h-15 rounded-[20%] left-61 top-52 absolute -rotate-5 bg-white  shadow-xl/20"></div>
+
+
+
+        </div>
+
+
+        <!-- Left Leg -->
+        <div class=" w-200 h-80 rounded-[15%] -left-80 top-280 absolute -rotate-80 bg-[#D28C5A]">
+
+
+
+            <!-- Tirita Left Leg 3 -->
+            <div class=" w-60 h-15 rounded-[20%] left-80 bottom-5 absolute -rotate-3 bg-white  shadow-xl/20"></div>
+            <!-- Tirita Left Leg 2 -->
+            <div class=" w-60 h-15 rounded-[20%] left-82 bottom-30 absolute rotate-3 bg-white  shadow-xl/20"></div>
+            <!-- Tirita Left Leg 1 -->
+            <div class=" w-60 h-15 rounded-[20%] left-78 bottom-58 absolute -rotate-2 bg-white  shadow-xl/20"></div>
+
+        </div>
+
+
+
+
+    </div>
+
+
+
+    <!-- Donkey -->
+
+<a href="index2.html">
+    <div class="w-100 h-180 left-800 top-200 bg-radial from-[rgb(40,100,100)] from-25% to-fuchsia-700 absolute shadow-[10px_20px_50px_-15px_rgba(0,0,255,0.8)]">
+        <div class="w-25 h-25 left-24 top-22 bg-[rgb(40,54,100)] absolute"></div>
+        <div class="w-25 h-25 left-74 top-22 bg-[rgb(40,54,100)] absolute"></div>
+        <div class="w-25 h-25 left-20 top-60 bg-[brown] absolute"></div>
+        <div class="w-25 h-25 left-70 top-60 bg-[brown] absolute"></div>
+    </div>
+</a>
+
+
+
+
+
+</body>
+
+
+<script>
+const mouth = document.getElementById('mouth');
+const leftArm = document.getElementById('left-arm');
+const rightArm = document.getElementById('right-arm');
+const song = document.getElementById('allstar');
+
+let audioCtx;
+let analyser;
+let source;
+let animationId;
+
+// Inicializar audio y analizador
+function setupAudio() {
+    if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        source = audioCtx.createMediaElementSource(song);
+        analyser = audioCtx.createAnalyser();
+        source.connect(analyser);
+        analyser.connect(audioCtx.destination);
+        analyser.fftSize = 256; // resolución del análisis
+    }
+}
+
+// Función de animación
+function animate() {
+    const dataArray = new Uint8Array(analyser.frequencyBinCount);
+    analyser.getByteFrequencyData(dataArray);
+
+    // Promedio de amplitud
+    let sum = 0;
+    for (let i = 0; i < dataArray.length; i++) {
+        sum += dataArray[i];
+    }
+    const average = sum / dataArray.length;
+
+    // Boca: apertura vertical y horizontal + pequeño movimiento horizontal
+    const scaleY = 0.7 + (average / 200);
+    const scaleX = 0.55 + (average / 400);
+    const moveX = (average / 500) * (Math.random() > 0.5 ? 1 : -1);
+    mouth.style.transform = `translateX(${moveX}px) scaleX(${scaleX}) scaleY(${scaleY})`;
+
+    // Brazos: rotación continua y al ritmo de la música
+    const maxRotation = 45; // grados máximos
+    const rotation = Math.sin(Date.now() / 150) * maxRotation * (average / 128); 
+    leftArm.style.transform = `rotate(${-30 + rotation}deg)`; // -30 base
+    rightArm.style.transform = `rotate(${30 - rotation}deg)`; // 30 base
+
+    // Continuar animación
+    if (!song.paused) {
+        animationId = requestAnimationFrame(animate);
+    }
+}
+
+// Click en boca: reproducir música y empezar animación
+mouth.addEventListener('click', () => {
+    setupAudio();
+    song.currentTime = 0;
+    song.play();
+    if (animationId) cancelAnimationFrame(animationId);
+    animate();
+});
+
+// Detener animación al salir del mouse
+mouth.addEventListener('mouseleave', () => {
+    song.pause();
+    mouth.style.transform = 'scaleX(0.55) scaleY(0.7) translateX(0)';
+    leftArm.style.transform = 'rotate(-30deg)'; // posición base
+    rightArm.style.transform = 'rotate(30deg)'; // posición base
+    if (animationId) cancelAnimationFrame(animationId);
+});
+</script>
+
+
+
+</html>

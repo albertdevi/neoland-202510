@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap" rel="stylesheet">
+  <title>Dinosaurios</title>
+
+</head>
+
+<!-- Fondo dinosaurios -->
+
+<body
+  class="bg-[url('img/background.jpg')] bg-repeat bg-center [background-size:400px_400px] min-h-screen font-sans flex flex-col justify-center items-center">
+
+  <!-- Título-->
+  <header id="title" class="w-[50%] sm:w-[45%] md:w-[35%] lg:w-[25%] mx-auto text-center 
+         text-xl sm:text-2xl md:text-3xl lg:text-4xl 
+         font-extrabold text-lime-600 
+         drop-shadow-[3px_3px_2px_rgba(0,0,0,0.3)] 
+         tracking-wide uppercase mt-6 mb-0 pb-5 pt-4
+         font-[Fredoka_One] bg-white rounded-t-xl shadow-lg border border-gray-200">
+    <h1>¿Es un dinosaurio?</h1>
+  </header>
+
+  <!-- Imagenes dinosaurios -->
+  <div class="flex justify-center px-6">
+    <img id="animalImage"
+      class="w-[80%] sm:w-[75%] md:w-[65%] lg:w-[60%] h-auto object-contain rounded-3xl shadow-2xl border-6 border-lime-900 mx-auto">
+  </div>
+
+  <!-- Div final -->
+  <div id="final"
+    class="w-[80%] sm:w-[75%] md:w-[65%] lg:w-[60%] h-auto rounded-3xl shadow-2xl border-6 border-lime-900 mx-auto bg-white flex flex-col justify-center items-center p-6 hidden text-center">
+    <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold text-lime-600 mb-4">¡Juego terminado!</h1>
+    <img src="img/alanGrant.gif">
+    <p class="text-xl sm:text-2xl md:text-3xl font-semibold text-gray-800">
+      Tu nivel de paleontólogo es de: <br> <span id="scorePoints"
+        class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-lime-600">0</span> puntos
+    </p>
+  </div>
+
+  <!-- Div questionaro -->
+  <div id="questionario" class="flex justify-center items-center w-full px-4">
+    <div class="flex flex-col justify-center items-center py-5 gap-4 
+           w-[75%] sm:w-[40%] md:w-[35%] lg:w-[28%] max-w-[450px] 
+           bg-white rounded-b-xl shadow-lg border border-gray-200">
+      <div id="radioButtons" class="flex flex-col justify-center items-center gap-4 text-lg text-gray-700">
+        <label for="option1" class="cursor-pointer">
+          <input type="radio" id="option1" name="options" value="1" class="mr-2">
+          Sí, es un dinosaurio 🦖
+        </label>
+        <label for="option2" class="cursor-pointer">
+          <input type="radio" id="option2" name="options" value="2" class="mr-2">
+          No, parece otro animal 🤔
+        </label>
+      </div>
+
+      <button id="checkButton"
+        class="bg-lime-600 text-white font-bold px-6 py-3 rounded-xl shadow-lg hover:bg-lime-700 hover:scale-105 active:scale-95 transition-all duration-300">
+        ¡Comprueba!
+      </button>
+
+      <button id="nextButton"
+        class="bg-lime-600 text-white font-bold px-6 py-3 rounded-xl shadow-lg hover:bg-lime-700 hover:scale-105 active:scale-95 transition-all duration-300">
+        Siguiente
+      </button>
+    </div>
+  </div>
+
+  <script>
+    var i = 0; // Índice actual
+    var points = 0; // Contador de puntos
+
+    const animals = [
+      { race: 'Trex', type: 'dinosaur', image: 'img/Trex.jpg', data: 'Trex', imageok: 'img/ok/Trexok.jpg', imagewrong: 'img/wrong/Trexwrong.jpg' },
+      { race: 'Elephant', type: 'non-dinosaur', image: 'img/Elephant.jpg', data: 'Elephant', imageok: 'img/ok/Elephantok.jpg', imagewrong: 'img/wrong/Elephantwrong.jpg' },
+      { race: 'Triceratops', type: 'dinosaur', image: 'img/Triceratops.jpg', data: 'Triceratops', imageok: 'img/ok/Triceratopsok.jpg', imagewrong: 'img/wrong/Triceratopswrong.jpg' },
+      { race: 'Brachiosaurus', type: 'dinosaur', image: 'img/Brachiosaurus.jpg', data: 'Brachiosaurus', imageok: 'img/ok/Brachiosaurusok.jpg', imagewrong: 'img/wrong/Brachiosauruswrong.jpg' },
+      { race: 'Elasmosaurus', type: 'non-dinosaur', image: 'img/Elasmosaurus.jpg', data: 'Elasmosaurus', imageok: 'img/ok/Elasmosaurusok.jpg', imagewrong: 'img/wrong/Elasmosauruswrong.jpg' },
+      { race: 'Dimetrodon', type: 'non-dinosaur', image: 'img/Dimetrodon.jpg', data: 'Dimetrodon', imageok: 'img/ok/Dimetrodonok.jpg', imagewrong: 'img/wrong/Dimetrodonwrong.jpg' },
+      { race: 'Spinosaurus', type: 'dinosaur', image: 'img/Spinosaurus.jpg', data: 'Spinosaurus', imageok: 'img/ok/Spinosaurusok.jpg', imagewrong: 'img/wrong/Spinosauruswrong.jpg' },
+      { race: 'Smilodon', type: 'non-dinosaur', image: 'img/Smilodon.jpg', data: 'Smilodon', imageok: 'img/ok/Smilodonok.jpg', imagewrong: 'img/wrong/Smilodonwrong.jpg' },
+      { race: 'Pteranodon', type: 'non-dinosaur', image: 'img/Pteranodon.jpg', data: 'Pteranodon', imageok: 'img/ok/Pteranodonok.jpg', imagewrong: 'img/wrong/Pteranodonwrong.jpg' },
+      { race: 'Jordihurtado', type: 'non-dinosaur', image: 'img/Jordihurtado.jpg', data: 'Jordi Hurtado', imageok: 'img/ok/Jordihurtadook.jpg', imagewrong: 'img/wrong/Jordihurtadowrong.jpg' },
+      { race: 'Velociraptor', type: 'dinosaur', image: 'img/Velociraptor.jpg', data: 'Velociraptor', imageok: 'img/ok/Velociraptorok.jpg', imagewrong: 'img/wrong/Velociraptorwrong.jpg' },
+      { race: 'Littlefoot', type: 'dinosaur', image: 'img/Littlefoot.jpg', data: 'Littlefoot', imageok: 'img/ok/Littlefootok.jpg', imagewrong: 'img/wrong/Littlefootwrong.jpg' },
+      { race: 'Crocodile', type: 'non-dinosaur', image: 'img/Crocodile.jpg', data: 'Crocodile', imageok: 'img/ok/Crocodileok.jpg', imagewrong: 'img/wrong/Crocodilewrong.jpg' },
+      { race: 'Toothless', type: 'non-dinosaur', image: 'img/Toothless.jpg', data: 'Toothless', imageok: 'img/ok/Toothlessok.jpg', imagewrong: 'img/wrong/Toothlesswrong.jpg' },
+      { race: 'Sparrow', type: 'dinosaur', image: 'img/Sparrow.jpg', data: 'Sparrow', imageok: 'img/ok/Sparrowok.jpg', imagewrong: 'img/wrong/Sparrowwrong.jpg' }
+    ];
+
+    const checkButton = document.getElementById("checkButton");
+    const nextButton = document.getElementById("nextButton");
+    const animalImage = document.getElementById("animalImage");
+    const questionario = document.getElementById("questionario");
+    const title = document.getElementById("title");
+
+    // Mostrar el T. rex al inicio
+    animalImage.src = animals[i].image;
+    animalImage.alt = animals[i].data;
+
+    // Configurar botones al inicio
+    checkButton.hidden = false;
+    nextButton.hidden = true;
+
+    // Botón Comprobar
+    checkButton.addEventListener("click", () => {
+
+      const selectedOption = document.querySelector('input[name="options"]:checked');
+      if (!selectedOption) {
+        alert("Por favor, selecciona una opción");
+        return;
+      }
+
+      const currentAnimal = animals[i];
+
+      // Comprobar si la respuesta es correcta
+      const correct = (selectedOption.value === "1" && currentAnimal.type === "dinosaur") ||
+        (selectedOption.value === "2" && currentAnimal.type === "non-dinosaur");
+
+      // Cambiar la imagen según acierto o fallo
+      // Así es como me lo ha puesto chat gpt animalImage.src = correct ? currentAnimal.imageok : currentAnimal.imagewrong;
+
+      if (correct === true) {
+        animalImage.src = currentAnimal.imageok
+        points++;
+      }
+      else if (correct === false) {
+        animalImage.src = currentAnimal.imagewrong
+      }
+
+      // Ocultar check y mostrar next
+      checkButton.hidden = true;
+      nextButton.hidden = false;
+    });
+
+    // Botón Siguiente
+    nextButton.addEventListener("click", () => {
+      i++; // Pasar al siguiente animal
+
+      if (i >= animals.length) {
+        // Ocultar imagen y cuestionario usando clases Tailwind
+        animalImage.classList.add('hidden');
+        questionario.classList.add('hidden');
+        title.classList.add('hidden');
+
+        // Mostrar el div final
+        const finalDiv = document.getElementById("final");
+        finalDiv.classList.remove('hidden');
+
+        // Mostrar puntuación
+        document.getElementById("scorePoints").textContent = points;
+
+        return;
+      }
+
+      // Mostrar el nuevo animal
+      animalImage.src = animals[i].image;
+      animalImage.alt = animals[i].data;
+      animalImage.classList.remove('hidden');
+
+      // Limpiar selección de radio
+      document.querySelectorAll('input[name="options"]').forEach(input => input.checked = false);
+
+      // Alternar botones
+      checkButton.hidden = false;
+      nextButton.hidden = true;
+    });
+
+  </script>
+
+</body>
+
+</html>
