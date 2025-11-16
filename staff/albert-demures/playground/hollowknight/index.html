@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hollow Knight</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+
+<body>
+
+    <header id="title" class="
+         text-3xl 
+         font-extrabold text-black
+        
+         tracking-wide uppercase mt-2 mb-0 ml-4 pb-3 pt-4
+         font-[Fredoka_One] bg-white border-gray-200">
+        <h1>instruccion</h1>
+    </header>
+    <img src="img/GreenpathRoad.webp" alt="GreenpathRoad">
+
+    <div class="bg-white"
+        style="position: absolute; width: 100px; height: 500px; left: 1000px; top: 0px; z-index: 222;"></div>
+    <script>
+
+
+
+        let hollowX = 40, hollowY = 352, hollowWidth = 59, hollowHeight = 75;
+
+        let grimmX = 650, grimmY = 240, grimmWidth = 200, grimmHeight = 200;
+        const step = 10;
+
+
+        let cadaverX = 100, cadaverY = 395, cadaverWidth = 73, cadaverHeight = 34;
+
+        let weaponX = 100, weaponY = 395, weaponWidth = 73, weaponHeight = 34;
+
+        let attackX = hollowX + 59, attackY = hollowY + 50, attackWidth = 151, attackHeight = 105;
+
+
+        const hollowWalkingRight = [
+            'url("img/walkingright/hollowRight1.png")',
+            'url("img/walkingright/hollowRight2.png")',
+            'url("img/walkingright/hollowRight3.png")',
+            'url("img/walkingright/hollowRight4.png")',
+            'url("img/walkingright/hollowRight5.png")',
+            'url("img/walkingright/hollowRight6.png")',
+            'url("img/walkingright/hollowRight7.png")',
+            'url("img/walkingright/hollowRight8.png")'
+        ];
+
+
+        const hollowWalkingLeft = [
+            'url("img/walkingleft/hollowLeft1.png")',
+            'url("img/walkingleft/hollowLeft2.png")',
+            'url("img/walkingleft/hollowLeft3.png")',
+            'url("img/walkingleft/hollowLeft4.png")',
+            'url("img/walkingleft/hollowLeft5.png")',
+            'url("img/walkingleft/hollowLeft6.png")',
+            'url("img/walkingleft/hollowLeft7.png")',
+            'url("img/walkingleft/hollowLeft8.png")'
+        ];
+
+
+
+
+        let walkIndexRight = 0;
+        let walkIndexLeft = 0;
+        let alive = true;
+        let armed = false;
+        let defeated = false;
+        let instruccion = 'Sal de Hollow Nest y vence a Grimm'
+        // actualizar el título dinámicamente
+        document.getElementById("title").querySelector("h1").textContent = instruccion;
+
+
+
+
+        const hollow = document.createElement('div')
+        hollow.style.width = hollowWidth + 'px'
+        hollow.style.height = hollowHeight + 'px'
+        hollow.style.backgroundImage = 'url("img/walkingright/hollowRight1.png")'
+        hollow.style.backgroundPosition = 'center'
+        hollow.style.backgroundSize = 'contain'
+        hollow.style.backgroundRepeat = 'no-repeat'
+        hollow.style.position = 'absolute'
+        hollow.style.left = hollowX + 'px'
+        hollow.style.top = hollowY + 'px'
+        hollow.style.zIndex = "10";
+
+        document.body.appendChild(hollow)
+
+
+        // grimm
+        const grimm = document.createElement('div')
+        grimm.style.width = grimmWidth + 'px'
+        grimm.style.height = grimmHeight + 'px'
+        grimm.style.backgroundImage = 'url("img/enemy/grimmBase.png")'
+        grimm.style.backgroundPosition = 'center'
+        grimm.style.backgroundSize = 'contain'
+        grimm.style.backgroundRepeat = 'no-repeat'
+        grimm.style.position = 'absolute'
+        grimm.style.left = grimmX + 'px';
+        grimm.style.top = grimmY + 'px';
+        grimm.style.zIndex = "10";
+        document.body.appendChild(grimm)
+
+        // cadaver
+        const cadaver = document.createElement('div')
+        cadaver.style.width = '73px'
+        cadaver.style.height = '34px'
+        cadaver.style.backgroundImage = 'url("img/others/cadaver.png")'
+        cadaver.style.backgroundPosition = 'center'
+        cadaver.style.backgroundSize = 'contain'
+        cadaver.style.backgroundRepeat = 'no-repeat'
+        cadaver.style.position = 'absolute'
+        cadaver.style.left = '100px';
+        cadaver.style.top = '395px';
+        cadaver.style.zIndex = "10";
+        cadaver.style.visibility = 'hidden'
+        document.body.appendChild(cadaver)
+
+
+        // arma
+        const weapon = document.createElement('div')
+        weapon.style.width = '73px'
+        weapon.style.height = '34px'
+        weapon.style.backgroundImage = 'url("img/others/weapon.png")'
+        weapon.style.backgroundPosition = 'center'
+        weapon.style.backgroundSize = 'contain'
+        weapon.style.backgroundRepeat = 'no-repeat'
+        weapon.style.position = 'absolute'
+        weapon.style.left = weaponX + 'px';
+        weapon.style.top = weaponY + 'px';
+        weapon.style.zIndex = "10";
+        weapon.style.visibility = 'hidden'
+        document.body.appendChild(weapon)
+
+
+
+        // ataque
+        const attack = document.createElement('div')
+        attack.style.width = '151px'
+        attack.style.height = '105px'
+        attack.style.backgroundImage = 'url("img/others/attack.png")'
+        attack.style.backgroundPosition = 'center'
+        attack.style.backgroundSize = 'contain'
+        attack.style.backgroundRepeat = 'no-repeat'
+        attack.style.position = 'absolute'
+        attack.style.left = weaponX + 'px';
+        attack.style.top = weaponY + 'px';
+        attack.style.zIndex = "10";
+        attack.style.visibility = 'hidden'
+        document.body.appendChild(attack)
+
+        // victory
+        const victory = document.createElement('div')
+        victory.style.width = '1000px'
+        victory.style.height = '563px'
+        victory.style.backgroundImage = 'url("img/others/victory.png")'
+        victory.style.backgroundPosition = 'center'
+        victory.style.backgroundSize = 'contain'
+        victory.style.backgroundRepeat = 'no-repeat'
+        victory.style.position = 'absolute'
+        victory.style.left = '0px';
+        victory.style.top = '74px';
+        victory.style.zIndex = "10";
+        victory.style.visibility = 'hidden'
+        document.body.appendChild(victory)
+
+        // Grimm death
+
+        const grimmDeath = [
+            'url("img/enemy/grimmDeath1.png")',
+            'url("img/enemy/grimmDeath2.png")',
+            'url("img/enemy/grimmDeath3.png")',
+            'url("img/enemy/grimmDeath4.png")',
+            'url("img/enemy/grimmDeath5.png")'
+        ];
+
+
+        // mover a Hollow
+        document.addEventListener('keydown', function (event) {
+            // cuando está vivo
+            if (alive === true) {
+
+                if (event.key === 'ArrowUp') {
+                    hollow.style.backgroundImage = 'url("img/others/hollowTopRight.png")'
+                }
+
+                else if (event.key === 'ArrowDown') {
+                    hollow.style.backgroundImage = 'url("img/others/hollowBottomRight.png")'
+                }
+
+                else if (event.key === 'ArrowRight') {
+                    hollowX += step
+                    walkIndexRight++
+                    if (walkIndexRight >= hollowWalkingRight.length) walkIndexRight = 0;
+
+                    hollow.style.backgroundImage = hollowWalkingRight[walkIndexRight];
+                    attack.style.visibility = 'hidden';
+                }
+
+
+                else if (event.key === 'ArrowLeft') {
+                    hollowX -= step
+                    walkIndexLeft++
+                    if (walkIndexLeft >= hollowWalkingLeft.length) walkIndexLeft = 0;
+                    hollow.style.backgroundImage = hollowWalkingLeft[walkIndexLeft];
+                    attack.style.visibility = 'hidden'
+
+                }
+                hollow.style.left = hollowX + 'px'
+                hollow.style.top = hollowY + 'px'
+
+            }
+
+
+
+
+            // Cuando está muerto
+
+
+
+            if (alive === false) {
+                let step = 16
+                hollow.style.backgroundImage = 'url("img/dead/deadUp.png")'
+
+
+                if (event.key === 'ArrowUp') {
+                    hollowY -= step
+                    hollow.style.backgroundImage = 'url("img/dead/deadUp.png")'
+
+                }
+                else if (event.key === 'ArrowDown') {
+                    hollowY += step
+                    hollow.style.backgroundImage = 'url("img/dead/deadDown.png")'
+
+                }
+
+                else if (event.key === 'ArrowRight') {
+
+                    hollowX += step
+
+                    hollow.style.backgroundImage = 'url("img/dead/deadRight.png")'
+                }
+
+
+                else if (event.key === 'ArrowLeft') {
+                    hollowX -= step
+                    hollow.style.backgroundImage = 'url("img/dead/deadLeft.png")'
+                }
+
+                hollow.style.left = hollowX + 'px'
+                hollow.style.top = hollowY + 'px'
+
+            }
+
+
+
+            // hacer colision con grimm
+
+            let hollowXMax = hollowX + hollowWidth
+            let hollowYMax = hollowY + hollowHeight
+
+            if (hollowX < grimmX + grimmWidth &&
+                hollowX + hollowWidth > grimmX &&
+                hollowY < grimmY + grimmHeight &&
+                hollowY + hollowHeight > grimmY &&
+                defeated === false
+
+            ) {
+                alive = false
+                cadaver.style.visibility = 'visible'
+                instruccion = "Grimm te ha matado, ve a tu cadáver para revivir!";
+                document.getElementById("title").querySelector("h1").textContent = instruccion;
+            }
+
+
+
+            // colison con cadaver (revivir)
+            if (hollowX < cadaverX + cadaverWidth &&
+                hollowX + hollowWidth > cadaverX &&
+                hollowY < cadaverY + cadaverHeight &&
+                hollowY + hollowHeight > cadaverY &&
+                alive === false
+            ) {
+                alive = true
+                cadaver.style.visibility = 'hidden'
+                hollowX = 150;
+                hollowY = 352;
+                hollow.style.left = hollowX + 'px';
+                hollow.style.top = hollowY + 'px';
+
+
+
+                weaponX = 350;
+                weaponY = 395;
+                weapon.style.left = weaponX + 'px';
+                weapon.style.top = weaponY + 'px';
+                weapon.style.visibility = 'visible'
+                hollow.style.backgroundImage = hollowWalkingRight[walkIndexRight];
+
+
+                instruccion = "No puedes vencer a Grimm sin una arma, equípate!";
+                document.getElementById("title").querySelector("h1").textContent = instruccion;
+            }
+
+
+
+
+            // colison con arma
+            if (hollowX < weaponX + weaponWidth &&
+                hollowX + hollowWidth > weaponX &&
+                hollowY < weaponY + weaponHeight &&
+                hollowY + hollowHeight > weaponY &&
+                weapon.style.visibility === 'visible'
+            ) {
+                armed = true
+                weapon.style.visibility = 'hidden'
+                instruccion = "Has recuperado tu arma. ¡Enfréntate a Grimm!";
+                document.getElementById("title").querySelector("h1").textContent = instruccion;
+
+                instruccion = "Bien! ahora pulsa 'a' para atarcar y vencer a Grimm";
+                document.getElementById("title").querySelector("h1").textContent = instruccion;
+            }
+
+
+
+            if (armed === true && alive === true && event.key === 'a') {
+                attack.style.visibility = 'visible';
+
+                const attackOffsetX = hollowWidth; // delante de Hollow
+                const attackOffsetY = hollowHeight - 80; // centrado verticalmente (ajusta según tamaño del ataque)
+
+                attack.style.left = (hollowX + attackOffsetX) + 'px';
+                attack.style.top = (hollowY + attackOffsetY) + 'px';
+
+                hollow.style.backgroundImage = 'url("img/others/attackPose.png")';
+
+                // Animación de muerte de Grimm si no está derrotado
+                if (!defeated && hollowX + hollowWidth > 500) {
+                    defeated = true;
+                    let index = 0;
+                    const deathInterval = setInterval(() => {
+                        grimm.style.backgroundImage = grimmDeath[index];
+                        index++;
+                        if (index >= grimmDeath.length) {
+                            clearInterval(deathInterval);  // detener animación al final
+                            grimm.style.visibility = 'hidden'; // opcional: ocultar Grimm
+
+                            instruccion = "Has vencido a Grimm, sal de Hollow Nest!";
+                            document.getElementById("title").querySelector("h1").textContent = instruccion;
+                        }
+                    }, 150);
+                }
+
+
+
+            }
+
+
+            if (hollowX > 990) {
+                instruccion = "Felicidades!";
+                document.getElementById("title").querySelector("h1").textContent = instruccion;
+                victory.style.visibility = 'visible'
+
+                hollow.style.visibility = 'hidden'
+
+
+            }
+
+        }); // <--- Cierra document.addEventListener
+
+
+    </script>
+
+
+
+
+
+</body>
+
+</html>

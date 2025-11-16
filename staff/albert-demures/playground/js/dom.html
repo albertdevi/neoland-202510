@@ -28,6 +28,10 @@
     </div>
 
     <script>
+let hollowX = 200, hollowY = 200
+const step = 10
+
+
         document.childNodes[1].childNodes[2].childNodes[1].style.backgroundColor = 'silver'
         document.childNodes[1].childNodes[2].childNodes[1].style.color = 'brown'
         document.childNodes[1].childNodes[2].childNodes[1].style.paddingLeft = '.5rem'
@@ -46,8 +50,8 @@
         face.style.height = '180px'
         face.style.backgroundColor = '#f0f0f0'
         face.style.position = 'absolute'
-        face.style.top = '400px'
-        face.style.left = '150px'
+        face.style.top = hollowY + 'px';
+        face.style.left = hollowX + 'px';
         face.style.borderBottomLeftRadius = '35px'
         face.style.borderBottomRightRadius = '35px'
         face.style.borderTopLeftRadius = '15px'
@@ -74,8 +78,6 @@
         eyeRight.style.borderRadius = '33px'
         face.appendChild(eyeRight)
 
-
-
         const cuernoLeft = document.createElement('div')
         cuernoLeft.style.width = '52px'
         cuernoLeft.style.height = '200px'
@@ -87,8 +89,6 @@
         cuernoLeft.style.borderTopRightRadius = '15px'
         cuernoLeft.style.borderBottomLeftRadius = '15px'
         face.appendChild(cuernoLeft)
-
-
 
         const hastaLeftTop = document.createElement('div')
         hastaLeftTop.style.width = '90px'
@@ -102,7 +102,6 @@
         hastaLeftTop.style.borderBottomLeftRadius = '15px'
         cuernoLeft.appendChild(hastaLeftTop)
 
-
         const hastaLeftBottom = document.createElement('div')
         hastaLeftBottom.style.width = '90px'
         hastaLeftBottom.style.height = '20px'
@@ -114,7 +113,6 @@
         hastaLeftBottom.style.borderBottomRightRadius = '15px'
         hastaLeftBottom.style.borderBottomLeftRadius = '15px'
         cuernoLeft.appendChild(hastaLeftBottom)
-
 
         const cuernoRight = document.createElement('div')
         cuernoRight.style.width = '52px'
@@ -153,9 +151,23 @@
         hastaRightBottom.style.borderTopRightRadius = '15px'
         cuernoRight.appendChild(hastaRightBottom)
 
-
-
-
+document.addEventListener('keydown', function (event) {
+    if (event.key === 'ArrowUp' || event.key === 'w') {
+        hollowY -= step;
+    } else if (event.key === 'ArrowDown' || event.key === 's') {
+        hollowY += step;
+    } else if (event.key === 'ArrowLeft' || event.key === 'a') {
+        hollowX -= step;
+    } else if (event.key === 'ArrowRight'|| event.key === 'd') {
+        hollowX += step;
+    }
+    face.style.top = hollowY + 'px';
+    face.style.left = hollowX + 'px';
+    if (hollowX >200)
+    eyeLeft.style.backgroundColor = 'red'
+    else
+    eyeLeft.style.backgroundColor = 'black'
+});
 
 
 
