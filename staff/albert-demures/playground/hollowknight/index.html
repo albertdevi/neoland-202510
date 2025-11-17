@@ -22,6 +22,79 @@
 
     <div class="bg-white"
         style="position: absolute; width: 100px; height: 500px; left: 1000px; top: 0px; z-index: 222;"></div>
+
+
+           <!-- Audio -->
+            <audio id="greenpath" src="greenpath.mp3"></audio>
+    
+    <script>
+    function preloadImages(images, callback) {
+        let loaded = 0;
+        const total = images.length;
+
+        images.forEach(src => {
+            const img = new Image();
+            img.src = src;
+
+            img.onload = () => {
+                loaded++;
+                if (loaded === total && callback) callback();
+            };
+        });
+    }
+
+    // Lista de TODAS tus imágenes
+    const allImages = [
+        // Hollow walking right
+        "img/walkingRight/hollowRight1.png",
+        "img/walkingRight/hollowRight2.png",
+        "img/walkingRight/hollowRight3.png",
+        "img/walkingRight/hollowRight4.png",
+        "img/walkingRight/hollowRight5.png",
+        "img/walkingRight/hollowRight6.png",
+        "img/walkingRight/hollowRight7.png",
+        "img/walkingRight/hollowRight8.png",
+
+        // Hollow walking left
+        "img/walkingLeft/hollowLeft1.png",
+        "img/walkingLeft/hollowLeft2.png",
+        "img/walkingLeft/hollowLeft3.png",
+        "img/walkingLeft/hollowLeft4.png",
+        "img/walkingLeft/hollowLeft5.png",
+        "img/walkingLeft/hollowLeft6.png",
+        "img/walkingLeft/hollowLeft7.png",
+        "img/walkingLeft/hollowLeft8.png",
+
+        // Grimm base + death
+        "img/enemy/grimmBase.png",
+        "img/enemy/grimmDeath1.png",
+        "img/enemy/grimmDeath2.png",
+        "img/enemy/grimmDeath3.png",
+        "img/enemy/grimmDeath4.png",
+        "img/enemy/grimmDeath5.png",
+        "img/enemy/grimmDeath6.png",
+
+        // Otros
+        "img/others/cadaver.png",
+        "img/others/weapon.png",
+        "img/others/attack.png",
+        "img/others/victory.png",
+        "img/others/hollowTopRight.png",
+        "img/others/hollowBottomRight.png",
+        "img/others/attackPose.png",
+        
+        // Fondo
+        "img/GreenpathRoad.webp"
+    ];
+
+    preloadImages(allImages, () => {
+        console.log("Todas las imágenes están cargadas. El juego puede iniciar sin lag.");
+    });
+</script>
+    
+    
+    
+    
     <script>
 
 
@@ -39,27 +112,27 @@
         let attackX = hollowX + 59, attackY = hollowY + 50, attackWidth = 151, attackHeight = 105;
 
 
-        const hollowWalkingRight = [
-            'url("img/walkingright/hollowRight1.png")',
-            'url("img/walkingright/hollowRight2.png")',
-            'url("img/walkingright/hollowRight3.png")',
-            'url("img/walkingright/hollowRight4.png")',
-            'url("img/walkingright/hollowRight5.png")',
-            'url("img/walkingright/hollowRight6.png")',
-            'url("img/walkingright/hollowRight7.png")',
-            'url("img/walkingright/hollowRight8.png")'
+        const hollowwalkingRight = [
+            'url("img/walkingRight/hollowRight1.png")',
+            'url("img/walkingRight/hollowRight2.png")',
+            'url("img/walkingRight/hollowRight3.png")',
+            'url("img/walkingRight/hollowRight4.png")',
+            'url("img/walkingRight/hollowRight5.png")',
+            'url("img/walkingRight/hollowRight6.png")',
+            'url("img/walkingRight/hollowRight7.png")',
+            'url("img/walkingRight/hollowRight8.png")'
         ];
 
 
-        const hollowWalkingLeft = [
-            'url("img/walkingleft/hollowLeft1.png")',
-            'url("img/walkingleft/hollowLeft2.png")',
-            'url("img/walkingleft/hollowLeft3.png")',
-            'url("img/walkingleft/hollowLeft4.png")',
-            'url("img/walkingleft/hollowLeft5.png")',
-            'url("img/walkingleft/hollowLeft6.png")',
-            'url("img/walkingleft/hollowLeft7.png")',
-            'url("img/walkingleft/hollowLeft8.png")'
+        const hollowwalkingLeft = [
+            'url("img/walkingLeft/hollowLeft1.png")',
+            'url("img/walkingLeft/hollowLeft2.png")',
+            'url("img/walkingLeft/hollowLeft3.png")',
+            'url("img/walkingLeft/hollowLeft4.png")',
+            'url("img/walkingLeft/hollowLeft5.png")',
+            'url("img/walkingLeft/hollowLeft6.png")',
+            'url("img/walkingLeft/hollowLeft7.png")',
+            'url("img/walkingLeft/hollowLeft8.png")'
         ];
 
 
@@ -80,7 +153,7 @@
         const hollow = document.createElement('div')
         hollow.style.width = hollowWidth + 'px'
         hollow.style.height = hollowHeight + 'px'
-        hollow.style.backgroundImage = 'url("img/walkingright/hollowRight1.png")'
+        hollow.style.backgroundImage = 'url("img/walkingRight/hollowRight1.png")'
         hollow.style.backgroundPosition = 'center'
         hollow.style.backgroundSize = 'contain'
         hollow.style.backgroundRepeat = 'no-repeat'
@@ -176,7 +249,8 @@
             'url("img/enemy/grimmDeath2.png")',
             'url("img/enemy/grimmDeath3.png")',
             'url("img/enemy/grimmDeath4.png")',
-            'url("img/enemy/grimmDeath5.png")'
+            'url("img/enemy/grimmDeath5.png")',
+            'url("img/enemy/grimmDeath6.png")'
         ];
 
 
@@ -196,9 +270,9 @@
                 else if (event.key === 'ArrowRight') {
                     hollowX += step
                     walkIndexRight++
-                    if (walkIndexRight >= hollowWalkingRight.length) walkIndexRight = 0;
+                    if (walkIndexRight >= hollowwalkingRight.length) walkIndexRight = 0;
 
-                    hollow.style.backgroundImage = hollowWalkingRight[walkIndexRight];
+                    hollow.style.backgroundImage = hollowwalkingRight[walkIndexRight];
                     attack.style.visibility = 'hidden';
                 }
 
@@ -206,8 +280,8 @@
                 else if (event.key === 'ArrowLeft') {
                     hollowX -= step
                     walkIndexLeft++
-                    if (walkIndexLeft >= hollowWalkingLeft.length) walkIndexLeft = 0;
-                    hollow.style.backgroundImage = hollowWalkingLeft[walkIndexLeft];
+                    if (walkIndexLeft >= hollowwalkingLeft.length) walkIndexLeft = 0;
+                    hollow.style.backgroundImage = hollowwalkingLeft[walkIndexLeft];
                     attack.style.visibility = 'hidden'
 
                 }
@@ -300,7 +374,7 @@
                 weapon.style.left = weaponX + 'px';
                 weapon.style.top = weaponY + 'px';
                 weapon.style.visibility = 'visible'
-                hollow.style.backgroundImage = hollowWalkingRight[walkIndexRight];
+                hollow.style.backgroundImage = hollowwalkingRight[walkIndexRight];
 
 
                 instruccion = "No puedes vencer a Grimm sin una arma, equípate!";
@@ -353,7 +427,7 @@
                             instruccion = "Has vencido a Grimm, sal de Hollow Nest!";
                             document.getElementById("title").querySelector("h1").textContent = instruccion;
                         }
-                    }, 150);
+                    }, 380);
                 }
 
 
@@ -361,7 +435,7 @@
             }
 
 
-            if (hollowX > 990) {
+            if (hollowX > 990 ) {
                 instruccion = "Felicidades!";
                 document.getElementById("title").querySelector("h1").textContent = instruccion;
                 victory.style.visibility = 'visible'
@@ -374,6 +448,10 @@
         }); // <--- Cierra document.addEventListener
 
 
+
+   
+        const song = document.getElementById('greenpath');
+        song.play();
     </script>
 
 
