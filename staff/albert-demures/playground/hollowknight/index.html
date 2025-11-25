@@ -435,7 +435,7 @@
             }
 
 
-            if (hollowX > 990 ) {
+            if (hollowX > 990 && alive === true) {
                 instruccion = "Felicidades!";
                 document.getElementById("title").querySelector("h1").textContent = instruccion;
                 victory.style.visibility = 'visible'
@@ -450,8 +450,13 @@
 
 
    
-        const song = document.getElementById('greenpath');
-        song.play();
+       document.addEventListener("keydown", startMusic, { once: true });
+document.addEventListener("click", startMusic, { once: true });
+
+function startMusic() {
+    const song = document.getElementById("greenpath");
+    song.play();
+}
     </script>
 
 
