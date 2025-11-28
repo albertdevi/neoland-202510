@@ -85,7 +85,7 @@ registerSubmitButton.textContent = "Register";
 registerForm.appendChild(registerSubmitButton);
 registerView.appendChild(registerForm);
 
-// Handle register form submission
+// Submit register
 
 registerForm.addEventListener("submit", function (event) {
   event.preventDefault();
@@ -171,7 +171,7 @@ loginRegisterLink.addEventListener("click", function (event) {
 const loginFeedback = document.createElement("p");
 loginView.appendChild(loginFeedback);
 
-//Handle login form submission
+//Submit login
 loginForm.addEventListener("submit", function (event) {
   event.preventDefault();
 
@@ -199,7 +199,16 @@ const homeView = document.createElement("div");
 homeView.style.display = "none";
 
 const homeTitle = document.createElement("h1");
-homeTitle.textContent = "MyPet";
+homeTitle.textContent = "MyPet welcome view";
 homeView.appendChild(homeTitle);
+
+const homeSubtitle = document.createElement('h2')
+homeSubtitle.textContent = 'Welcome Home'
+homeView.appendChild(homeSubtitle)
+
+const logoutLink= document.createElement ("a")
+logoutLink.textContent = "Logout"
+logoutLink.href = ""
+homeView.appendChild(logoutLink)
 
 document.body.appendChild(homeView);
