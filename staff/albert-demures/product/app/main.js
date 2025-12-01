@@ -154,16 +154,14 @@ registerForm.appendChild(registerShowPasswordRepeatButton);
 
 registerShowPasswordRepeatButton.addEventListener('click', function (event) {
   event.preventDefault();
-  if (registerPasswordInput.type === 'password') {
-    registerPasswordInput.type = 'text';
+  if (registerPasswordRepeatInput.type === 'password') {
+    registerPasswordRepeatInput.type = 'text';
     registerShowPasswordRepeatButton.textContent = 'Hide';
   } else {
-    registerPasswordInput.type = 'password';
+    registerPasswordRepeatInput.type = 'password';
     registerShowPasswordRepeatButton.textContent = 'Show';
   }
 });
-
-
 
 
 const registerSubmitButton = document.createElement("button");
@@ -173,7 +171,7 @@ registerForm.appendChild(registerSubmitButton);
 registerSubmitButton.className =  "bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg shadow hover:bg-blue-700 transition-colors duration-200"
 registerView.appendChild(registerForm);
 
-registerForm.className = "flex flex-col gap-4 w-full max-w-sm mx-auto mt-6"
+
 // Submit register
 
 registerForm.addEventListener("submit", function (event) {
@@ -202,7 +200,7 @@ const registerLoginLink = document.createElement("a");
 registerLoginLink.textContent = "Login";
 registerLoginLink.href = "";
 registerView.appendChild(registerLoginLink);
-registerLoginLink.className =  "text-gray-700 text-lg leading-loose max-w-md mx-auto mt-4 text-center";
+registerLoginLink.className =  "text-gray-700 text-lg leading-loose max-w-md mx-auto mt-4 text-center underline";
 
 
 registerLoginLink.addEventListener("click", function (event) {
@@ -262,6 +260,24 @@ loginPasswordInput.className =
   "border border-gray-300 rounded-lg px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition";
 loginForm.appendChild(loginPasswordInput);
 
+const loginShowPasswordButton = document.createElement('button');
+loginShowPasswordButton.textContent = 'Show';
+loginShowPasswordButton.type = 'button';
+loginShowPasswordButton.className =  "w-24 bg-gray-600 text-white font-semibold py-2 px-4 rounded-lg shadow hover:bg-gray-700 transition-colors duration-200"
+loginForm.appendChild(loginShowPasswordButton);
+
+loginShowPasswordButton.addEventListener('click', function (event) {
+  event.preventDefault();
+
+  if (loginPasswordInput.type === 'password') {
+    loginPasswordInput.type = 'text';
+    loginShowPasswordButton.textContent = 'Hide';
+  } else {
+    loginPasswordInput.type = 'password';
+    loginShowPasswordButton.textContent = 'Show';
+  }
+});
+
 
 
 
@@ -275,7 +291,7 @@ loginView.appendChild(loginForm);
 const loginRegisterLink = document.createElement("a");
 loginRegisterLink.textContent = "Register";
 loginRegisterLink.href = "";
-loginRegisterLink.className =  "text-gray-700 text-lg leading-loose max-w-md mx-auto mt-4 text-center";
+loginRegisterLink.className =  "text-gray-700 text-lg leading-loose max-w-md mx-auto mt-4 text-center underline";
 loginView.appendChild(loginRegisterLink);
 
 loginRegisterLink.addEventListener("click", function (event) {
