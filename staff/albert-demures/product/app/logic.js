@@ -1,6 +1,6 @@
 function Logic() {}
 
-// Register user
+// Función registrar un nuevo usuario
 Logic.prototype.registerUser = function (
   name,
   email,
@@ -47,7 +47,8 @@ Logic.prototype.registerUser = function (
   data.insertUser(user);
 };
 
-// Login user
+
+// función entrar con un usario
 Logic.prototype.loginUser = function (username, password) {
   if (typeof username !== "string") throw new Error("invalid username type");
   if (username.length < 3) throw new Error("invalid username length");
@@ -65,3 +66,10 @@ Logic.prototype.loginUser = function (username, password) {
 
 // instance
 const logic = new Logic();
+
+const registerInputs = registerForm.querySelectorAll("input");
+
+registerInputs.forEach(input => {
+  input.className =
+    "border border-gray-300 rounded-lg px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition";
+});

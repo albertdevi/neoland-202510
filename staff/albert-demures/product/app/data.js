@@ -1,5 +1,7 @@
 // models
 
+
+//Función para añadir usuarios
 function User(id, name, email, username, password, role) {
   this.id = id;
   this.name = name;
@@ -9,6 +11,8 @@ function User(id, name, email, username, password, role) {
   this.role = role;
 }
 
+
+// Función para añadir animeles
 function Pet(id, userId, chip, name, gender, birthdate, species, race, colors) {
   this.id = id;
   this.userId = userId;
@@ -21,7 +25,7 @@ function Pet(id, userId, chip, name, gender, birthdate, species, race, colors) {
   this.colors = colors;
 }
 
-// manager
+// función para añadir información general
 
 function Data() {
   this.users = [];
@@ -30,11 +34,15 @@ function Data() {
   this.petsCount = 0;
 }
 
+
+// función para añadir un usuario
 Data.prototype.insertUser = function (user) {
   this.users.push(user);
   this.usersCount++;
 };
 
+
+//funión para buscar un suario por correo
 Data.prototype.findUserByEmail = function (email) {
   for (let i = 0; i < this.users.length; i++) {
     const user = this.users[i];
@@ -45,6 +53,8 @@ Data.prototype.findUserByEmail = function (email) {
   return null;
 };
 
+
+// función para buscar un usario por su username
 Data.prototype.findUserByUsername = function (username) {
   for (let i = 0; i < this.users.length; i++) {
     const user = this.users[i];
@@ -55,11 +65,15 @@ Data.prototype.findUserByUsername = function (username) {
   return null;
 };
 
+
+// función para añadir una mascota
 Data.prototype.insertPet = function (pet) {
   this.pets.push(pet);
   this.petsCount++;
 };
 
+
+// finción para buscar un animal por su chip
 Data.prototype.findPetByChip = function (chip) {
   for (let i = 0; i < this.pets.length; i++) {
     const pet = this.pets[i];
@@ -68,6 +82,8 @@ Data.prototype.findPetByChip = function (chip) {
   return null;
 };
 
+
+// función para buscar un animal por su id
 Data.prototype.getPetsByPetId = function (id) {
   for (let i = 0; i < this.pets.length; i++) {
     const pet = this.pets[i];
@@ -76,6 +92,6 @@ Data.prototype.getPetsByPetId = function (id) {
   return null;
 };
 
-// instance
+// crear nueva coleción de datos
 
 const data = new Data();
