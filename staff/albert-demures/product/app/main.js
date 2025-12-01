@@ -1,3 +1,7 @@
+//body
+
+document.body.className = 'px-6 py-4 h-screen'
+
 // landing view
 
 const landingView = document.createElement("div");
@@ -17,12 +21,14 @@ const landingAccess = document.createElement("p");
 const landingLoginLink = document.createElement("a");
 landingLoginLink.textContent = "Login";
 landingLoginLink.href = "";
+landingLoginLink.className = 'underline'
 landingAccess.appendChild(landingLoginLink);
 const landingOrText = document.createTextNode(" or ");
 landingAccess.appendChild(landingOrText);
 const landingRegisterLink = document.createElement("a");
 landingRegisterLink.textContent = "Register";
 landingRegisterLink.href = "";
+landingRegisterLink.className = 'underline'
 landingAccess.appendChild(landingRegisterLink);
 landingView.appendChild(landingAccess);
 landingAccess.className = "text-gray-700 text-lg leading-loose max-w-md mx-auto mt-4 text-center"
@@ -64,53 +70,105 @@ registerForm.className = "flex flex-col gap-4 w-full max-w-sm mx-auto mt-6"
 
 const registerNameLabel = document.createElement("label");
 registerNameLabel.textContent = "Name";
+registerNameLabel.htmlFor = 'name'
 registerForm.appendChild(registerNameLabel);
 registerNameLabel.className = "text-m text-gray-600 mt-2"
 const registerNameInput = document.createElement("input");
+registerNameInput.id = 'name'
+registerNameInput.type = 'text'
 registerForm.appendChild(registerNameInput);
 registerNameInput.className =
   "border border-gray-300 rounded-lg px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition";
 
 const registerEmailLabel = document.createElement("label");
 registerEmailLabel.textContent = "Email";
+registerEmailLabel.htmlFor = 'email'
 registerForm.appendChild(registerEmailLabel);
 registerEmailLabel.className = "text-m text-gray-600 mt-2"
 const registerEmailInput = document.createElement("input");
+registerEmailInput.id = 'email'
+registerEmailInput.type = 'email'
 registerForm.appendChild(registerEmailInput);
 registerEmailInput.className =
   "border border-gray-300 rounded-lg px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition";
 
 const registerUsernameLabel = document.createElement("label");
 registerUsernameLabel.textContent = "Username";
+registerUsernameLabel.htmlFor = 'username'
 registerForm.appendChild(registerUsernameLabel);
 registerUsernameLabel.className = "text-m text-gray-600 mt-2"
 const registerUsernameInput = document.createElement("input");
+registerUsernameInput.id = 'username'
+registerUsernameInput.type = 'text'
 registerForm.appendChild(registerUsernameInput);
 registerUsernameInput.className =
   "border border-gray-300 rounded-lg px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition";
 
 const registerPasswordLabel = document.createElement("label");
 registerPasswordLabel.textContent = "Password";
+registerPasswordLabel.htmlFor = 'password';
 registerForm.appendChild(registerPasswordLabel);
 registerPasswordLabel.className = "text-m text-gray-600 mt-2"
 const registerPasswordInput = document.createElement("input");
 registerPasswordInput.type = "password";
+registerPasswordInput.id = 'password'
 registerForm.appendChild(registerPasswordInput);
 registerPasswordInput.className =
   "border border-gray-300 rounded-lg px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition";
 
+const registerShowPasswordButton = document.createElement('button');
+registerShowPasswordButton.textContent = 'Show';
+registerShowPasswordButton.type = 'button';
+registerShowPasswordButton.className =  "w-24 bg-gray-600 text-white font-semibold py-2 px-4 rounded-lg shadow hover:bg-gray-700 transition-colors duration-200"
+registerForm.appendChild(registerShowPasswordButton);
+
+registerShowPasswordButton.addEventListener('click', function (event) {
+  event.preventDefault();
+
+  if (registerPasswordInput.type === 'password') {
+    registerPasswordInput.type = 'text';
+    registerShowPasswordButton.textContent = 'Hide';
+  } else {
+    registerPasswordInput.type = 'password';
+    registerShowPasswordButton.textContent = 'Show';
+  }
+});
+
 const registerPasswordRepeatLabel = document.createElement("label");
 registerPasswordRepeatLabel.textContent = "Repeat Password";
+registerPasswordRepeatLabel.htmlFor = 'repeatPassword'
 registerForm.appendChild(registerPasswordRepeatLabel);
 registerPasswordRepeatLabel.className = "text-m text-gray-600 mt-2"
 const registerPasswordRepeatInput = document.createElement("input");
 registerPasswordRepeatInput.type = "password";
+registerPasswordRepeatInput.id = 'repeatPassword'
 registerForm.appendChild(registerPasswordRepeatInput);
 registerPasswordRepeatInput.className =
   "border border-gray-300 rounded-lg px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition";
 
+const registerShowPasswordRepeatButton = document.createElement('button');
+registerShowPasswordRepeatButton.textContent = 'Show';
+registerShowPasswordRepeatButton.type = 'button';
+registerShowPasswordRepeatButton.className =  "w-24 bg-gray-600 text-white font-semibold py-2 px-4 rounded-lg shadow hover:bg-gray-700 transition-colors duration-200"
+registerForm.appendChild(registerShowPasswordRepeatButton);
+
+registerShowPasswordRepeatButton.addEventListener('click', function (event) {
+  event.preventDefault();
+  if (registerPasswordInput.type === 'password') {
+    registerPasswordInput.type = 'text';
+    registerShowPasswordRepeatButton.textContent = 'Hide';
+  } else {
+    registerPasswordInput.type = 'password';
+    registerShowPasswordRepeatButton.textContent = 'Show';
+  }
+});
+
+
+
+
 const registerSubmitButton = document.createElement("button");
 registerSubmitButton.textContent = "Register";
+registerSubmitButton.type = 'submit'
 registerForm.appendChild(registerSubmitButton);
 registerSubmitButton.className =  "bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg shadow hover:bg-blue-700 transition-colors duration-200"
 registerView.appendChild(registerForm);
@@ -182,9 +240,11 @@ loginForm.className = "flex flex-col gap-4 w-full max-w-sm mx-auto mt-6"
 
 const loginUsernameLabel = document.createElement("label");
 loginUsernameLabel.textContent = "Username";
+loginUsernameLabel.htmlFor = 'username'
 loginUsernameLabel.className = "text-m text-gray-600 mt-2"
 loginForm.appendChild(loginUsernameLabel);
 const loginUsernameInput = document.createElement("input");
+loginUsernameInput.id = 'username'
 loginUsernameInput.className =
   "border border-gray-300 rounded-lg px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition";
 loginForm.appendChild(loginUsernameInput);
@@ -192,13 +252,17 @@ loginForm.appendChild(loginUsernameInput);
 
 const loginPasswordLabel = document.createElement("label");
 loginPasswordLabel.textContent = "Password";
+loginPasswordLabel.htmlFor = 'password'
 loginPasswordLabel.className = "text-m text-gray-600 mt-2"
 loginForm.appendChild(loginPasswordLabel);
 const loginPasswordInput = document.createElement("input");
 loginPasswordInput.type = "password";
+loginPasswordInput.id = 'password'
 loginPasswordInput.className =
   "border border-gray-300 rounded-lg px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition";
 loginForm.appendChild(loginPasswordInput);
+
+
 
 
 const loginSubmitButton = document.createElement("button");
