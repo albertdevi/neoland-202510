@@ -119,7 +119,7 @@ registerPasswordInput.className =
 const registerShowPasswordButton = document.createElement('button');
 registerShowPasswordButton.textContent = 'Show';
 registerShowPasswordButton.type = 'button';
-registerShowPasswordButton.className =  "w-24 bg-gray-600 text-white font-semibold py-2 px-4 rounded-lg shadow hover:bg-gray-700 transition-colors duration-200"
+registerShowPasswordButton.className =  "w-24 bg-gray-600 text-white font-semibold py-1 px-0 rounded-lg shadow hover:bg-gray-700 transition-colors duration-200 self-end"
 registerForm.appendChild(registerShowPasswordButton);
 
 registerShowPasswordButton.addEventListener('click', function (event) {
@@ -128,9 +128,13 @@ registerShowPasswordButton.addEventListener('click', function (event) {
   if (registerPasswordInput.type === 'password') {
     registerPasswordInput.type = 'text';
     registerShowPasswordButton.textContent = 'Hide';
+    registerPasswordInput.className =
+  "border border-gray-300 rounded-lg px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition bg-yellow-100";
   } else {
     registerPasswordInput.type = 'password';
     registerShowPasswordButton.textContent = 'Show';
+    registerPasswordInput.className =
+      "border border-gray-300 rounded-lg px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" ;
   }
 });
 
@@ -149,7 +153,7 @@ registerPasswordRepeatInput.className =
 const registerShowPasswordRepeatButton = document.createElement('button');
 registerShowPasswordRepeatButton.textContent = 'Show';
 registerShowPasswordRepeatButton.type = 'button';
-registerShowPasswordRepeatButton.className =  "w-24 bg-gray-600 text-white font-semibold py-2 px-4 rounded-lg shadow hover:bg-gray-700 transition-colors duration-200"
+registerShowPasswordRepeatButton.className =  "w-24 bg-gray-600 text-white font-semibold py-1 px-0 rounded-lg shadow hover:bg-gray-700 transition-colors duration-200 self-end"
 registerForm.appendChild(registerShowPasswordRepeatButton);
 
 registerShowPasswordRepeatButton.addEventListener('click', function (event) {
@@ -157,9 +161,13 @@ registerShowPasswordRepeatButton.addEventListener('click', function (event) {
   if (registerPasswordRepeatInput.type === 'password') {
     registerPasswordRepeatInput.type = 'text';
     registerShowPasswordRepeatButton.textContent = 'Hide';
+        registerPasswordRepeatInput.className =
+  "border border-gray-300 rounded-lg px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition bg-yellow-100";
   } else {
     registerPasswordRepeatInput.type = 'password';
     registerShowPasswordRepeatButton.textContent = 'Show';
+            registerPasswordRepeatInput.className =
+  "border border-gray-300 rounded-lg px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition";
   }
 });
 
@@ -168,7 +176,7 @@ const registerSubmitButton = document.createElement("button");
 registerSubmitButton.textContent = "Register";
 registerSubmitButton.type = 'submit'
 registerForm.appendChild(registerSubmitButton);
-registerSubmitButton.className =  "bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg shadow hover:bg-blue-700 transition-colors duration-200"
+registerSubmitButton.className =  "bg-blue-600 text-white font-semibold py-2 px-16 rounded-lg shadow hover:bg-blue-700 transition-colors duration-200 self-center"
 registerView.appendChild(registerForm);
 
 
@@ -263,7 +271,7 @@ loginForm.appendChild(loginPasswordInput);
 const loginShowPasswordButton = document.createElement('button');
 loginShowPasswordButton.textContent = 'Show';
 loginShowPasswordButton.type = 'button';
-loginShowPasswordButton.className =  "w-24 bg-gray-600 text-white font-semibold py-2 px-4 rounded-lg shadow hover:bg-gray-700 transition-colors duration-200"
+loginShowPasswordButton.className =  "w-24 bg-gray-600 text-white font-semibold py-1 px-0 rounded-lg shadow hover:bg-gray-700 transition-colors duration-200 self-end"
 loginForm.appendChild(loginShowPasswordButton);
 
 loginShowPasswordButton.addEventListener('click', function (event) {
@@ -272,18 +280,20 @@ loginShowPasswordButton.addEventListener('click', function (event) {
   if (loginPasswordInput.type === 'password') {
     loginPasswordInput.type = 'text';
     loginShowPasswordButton.textContent = 'Hide';
+             loginPasswordInput.className =
+  "border border-gray-300 rounded-lg px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition bg-yellow-100";
   } else {
     loginPasswordInput.type = 'password';
     loginShowPasswordButton.textContent = 'Show';
+         loginPasswordInput.className =
+  "border border-gray-300 rounded-lg px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition ";
   }
 });
 
 
-
-
 const loginSubmitButton = document.createElement("button");
 loginSubmitButton.textContent = "Login";
-loginSubmitButton.className =  "bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg shadow hover:bg-blue-700 transition-colors duration-200"
+loginSubmitButton.className =  "bg-blue-600 text-white font-semibold py-2 px-16 rounded-lg shadow hover:bg-blue-700 transition-colors duration-200 self-center"
 loginForm.appendChild(loginSubmitButton);
 
 loginView.appendChild(loginForm);
