@@ -118,14 +118,12 @@ registerShowPasswordRepeatButton.addEventListener('click', function (event) {
   }
 });
 
-
 const registerSubmitButton = document.createElement("button");
 registerSubmitButton.textContent = "Register";
 registerSubmitButton.type = 'submit'
 registerForm.appendChild(registerSubmitButton);
 registerSubmitButton.className = "bg-blue-600 text-white font-semibold py-2 px-16 rounded-lg shadow hover:bg-blue-700 transition-colors duration-200 self-center"
 registerView.appendChild(registerForm);
-
 
 // Submit register
 

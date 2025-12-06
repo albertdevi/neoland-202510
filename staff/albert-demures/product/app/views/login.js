@@ -15,7 +15,6 @@ loginView.appendChild(loginSubtitle);
 const loginForm = document.createElement("form");
 loginForm.className = "flex flex-col gap-4 w-full max-w-sm mx-auto mt-6"
 
-
 const loginUsernameLabel = document.createElement("label");
 loginUsernameLabel.textContent = "Username";
 loginUsernameLabel.htmlFor = 'username'
@@ -62,13 +61,52 @@ loginShowPasswordButton.addEventListener('click', function (event) {
   }
 });
 
-
 const loginSubmitButton = document.createElement("button");
 loginSubmitButton.textContent = "Login";
 loginSubmitButton.className = "bg-blue-600 text-white font-semibold py-2 px-16 rounded-lg shadow hover:bg-blue-700 transition-colors duration-200 self-center"
 loginForm.appendChild(loginSubmitButton);
-
 loginView.appendChild(loginForm);
+
+//Submit login
+loginForm.addEventListener("submit", function (event) {
+  event.preventDefault();
+
+  const username = loginUsernameInput.value;
+  const password = loginPasswordInput.value;
+
+  try {
+    logic.loginUser(username, password);
+
+    loginForm.reset();
+    loginFeedback.textContent = ''
+
+    const pets = logic.getPets()
+
+    for (let i = 0; i < pets.length; i++) {
+      const pet = pets[i]
+
+      const item = document.createElement('li')
+      item.className = 'flex gap-8 my-4 items-center p-4 bg-white rounded-lg shadow hover:shadow-lg transition-shadow'
+
+      const image = document.createElement('img')
+      image.src = pet.image
+      image.className = 'rounded-full w-20 h-20 object-cover border-2 border-blue-500'
+      item.appendChild(image)
+
+      const name = document.createElement('p')
+      name.textContent = pet.name
+      name.className = 'text-2xl font-semibold text-gray-400'
+      item.appendChild(name)
+
+      homePetList.appendChild(item)
+    }
+
+    loginView.style.display = "none";
+    homeView.style.display = "";
+  } catch (error) {
+    loginFeedback.textContent = error.message;
+  }
+});
 
 const loginRegisterLink = document.createElement("a");
 loginRegisterLink.textContent = "Register";
@@ -86,27 +124,5 @@ loginRegisterLink.addEventListener("click", function (event) {
 const loginFeedback = document.createElement("p");
 loginFeedback.className = "text-red-600 text-sm mt-2 font-medium";
 loginView.appendChild(loginFeedback);
-
-//Submit login
-loginForm.addEventListener("submit", function (event) {
-  event.preventDefault();
-
-  const username = loginUsernameInput.value;
-  const password = loginPasswordInput.value;
-
-  try {
-    logic.loginUser(username, password);
-
-    loginForm.reset();
-
-    loginFeedback.textContent = "";
-
-    loginView.style.display = "none";
-
-    homeView.style.display = "";
-  } catch (error) {
-    loginFeedback.textContent = error.message;
-  }
-});
 
 document.body.appendChild(loginView);

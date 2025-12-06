@@ -1,6 +1,6 @@
 const addPetView = document.createElement("div");
 addPetView.className = "flex flex-col items-center justify-center min-h-screen";
-addPetView.style.display = "";
+addPetView.style.display = "none";
 
 const addPetTitle = document.createElement("h1");
 addPetTitle.textContent = "MyPet";
@@ -8,7 +8,7 @@ addPetTitle.className = "text-5xl font-extrabold text-blue-600 text-center mt-6 
 addPetView.appendChild(addPetTitle);
 
 const addPetTopPanel = document.createElement('div');
-addPetTopPanel.className = "flex space-between gap-10 ";
+addPetTopPanel.className = "flex justify-between gap-10";
 addPetView.appendChild(addPetTopPanel);
 
 const addPetSubtitle = document.createElement('h2');
@@ -22,15 +22,15 @@ addPetBackLink.href = "";
 addPetBackLink.className = "text-gray-700 text-lg leading-loose max-w-md mx-auto mt-4 text-center underline ";
 addPetTopPanel.appendChild(addPetBackLink);
 
-addPetBackLink.addEventListener('click', function(event){
-event.preventDefault()
+addPetBackLink.addEventListener('click', function (event) {
+  event.preventDefault()
 
-addPetView.style.display = 'none'
-homeView.style.display = ''
+  addPetView.style.display = 'none'
+  homeView.style.display = ''
 
 })
 
-const addPetForm = document.createElement ('form')
+const addPetForm = document.createElement('form')
 addPetForm.className = "flex flex-col gap-4 w-full max-w-sm mx-auto mt-6"
 
 const addPetNameLabel = document.createElement('label')
@@ -46,11 +46,10 @@ addPetForm.appendChild(addPetNameInput)
 
 const addPetBirthDateLabel = document.createElement('label')
 addPetBirthDateLabel.textContent = 'Date of Birth'
-addPetBirthDateLabel.htmlFor ='date'
+addPetBirthDateLabel.htmlFor = 'date'
 addPetBirthDateLabel.className = "text-m text-gray-600 mt-2"
 addPetForm.appendChild(addPetBirthDateLabel)
 const addPetBirthdateInput = document.createElement('input')
-addPetBirthdateInput.textContent = 'Date of Birth'
 addPetBirthdateInput.id = 'date'
 addPetBirthdateInput.type = 'date'
 addPetBirthdateInput.className = "border border-gray-300 rounded-lg px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
@@ -69,7 +68,7 @@ addPetWeightInput.className = "border border-gray-300 rounded-lg px-3 py-2 shado
 addPetForm.appendChild(addPetWeightInput)
 
 const addPetImageLabel = document.createElement('label')
-addPetImageLabel.htmlfor = 'image'
+addPetImageLabel.htmlFor = 'image'
 addPetImageLabel.textContent = 'Image'
 addPetImageLabel.className = "text-m text-gray-600 mt-2"
 addPetForm.appendChild(addPetImageLabel)
@@ -87,26 +86,49 @@ addPetForm.appendChild(addPetSubmitButton)
 
 addPetView.appendChild(addPetForm)
 
-addPetForm.addEventListener('submit', function(event){
-event.preventDefault()
+addPetForm.addEventListener('submit', function (event) {
+  event.preventDefault()
 
-const name = addPetNameInput.value
-const birthdate = addPetBirthdateInput.value
-const weight = parseFloat(addPetWeightInput.value)
-const image = addPetImageInput.value
+  const name = addPetNameInput.value
+  const birthdate = addPetBirthdateInput.value
+  const weight = parseFloat(addPetWeightInput.value)
+  const image = addPetImageInput.value
 
-try{
-  logic.addPet(name, birthdate, weight, image)
+  try {
+    logic.addPet(name, birthdate, weight, image)
 
-  addPetForm.reset()
-  addPetFeedback.textContent = ''
+    addPetForm.reset()
+    addPetFeedback.textContent = ''
 
-  addPetView.style.display = 'none'
-  homeView.style.display = ''
+    homePetList.innerHTML = ''
 
-} catch(error){
-  addPetFeedback.textContent = error.message
-}
+    const pets = logic.getPets()
+
+        for (let i = 0; i < pets.length; i++) {
+      const pet = pets[i]
+
+      const item = document.createElement('li')
+      item.className = 'flex gap-8 my-4 items-center p-4 bg-white rounded-lg shadow hover:shadow-lg transition-shadow'
+
+      const image = document.createElement('img')
+      image.src = pet.image
+      image.className = 'rounded-full w-20 h-20 object-cover border-2 border-blue-500'
+      item.appendChild(image)
+
+      const name = document.createElement('p')
+      name.textContent = pet.name
+      name.className = 'text-2xl font-semibold text-gray-400'
+      item.appendChild(name)
+
+      homePetList.appendChild(item)
+    }
+
+    addPetView.style.display = 'none'
+    homeView.style.display = ''
+
+  } catch (error) {
+    addPetFeedback.textContent = error.message
+  }
 
 })
 
