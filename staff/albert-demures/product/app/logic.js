@@ -2,7 +2,7 @@ function Logic() {
 }
 
 // Función registrar un nuevo usuario, enviando errores
-Logic.prototype.registerUser = function (name, email, username, password,passwordRepeat) {
+Logic.prototype.registerUser = function (name, email, username, password, passwordRepeat) {
   if (typeof name !== "string") throw new Error("invalid name type")
   if (name.length < 1) throw new Error("invalid name length")
 
@@ -55,7 +55,7 @@ Logic.prototype.loginUser = function (username, password) {
 };
 
 //funcion para hacer logout del usuario
-Logic.prototype.logoutUser = function (){
+Logic.prototype.logoutUser = function () {
   data.setLoggedInUserId(null)
 }
 
@@ -64,7 +64,6 @@ Logic.prototype.addPet = function (name, birthdate, weight, image) {
   if (data.getLoggedInUserId() == null) throw new Error('user not logged in')
 
   const user = data.findUserById(data.getLoggedInUserId())
-
   if (user === null) throw new Error("user not found")
 
   if (typeof name !== 'string') throw new Error('invalid name type')
@@ -88,15 +87,40 @@ Logic.prototype.addPet = function (name, birthdate, weight, image) {
 }
 
 // función para consegir las mascotas de un usuario
-Logic.prototype.getPets = function(){
-  if (data.getLoggedInUserId() === null) throw new Error ('user not logged in')
+Logic.prototype.getPets = function () {
+  if (data.getLoggedInUserId() === null) throw new Error('user not logged in')
 
-    const user = data.findUserById(data.getLoggedInUserId())
-    if (user === null) throw new Error ('user not found')
+  const user = data.findUserById(data.getLoggedInUserId())
+  if (user === null) throw new Error('user not found')
 
-      const pets = data.findPetsByUserId(data.getLoggedInUserId())
+  const pets = data.findPetsByUserId(data.getLoggedInUserId())
 
-      return pets
+  return pets
+}
+
+
+//función eleiminar una mascota
+Logic.prototype.deletePet = function (petId) {
+  if (data.getLoggedInUserId() === null) throw new Error('user not logged in')
+
+  const user = data.findUserById(data.getLoggedInUserId())
+  if (user === null) throw new Error('user not found')
+
+  if (typeof petId !== 'string') throw new Error('invalid pet-id type')
+
+  const petIdRegex = /^\pet-[0-9]+$/
+  if (!petIdRegex.test(petId)) throw new Error('invalid pet id format')
+
+  const pet = data.findPetById(petId)
+
+  if (pet === null) throw new Error('pet not found')
+
+  if (pet.userId !== data.getLoggedInUserId()) throw new Error('user not owner of pet')
+
+  const petIndex = data.pets.indexOf(pet)
+  
+
+  data.pets.splice(petIndex, 1)
 }
 
 // instance

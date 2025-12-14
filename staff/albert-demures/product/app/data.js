@@ -10,7 +10,7 @@ function User(id, name, email, username, password, role) {
   this.role = role
 }
 
-// Función para añadir animeles
+// Función para añadir mascotas
 function Pet(id, userId, /*chip,*/ name, /*gender,*/ birthdate, weight,/*species, race, colors*/ image) {
   this.id = id
   this.userId = userId
@@ -25,6 +25,7 @@ function Pet(id, userId, /*chip,*/ name, /*gender,*/ birthdate, weight,/*species
   this.image = image
 }
 
+//manager
 // función para añadir información general
 
 function Data() {
@@ -43,7 +44,7 @@ Data.prototype.insertUser = function (user) {
 
 
 
-//funión para buscar un suario por su correo
+//funión para buscar un usuario por su correo
 Data.prototype.findUserByEmail = function (email) {
   for (let i = 0; i < this.users.length; i++) {
     const user = this.users[i]
@@ -54,7 +55,7 @@ Data.prototype.findUserByEmail = function (email) {
   return null;
 };
 
-// función para buscar un usario por su username
+// función para buscar un usuario por su username
 Data.prototype.findUserByUsername = function (username) {
   for (let i = 0; i < this.users.length; i++) {
     const user = this.users[i]
@@ -105,6 +106,17 @@ Data.prototype.findPetsByUserId = function (userId) {
   }
 
   return foundPets
+}
+
+Data.prototype.findPetById = function(petId){
+  for (let i = 0; i < this.pets.length; i++){
+    const pet = this.pets[i]
+
+    if (pet.id=== petId)
+      return pet
+  }
+
+  return null
 }
 
 // crear nueva coleción de datos
