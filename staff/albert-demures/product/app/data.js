@@ -1,17 +1,21 @@
 // models
 
 //Función para añadir usuarios
-function User(id, name, email, username, password, role) {
-  this.id = id
-  this.name = name
-  this.email = email
-  this.username = username
-  this.password = password
-  this.role = role
+class User {
+  constructor(id, name, email, username, password, role) {
+    this.id = id
+    this.name = name
+    this.email = email
+    this.username = username
+    this.password = password
+    this.role = role
+  }
 }
 
 // Función para añadir mascotas
-function Pet(id, userId, /*chip,*/ name, /*gender,*/ birthdate, weight,/*species, race, colors*/ image) {
+
+class Pet{
+constructor(id, userId, /*chip,*/ name, /*gender,*/ birthdate, weight,/*species, race, colors*/ image) {
   this.id = id
   this.userId = userId
   // this.chip = chip
@@ -24,9 +28,11 @@ function Pet(id, userId, /*chip,*/ name, /*gender,*/ birthdate, weight,/*species
   // this.colors = colors
   this.image = image
 }
+}
 
 //manager
 // función para añadir información general
+
 
 function Data() {
   this.users = []
@@ -108,11 +114,11 @@ Data.prototype.findPetsByUserId = function (userId) {
   return foundPets
 }
 
-Data.prototype.findPetById = function(petId){
-  for (let i = 0; i < this.pets.length; i++){
+Data.prototype.findPetById = function (petId) {
+  for (let i = 0; i < this.pets.length; i++) {
     const pet = this.pets[i]
 
-    if (pet.id=== petId)
+    if (pet.id === petId)
       return pet
   }
 

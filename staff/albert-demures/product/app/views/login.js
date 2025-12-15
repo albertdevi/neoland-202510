@@ -73,31 +73,7 @@ loginForm.addEventListener("submit", function (event) {
     reset(loginForm)
     setTextContent(loginFeedback, '')
 
-
     renderHomePetList()
-    /*
- const pets = logic.getPets()
-
- for (let i = 0; i < pets.length; i++) {
-   const pet = pets[i]
-
-   const petItem = document.createElement('li')
-   petItem.className = 'flex gap-8 my-4 items-center p-4 bg-white rounded-lg shadow hover:shadow-lg transition-shadow'
-
-   const image = document.createElement('img')
-   image.src = pet.image
-   image.className = 'rounded-full w-20 h-20 object-cover border-2 border-blue-500'
-   petItem.appendChild(image)
-
-   const name = document.createElement('p')
-   name.textContent = pet.name
-   name.className = 'text-2xl font-semibold text-gray-400'
-   petItem.appendChild(name)
-
-   homePetList.appendChild(petItem)
- }
-
- */
 
     hideView(loginView)
     showView(homeView)

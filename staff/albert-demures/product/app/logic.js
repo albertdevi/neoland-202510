@@ -98,8 +98,7 @@ Logic.prototype.getPets = function () {
   return pets
 }
 
-
-//función eleiminar una mascota
+//función eliminar una mascota
 Logic.prototype.deletePet = function (petId) {
   if (data.getLoggedInUserId() === null) throw new Error('user not logged in')
 
@@ -119,7 +118,6 @@ Logic.prototype.deletePet = function (petId) {
 
   const petIndex = data.pets.indexOf(pet)
   
-
   data.pets.splice(petIndex, 1)
 }
 
