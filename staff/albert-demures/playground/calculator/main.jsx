@@ -102,6 +102,121 @@ function App() {
         }
     }
 
+    const handleChangeSignClicked = () => {
+
+        /*
+        const lastIndexOfDivide = displayValue.lastIndexOf('÷')
+        const lastIndexOfMultiply = displayValue.lastIndexOf('×')
+        const lastIndexOfSubtract = displayValue.lastIndexOf('-')
+        const lastIndexOfAdd = displayValue.lastIndexOf('+')
+        
+         const lastIndexOfOperation = Math.max(lastIndexOfDivide, lastIndexOfMultiply, lastIndexOfSubtract, lastIndexOfAdd)
+
+        let newValue
+
+         if(lastIndexOfOperation ===- 1) {
+            if (displayValue === '0' ) return
+
+            if (!displayValue.includes('(')){
+                newValue= '(-' + displayValue + ')'
+
+            }
+            else{
+            const operand = displayValue.slice(2, displayValue.length -1)
+
+            newValue = operand
+            }
+         }
+        setDisplayValue(newValue)
+
+        */
+
+        const operands = []
+        const operators = []
+
+        let operand = ''
+
+        for (let i = 0; i < displayValue.length; i++) {
+            const char = displayValue[i]
+            const prevChar = displayValue[i - 1]
+
+            if (char === '-' && prevChar !== '(' || char === '+' || char === '×' || char === '÷') {
+                operands.push(operand)
+                operators.push(char)
+                operand = ''
+            } else {
+                operand += char
+
+                if (i === displayValue.length - 1)
+                    operands.push(operand)
+            }
+        }
+
+        if (operands.length === operators.length) return
+
+        let lastOperand = operands.at(-1)
+
+        if (lastOperand === '0') return
+
+        if (lastOperand.includes('('))
+            lastOperand = lastOperand.slice(2, -1)
+        else
+            lastOperand = '(-' + lastOperand + ')'
+
+        operands[operands.length - 1] = lastOperand
+
+        let newValue = ''
+
+        for (let i = 0; i < operands.length; i++) {
+            const operand = operands[i]
+
+            newValue += operand
+
+            const operator = operators[i]
+
+            if (operator)
+                newValue += operator
+        }
+
+        setDisplayValue(newValue)
+    }
+
+    const handleCommaClicked = () => {
+        const lastCharacter = displayValue.at(-1)
+
+        if (lastCharacter === ',') return
+
+        const lastIndexOfDivide = displayValue.lastIndexOf('÷')
+        const lastIndexOfMultiply = displayValue.lastIndexOf('×')
+        const lastIndexOfSubtract = displayValue.lastIndexOf('-')
+        const lastIndexOfAdd = displayValue.lastIndexOf('+')
+
+        const lastIndexOfOperation = Math.max(lastIndexOfDivide, lastIndexOfMultiply, lastIndexOfSubtract, lastIndexOfAdd)
+
+        const lastIndex = displayValue.length - 1
+
+        let newValue
+
+        if (lastIndexOfOperation === lastIndex)
+            newValue = displayValue + '0,'
+
+        else if (lastIndexOfOperation === -1) {
+            if (displayValue.includes(',')) return
+
+            newValue = displayValue + ','
+        } else {
+            const lastOperand = displayValue.slice(lastIndexOfOperation + 1)
+
+            if (lastOperand.includes(',')) return
+
+            newValue = displayValue + ','
+        }
+        setDisplayValue(newValue)
+
+    }
+
+
+
     const handleBackSpaceClicked = () => {
         if (displayValue.length === 1) {
             if (displayValue === '0')
@@ -117,11 +232,13 @@ function App() {
 
     const handleResultClicked = () => {
         const operation = displayValue.replaceAll('÷', '/').replaceAll('×', '*')
-
         const result = eval(operation)
 
-        setDisplayValue(String(result))
+        const newValue = String(result)
+
+        setDisplayValue(newValue)
     }
+
     console.log('App -> render')
 
     return <div className="border-2 m-2 p-2 rounded-2xl bg-gray-800 text-white">
@@ -129,7 +246,7 @@ function App() {
 
         <div className="p-2 flex flex-col gap-2">
             <div className='flex justify-between'>
-                <div className="bg-gray-400 p-2 rounded-full w-10 h-10 flex justify-center items-center cursor-pointer" onClick= {handleBackSpaceClicked}>⌫</div>
+                <div className="bg-gray-400 p-2 rounded-full w-10 h-10 flex justify-center items-center cursor-pointer" onClick={handleBackSpaceClicked}>⌫</div>
                 <div className="bg-gray-400 p-2 rounded-full w-10 h-10 flex justify-center items-center cursor-pointer" onClick={handleDeleteClicked}>AC</div>
                 <div className="bg-gray-400 p-2 rounded-full w-10 h-10 flex justify-center items-center cursor-pointer">%</div>
                 <div className="bg-orange-400 p-2 rounded-full w-10 h-10 flex justify-center items-center cursor-pointer" onClick={handleDivideClicked}>÷</div>
@@ -157,9 +274,9 @@ function App() {
             </div>
 
             <div className='flex justify-between'>
-                <div className="bg-gray-600 p-2 rounded-full w-10 h-10 flex justify-center items-center cursor-pointer" onClick={handleNegativeClicked}>+/-</div>
+                <div className="bg-gray-600 p-2 rounded-full w-10 h-10 flex justify-center items-center cursor-pointer" onClick={handleChangeSignClicked}>+/-</div>
                 <div className="bg-gray-600 p-2 rounded-full w-10 h-10 flex justify-center items-center cursor-pointer" onClick={handleZeroClicked}>0</div>
-                <div className="bg-gray-600 p-2 rounded-full w-10 h-10 flex justify-center items-center cursor-pointer">,</div>
+                <div className="bg-gray-600 p-2 rounded-full w-10 h-10 flex justify-center items-center cursor-pointer" onClick={handleCommaClicked}>,</div>
                 <div className="bg-orange-400 p-2 rounded-full w-10 h-10 flex justify-center items-center cursor-pointer" onClick={handleResultClicked}>=</div>
             </div>
 
