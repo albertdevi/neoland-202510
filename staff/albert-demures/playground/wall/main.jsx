@@ -10,43 +10,33 @@ function App() {
     const setMessages = messagesState[1]
 
     const handleMessageSubmit = event => {
-
         event.preventDefault()
-
-        /*
-        const message = document.getElementById('message').value
-        const name = document.getElementById('name').value
-        const date = Date()
-
-        setMessages ([message + ' (' + name + ', '  + date + ')'])
-     */
 
         const form = event.target
 
-        const message = form.message.value
         const name = form.name.value
-        const date = new Date()
-        const year = date.getFullYear()
-        const month = date.getMonth() + 1
-        const day = date.getDate()
+        const message = form.message.value
 
+        try {
+            logic.addMessage(name, message)
 
-        // const newMessage = message + ' (' + name + ', ' + date.toLocaleDateString() + ')'
-        const newMessage = message + ' (' + name + ', ' + year + '-' + month + '-' + day + ')'
+            form.reset()
 
-        const newMessages = []
+            const messages = logic.getAllMessages()
 
-        for (let i = 0; i < messages.length; i++) {
-            const message = messages[i]
+            const newMessages = []
 
-            newMessages.push(message)
+            for (let i = 0; i < messages.length; i++) {
+                const message = messages[i]
+
+                newMessages.push(message)
+
+            }
+
+            setMessages(newMessages)
+        } catch (error) {
+            console.error(error)
         }
-
-        newMessages.push(newMessage)
-
-        setMessages(newMessages)
-
-        form.reset()
     }
 
     console.log('App -> render')
@@ -56,32 +46,32 @@ function App() {
     for (let i = 0; i < messages.length; i++) {
         const message = messages[i]
 
+        const messageString = message.text + '(' + message.author + ', ' + message.date + ')'
+
         const listItem = <li>
-            <p>{message}</p>
+            <p>{messageString}</p>
         </li>
 
         listItems.push(listItem)
     }
 
     return <div className="flex flex-col gap-2 p-2">
-        <h1 className="text-3xl">Wall</h1>
+        <h1 className="text-3xl cursor-pointer">Wall</h1>
 
         <ul className="p-2">
-                {listItems}
+            {listItems}
         </ul>
 
         <form className="flex flex-col gap-2 border p-2" onSubmit={handleMessageSubmit}>
             <h2>Leave your message on the wall!</h2>
 
             <label htmlFor="message">Message</label>
-            <input className="border" type="text" id="message"
-                placeholder="message" />
+            <input className="border" type="text" id="message" placeholder="message" />
 
             <label htmlFor="name">Name</label>
-            <input className="border" type="text" id="name"
-                placeholder="name" />
+            <input className="border" type="text" id="name" placeholder="name" />
 
-            <button className="border bg-black text-white" type="submit">Send</button>
+            <button className="border bg-black text-white cursor-pointer" type="submit">Send</button>
         </form>
     </div>
 }
