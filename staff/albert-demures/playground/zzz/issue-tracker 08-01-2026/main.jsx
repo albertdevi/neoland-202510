@@ -7,12 +7,16 @@ function App() {
     console.log('App -> call')
 
     //creo un useSatate inicial, le he puesto propiedades para iniciar con uno ya creado
-    const [issues, setIssues] = useState([
+    const issuesState = useState([
         { subject: 'Entregar gráficos', body: 'Entregar todos los gráficos también en PNG', id: 'Issue-1055', status: 'Open', date: new Date(), author: 'Albert Demures' }
     ])
+    const issues = issuesState[0]
+    const setIssues = issuesState[1]
 
     //crear estados para los errores
-    const [error, setError] = useState(null)
+    const errorState = useState(null)
+    const error = errorState[0]
+    const setError = errorState[1]
 
     //Costante array que define el estilo del header según el estado.
     const headerStyles = {
@@ -42,7 +46,9 @@ function App() {
     const statuses = ['Open', 'InProgress', 'OnHold', 'Done']
 
     //Constante para ir cambiando el estado
-    const [count, setCount] = useState(1)
+    const countState = useState(1)
+    let count = countState[0]
+    const setCount = countState[1]
 
     const handleMessageSubmit = (event) => {
         event.preventDefault()
@@ -103,14 +109,13 @@ function App() {
                         console.log('click')
                         // Al hacer click, avanza el estado del issue de forma cíclica y fuerza el re-render
                         logic.setIssueStatus(issueId, statuses[count])
-                          // Preparo el count para el siguiente estado. El % hace que cuando pase el statuses.lenght, en este caso si es = a 4, vuelvo al principio
-                        setCount((count + 1) % statuses.length)
 
                         //Creo una constante con todas las issues nuevas
                         const issues = logic.getAllIssues()
                         // Creo un nuevo array, con las issues actualizadas.
                         setIssues([...issues])
-                      
+                        // Preparo el count para el siguiente estado. El % hace que cuando pase el statuses.lenght, en este caso si es = a 4, vuelvo al principio
+                        setCount((count + 1) % statuses.length)
                     }}
                 >
                     {issueStatus} {statusIcons[issueStatus]}
@@ -128,6 +133,7 @@ function App() {
             </div>
         </li>)
     }
+
 
     const filterOpen = (event) => {
         event.preventDefault()
@@ -271,3 +277,6 @@ function App() {
         </div>
     </div>
 }
+
+
+//todo: destructurar los uses states y mirar como cambia los estados

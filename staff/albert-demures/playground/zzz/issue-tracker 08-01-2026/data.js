@@ -9,18 +9,11 @@ class Data {
         data.issuesCount++
     }
 
-    getIssues() {
+    getIssues(){
         return data.issues
     }
-
-    findIssueById(issueId) {
-        for (const issue of this.issues)
-            if (issue.id === issueId)
-                return issue
-
-        return null
-    }
 }
+
 
 //instance
 

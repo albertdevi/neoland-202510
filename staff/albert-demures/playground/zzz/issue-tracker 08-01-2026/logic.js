@@ -21,32 +21,18 @@ class Logic {
         return data.getIssues()
     }
 
-    /*
-        setIssueStatus(issueId, newStatus) {
-            if (typeof issueId !== 'string') throw new Error('invalid issue id')
-            if (typeof newStatus !== 'string') throw new Error('invalid status')
-            const issues = data.getIssues()
-    
-    
-    
-            for (let i = 0; i < issues.length; i++) {
-                if (issues[i].id === issueId) {
-                    issues[i].status = newStatus
-                    return
-                }
-            }
-        }
-    */
-
-
     setIssueStatus(issueId, newStatus) {
         if (typeof issueId !== 'string') throw new Error('invalid issue id')
         if (typeof newStatus !== 'string') throw new Error('invalid status')
-        const issue = data.findIssueById(issueId)
+        const issues = data.getIssues()
 
-        issue.status = newStatus
+        for (let i = 0; i < issues.length; i++) {
+            if (issues[i].id === issueId) {
+                issues[i].status = newStatus
+                return
+            }
+        }
     }
-
 }
 
 // instance

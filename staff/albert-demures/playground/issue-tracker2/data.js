@@ -1,16 +1,16 @@
 class Data {
     constructor() {
-        this.issues = [] // [{ date: ..., subject: ..., body: ..., status: 'open' | 'closed' }]
+        this.issues = [] // [{ id: ...., date: ..., subject: ..., body: ..., status: 'open' | 'closed' }]
         this.issuesCount = 0
     }
 
     insertIssue(issue) {
         this.issues.push(issue)
-        data.issuesCount++
+        this.issuesCount++
     }
 
     getIssues() {
-        return data.issues
+        return this.issues
     }
 
     findIssueById(issueId) {
@@ -22,6 +22,6 @@ class Data {
     }
 }
 
-//instance
+// instance
 
 const data = new Data()
