@@ -1,6 +1,6 @@
 const homeView = createView()
 setClass(homeView, 'flex flex-col gap-5 items-center justify-center min-h-screen')
-hideView(homeView)
+// hideView(homeView)
 
 const homeTitle = createTitle()
 setTextContent(homeTitle, 'MyPet')
