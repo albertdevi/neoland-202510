@@ -5,49 +5,198 @@ root.render(<App />)
 const useState = React.useState
 
 function App() {
+    const [view, setView] = useState('landing')
 
-    /*
-        // landing
+    const handleLoginClick = event => {
+        event.preventDefault()
+
+        setView('login')
+    }
+
+    const handleRegisterClick = event => {
+        event.preventDefault()
+
+        setView('register')
+    }
+
+
+    const handleHomeClick = event => {
+        event.preventDefault()
+
+        setView('home')
+    }
+
+    const handleAddPetClick = event => {
+        event.preventDefault()
+
+        setView('add-pet')
+    }
+
+    // landing
+    if (view === 'landing')
         return <div className="flex flex-col gap-5 items-center justify-center min-h-screen">
-    
+
             <h1 className="text-5xl font-extrabold text-blue-600 text-center mt-6 tracking-tight">MyPet</h1>
-    
+
             <p className="text-3xl font-semibold text-blue-500 text-center mt-4 tracking-tight">Welcome!</p>
-    
+
             <nav className="text-gray-700 text-lg leading-loose max-w-md mx-auto mt-4 text-center">
-                <a className="underline">Login</a> or <a className="underline">Register</a>
-    
+                <a className="cursor-pointer underline font-bold" onClick={handleLoginClick}>Login</a> or <a className="cursor-pointer underline font-bold" onClick={handleRegisterClick}>Register</a>
+
             </nav>
         </div>
-    
-    */
+
 
     //login
-    return <div className="flex flex-col items-center justify-center min-h-screen">
-        <h1 className="text-5xl font-extrabold text-blue-600 text-center mt-6 tracking-tight">MyPet</h1>
+    if (view === 'login')
+        return <div className="flex flex-col items-center justify-center min-h-screen">
+            <h1 className="text-5xl font-extrabold text-blue-600 text-center mt-6 tracking-tight">MyPet</h1>
 
-        <h2 className="text-3xl font-semibold text-blue-500 text-center mt-4 tracking-tight">Login</h2>
+            <h2 className="text-3xl font-semibold text-blue-500 text-center mt-4 tracking-tight">Login</h2>
 
-        <form className="flex flex-col gap-4 w-full max-w-sm mx-auto mt-6">
-            <label className="text-m text-gray-600 mt-2" for="username">Username</label>
-            <input className="border border-gray-300 rounded-lg px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" id="username" type="text" />
+            <form className="flex flex-col gap-4 w-full max-w-sm mx-auto mt-6">
+                <label className="text-m text-gray-600 mt-2" htmlFor="username">Username</label>
+                <input className="border border-gray-300 rounded-lg px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" id="username" type="text" />
 
-            <label className="text-m text-gray-600 mt-2" for="password">Password</label>
-            <input className="border border-gray-300 rounded-lg px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" id="password" type="password" />
+                <label className="text-m text-gray-600 mt-2" htmlFor="password">Password</label>
+                <input className="border border-gray-300 rounded-lg px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" id="password" type="password" />
 
-            <button className="w-24 bg-gray-600 text-white font-semibold py-1 px-0 rounded-lg shadow hover:bg-gray-700 transition-colors duration-200 self-end" type="button">Show</button>
+                <button className="w-24 bg-gray-600 text-white font-semibold py-1 px-0 rounded-lg shadow hover:bg-gray-700 transition-colors duration-200 self-end" type="button">Show</button>
 
-            <button className="bg-blue-600 text-white font-semibold py-2 px-16 rounded-lg shadow hover:bg-blue-700 transition-colors duration-200 self-center">Login</button>
-        </form>
+                <button className="bg-blue-600 text-white font-semibold py-2 px-16 rounded-lg shadow hover:bg-blue-700 transition-colors duration-200 self-center" onClick={handleHomeClick}>Login</button>
+            </form>
 
-        <a className="text-gray-700 text-lg leading-loose max-w-md mx-auto mt-4 text-center underline">Register</a>
+            <a className="text-gray-700 text-lg leading-loose max-w-md mx-auto mt-4 text-center cursor-pointer underline font-bold" onClick={handleRegisterClick}>Register</a>
 
-        <p className="text-red-600 text-sm mt-2 font-medium"></p>
-    </div>
+            <p className="text-red-600 text-sm mt-2 font-medium"></p>
+        </div>
 
 
 
+    // Register
+    if (view === 'register')
+        return <div className="flex flex-col items-center justify-center min-h-screen">
+
+            <h1 className="text-5xl font-extrabold text-blue-600 text-center mt-6 tracking-tight">MyPet</h1>
+
+            <h2 className="text-3xl font-semibold text-blue-500 text-center mt-4 tracking-tight">Register</h2>
+
+            <form className="flex flex-col gap-4 w-full max-w-sm mx-auto mt-6">
+                <label className="text-m text-gray-600 mt-2" htmlFor="name">Name</label>
+                <input className="border border-gray-300 rounded-lg px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" id="name" type="text" />
+
+                <label className="text-m text-gray-600 mt-2" htmlFor="email">Email</label>
+                <input className="border border-gray-300 rounded-lg px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" id="email" type="email" />
+
+                <label className="text-m text-gray-600 mt-2">Username</label>
+                <input className="border border-gray-300 rounded-lg px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" id="username" type="text" />
+
+                <label className="text-m text-gray-600 mt-2">Password</label>
+
+                <input className="border border-gray-300 rounded-lg px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" type="password" />
+
+                <button className="w-24 bg-gray-600 text-white font-semibold py-1 px-0 rounded-lg shadow hover:bg-gray-700 transition-colors duration-200 self-end" type="button">Show</button>
+
+                <label className="text-m text-gray-600 mt-2" htmlFor="repeatPassword">Repeat Password</label>
+                <input className="border border-gray-300 rounded-lg px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" id="repeatPassword" type="password" />
+                <button className="w-24 bg-gray-600 text-white font-semibold py-1 px-0 rounded-lg shadow hover:bg-gray-700 transition-colors duration-200 self-end" type="button">Show</button>
+
+                <button className="bg-blue-600 text-white font-semibold py-2 px-16 rounded-lg shadow hover:bg-blue-700 transition-colors duration-200 self-center" type="submit">Register</button>
+            </form>
+
+            <a href="" className="text-gray-700 text-lg leading-loose max-w-md mx-auto mt-4 text-center cursor-pointer underline font-bold" onClick={handleLoginClick}>Login</a>
+
+            <p className="text-red-600 text-sm mt-2 font-medium"></p>
+
+        </div>
+
+    //home
+    if (view === 'home')
+        return <div className="flex flex-col gap-5 items-center justify-center min-h-screen">
+            <h1 className="text-5xl font-extrabold text-blue-600 text-center mt-6 tracking-tight">MyPet</h1>
+
+            <h2 className="text-3xl font-semibold text-blue-500 text-center mt-4 tracking-tight">Welcome Home</h2>
+
+            <div className="flex justify-between gap-8">
+                <button className="bg-blue-600 text-white font-semibold py-2 px-16 rounded-lg shadow hover:bg-blue-700 transition-colors duration-200 self-center" onClick={handleAddPetClick}>+ Pet</button>
+
+                <button className="w-24 bg-gray-600 text-white font-semibold py-1 px-0 rounded-lg shadow hover:bg-gray-700 transition-colors duration-200 self-end" onClick={handleLoginClick} type="button">Logout</button>
+            </div>
+
+            <ul className="flex flex-col gap-2 mt-2">
+                <li className="flex gap-8 my-4 items-center p-4 bg-white rounded-lg shadow hover:shadow-lg transition-shadow">
+                    <div className="flex items-center gap-4">
+                        <img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExeTdhYXNmd28yMWE4MXJpNHIwam01NWw0d2Fud3V2eDg0NzVscnY2MiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/Sm999hwfG7DZnnbK0a/giphy.gif" className="rounded-full w-20 h-20 object-cover border-2 border-blue-500" />
+                        <p className="text-2xl font-semibold text-gray-400">Picket</p>
+                    </div>
+                    <button className="w-10 h-10 bg-gray-400 text-white rounded-full flex items-center justify-center self-center ml-auto shadow-md hover:bg-gray-500 active:scale-95 transition-all duration-200 justify-self-end">🗑</button>
+                </li>
+
+
+                <li className="flex gap-8 my-4 items-center p-4 bg-white rounded-lg shadow hover:shadow-lg transition-shadow"><div className="flex items-center gap-4">
+                    <img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExdWlkeWhrMWNjeDNkNjZsZGd2Zzgyd2J4MGd3MDUzeXplbzR1N2YyYiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/BtThjFrZkhA2Qzr60r/giphy.gif" className="rounded-full w-20 h-20 object-cover border-2 border-blue-500" />
+                    <p className="text-2xl font-semibold text-gray-400">Niffler</p></div>
+                    <button className="w-10 h-10 bg-gray-400 text-white rounded-full flex items-center justify-center self-center ml-auto shadow-md hover:bg-gray-500 active:scale-95 transition-all duration-200 justify-self-end">🗑</button>
+                </li>
+
+
+                <li className="flex gap-8 my-4 items-center p-4 bg-white rounded-lg shadow hover:shadow-lg transition-shadow"><div className="flex items-center gap-4">
+                    <img src="https://i.pinimg.com/originals/f5/a1/3a/f5a13aa18d1212d54f9613642214d3c7.gif" className="rounded-full w-20 h-20 object-cover border-2 border-blue-500" />
+                    <p className="text-2xl font-semibold text-gray-400">Demiguse</p>
+                </div>
+                    <button className="w-10 h-10 bg-gray-400 text-white rounded-full flex items-center justify-center self-center ml-auto shadow-md hover:bg-gray-500 active:scale-95 transition-all duration-200 justify-self-end">🗑</button>
+                </li>
+
+
+                <li className="flex gap-8 my-4 items-center p-4 bg-white rounded-lg shadow hover:shadow-lg transition-shadow"><div className="flex items-center gap-4">
+                    <img src="https://i.pinimg.com/originals/98/e0/64/98e064cd4e8d3f42c4587aa4ce32a9ef.gif" className="rounded-full w-20 h-20 object-cover border-2 border-blue-500" />
+                    <p className="text-2xl font-semibold text-gray-400">Thunderbird</p>
+                </div>
+                    <button className="w-10 h-10 bg-gray-400 text-white rounded-full flex items-center justify-center self-center ml-auto shadow-md hover:bg-gray-500 active:scale-95 transition-all duration-200 justify-self-end">🗑</button>
+                </li>
+
+            </ul>
+        </div>
+
+    // add pet
+    if (view === 'add-pet')
+        return <div className="flex flex-col items-center justify-center min-h-screen">
+            <h1 className="text-5xl font-extrabold text-blue-600 text-center mt-6 tracking-tight">MyPet</h1>
+
+            <div className="flex justify-between gap-10 mt-4">
+                <h2 className="text-3xl font-semibold text-blue-500 text-center  tracking-tight">Add new pet</h2>
+
+                <a className="cursor-pointer underline font-bold text-gray-700 text-lg" onClick={handleHomeClick}>Back</a>
+            </div>
+
+            <form className="flex flex-col gap-4 w-full max-w-sm mx-auto mt-6">
+                <label className="text-m text-gray-600 mt-2" htmlFor="name">Name</label>
+                <input className="border border-gray-300 rounded-lg px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" id="name" type="text" />
+
+                <label className="text-m text-gray-600 mt-2" htmlFor="date">Date of Birth</label>
+                <input className="border border-gray-300 rounded-lg px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" id="date" type="date" />
+
+                <label className="text-m text-gray-600 mt-2" htmlFor="weight">Weight (kg)</label>
+                <input className="border border-gray-300 rounded-lg px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" type="number" step="0.01" />
+
+                <label className="text-m text-gray-600 mt-2" htmlFor="image">Image</label>
+                <input className="border border-gray-300 rounded-lg px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" id="image" type="url" />
+
+                <button className="bg-blue-600 text-white font-semibold py-2 px-16 rounded-lg shadow hover:bg-blue-700 transition-colors duration-200 self-center" type="submit">Add Pet</button>
+            </form>
+
+            <p className="text-red-600 text-sm mt-2 font-medium"></p>
+
+        </div>
+
+
+    //pet
+    if (view === 'pet')
+        return <div className="flex flex-col gap-5 items-center justify-center min-h-screen" >
+            <h1 className="text-5xl font-extrabold text-blue-600 text-center mt-6 tracking-tight">MyPet</h1>
+
+            <h2 className="text-3xl font-semibold text-blue-500 text-center mt-4 tracking-tight">Pet details</h2>
+
+        </div>
 
 }
-
-

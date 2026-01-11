@@ -1,6 +1,6 @@
 const landingView = createView()
 landingView.className = "flex flex-col gap-5 items-center justify-center min-h-screen"
-landingView.style.display = "none"
+//landingView.style.display = "none"
 
 const landingTitle = createTitle()
 setTextContent(landingTitle, 'MyPet')
