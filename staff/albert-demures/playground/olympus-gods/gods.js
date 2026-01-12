@@ -33,7 +33,7 @@ godsTitle.className = 'text-8xl font-extrabold text-gray-900 text-center';
 titleSection.appendChild(godsTitle);
 godsView.appendChild(titleSection);
 
-     
+
 
 // --------------------
 // Función para crear secciones de dioses
@@ -62,6 +62,10 @@ function createGodSections(container, godsSubset) {
         // Imagen
         const image = document.createElement('img');
         image.src = god.imgHades;
+
+        // 👇 LAZY LOADING
+        image.loading = index === 0 ? 'eager' : 'lazy';
+
         image.className = 'w-82 h-82 object-cover rounded-full border-8 border-yellow-400 shadow-2xl transition-transform duration-500 hover:scale-105';
         godCard.appendChild(image);
 
@@ -141,7 +145,7 @@ const submitSection = document.createElement('div');
 submitSection.className = 'snap-start min-h-screen w-full flex flex-col items-center justify-center gap-4';
 
 const errorCounter = document.createElement('div');
-errorCounter.textContent = ''; 
+errorCounter.textContent = '';
 errorCounter.className = 'text-2xl font-bold text-red-500';
 submitSection.appendChild(errorCounter);
 
@@ -186,7 +190,7 @@ const submitSection2 = document.createElement('div');
 submitSection2.className = 'snap-start min-h-screen w-full flex flex-col items-center justify-center gap-4';
 
 const errorCounter2 = document.createElement('div');
-errorCounter2.textContent = ''; 
+errorCounter2.textContent = '';
 errorCounter2.className = 'text-2xl font-bold text-red-500';
 submitSection2.appendChild(errorCounter2);
 
@@ -327,7 +331,7 @@ sources.forEach(source => {
     const button = document.createElement('button');
     button.textContent = source;
     button.className = 'bg-yellow-500 text-black px-4 py-2 rounded-full font-bold hover:bg-yellow-400 transition-colors duration-300';
-    
+
     button.addEventListener('click', () => {
         // Actualizar todas las imágenes de los dioses visibles
         const godCards = document.querySelectorAll('.card-container img');
