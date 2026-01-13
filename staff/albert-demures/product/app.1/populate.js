@@ -6,7 +6,7 @@ data.insertUser(new User('user-' + data.usersCount, 'Albus Dumbledore', 'albus@d
 
 data.insertPet(new Pet('pet-' + data.petsCount, 'user-0', 'Picket', '2022-05-05', 1, 'https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExeTdhYXNmd28yMWE4MXJpNHIwam01NWw0d2Fud3V2eDg0NzVscnY2MiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/Sm999hwfG7DZnnbK0a/giphy.gif'))
 
-data.insertPet(new Pet('pet-' + data.petsCount, 'user-0', 'Niffler', '2022-06-11', 3, 'https://pa1.aminoapps.com/6336/a1944d4b7ad854f455a1d7b954921784e83ae624_00.gif'))
+data.insertPet(new Pet('pet-' + data.petsCount, 'user-0', 'Niffler', '2022-06-11', 3, 'https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExdWlkeWhrMWNjeDNkNjZsZGd2Zzgyd2J4MGd3MDUzeXplbzR1N2YyYiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/BtThjFrZkhA2Qzr60r/giphy.gif'))
 
 data.insertPet(new Pet('pet-' + data.petsCount, 'user-0', 'Demiguse', '2023-02-09', 26, 'https://i.pinimg.com/originals/f5/a1/3a/f5a13aa18d1212d54f9613642214d3c7.gif'))
 

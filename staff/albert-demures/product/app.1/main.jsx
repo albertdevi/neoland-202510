@@ -2,7 +2,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'))
 
 root.render(<App />)
 
-const useState = React.useState
+const { useState, useRef } = React
 
 function App() {
     console.log('App -> call')
@@ -11,35 +11,33 @@ function App() {
     const [message, setMessage] = useState('')
     const [passwordType, setPasswordType] = useState('password')
     const [passwordRepeatType, setPasswordRepeatType] = useState('password')
+    const [pets, setPets] = useState([])
+
+    const loginFormRef = useRef()
+    const registerFormRef = useRef()
 
     const handleLoginClick = event => {
         event.preventDefault()
-        setMessage('')
 
+        if (registerFormRef.current)
+            registerFormRef.current.reset()
+
+        setView('login')
+        setMessage('')
         setPasswordType('password')
         setPasswordRepeatType('password')
-        setView('login')
     }
 
     const handleRegisterClick = event => {
         event.preventDefault()
+
+        if (loginFormRef.current)
+            loginFormRef.current.reset()
+
+        setView('register')
         setMessage('')
-        
         setPasswordType('password')
         setPasswordRepeatType('password')
-        setView('register')
-    }
-
-    const handleHomeClick = event => {
-        event.preventDefault()
-
-        setView('home')
-    }
-
-    const handleAddPetClick = event => {
-        event.preventDefault()
-
-        setView('add-pet')
     }
 
     const handleLoginSubmit = event => {
@@ -55,16 +53,25 @@ function App() {
 
             form.reset()
 
-            setView('home')
+            const pets = logic.getPets()
 
+            const newPets = []
+
+            for (const pet of pets) {
+                newPets.push(pet)
+            }
+
+            setView('home')
             setMessage('')
+            setPasswordType('password')
+            setPasswordRepeatType('password')
+            setPets(newPets)
         } catch (error) {
             setMessage(error.message)
         }
     }
 
     const handleRegisterSubmit = event => {
-
         event.preventDefault()
 
         const form = event.target
@@ -90,13 +97,71 @@ function App() {
     const handleTogglePasswordClick = event => {
         event.preventDefault()
 
-        setPasswordType(passwordType === 'password'? 'text' : 'password')
+        setPasswordType(passwordType === 'password' ? 'text' : 'password')
     }
+
 
     const handleTogglePasswordRepeatClick = event => {
         event.preventDefault()
 
-        setPasswordRepeatType(passwordRepeatType === 'password'? 'text' : 'password')
+        setPasswordRepeatType(passwordRepeatType === 'password' ? 'text' : 'password')
+    }
+
+    const handleLogoutClick = event => {
+        event.preventDefault()
+
+        setMessage('')
+
+        try {
+            logic.logoutUser()
+
+            setView('login')
+        } catch (error) {
+            setMessage('sorry, there was an error on logout, please try it later')
+        }
+    }
+
+    const handleAddPetClick = event => {
+        event.preventDefault()
+
+        setView('add-pet')
+    }
+
+    const handleBackClick = event => {
+        event.preventDefault()
+
+        setView('home')
+    }
+
+    const handleAddPetSubmit = event => {
+        event.preventDefault()
+
+        const form = event.target
+
+        const name = form.name.value
+        const birthdate = form.birthdate.value
+        const weight = Number(form.weight.value)
+        const image = form.image.value
+
+        try {
+            logic.addPet(name, birthdate, weight, image)
+
+            form.reset()
+
+            const pets = logic.getPets()
+
+            const newPets = []
+
+            for (const pet of pets) {
+                newPets.push(pet)
+            }
+            
+            setMessage('')
+            setView('home')
+            setPets(newPets)
+        } catch (error) {
+            setMessage(error.message)
+        }
     }
 
     console.log('App -> render')
@@ -111,7 +176,6 @@ function App() {
 
             <nav className="text-gray-700 text-lg leading-loose max-w-md mx-auto mt-4 text-center">
                 <a className="cursor-pointer underline font-bold" onClick={handleLoginClick}>Login</a> or <a className="cursor-pointer underline font-bold" onClick={handleRegisterClick}>Register</a>
-
             </nav>
         </div>
 
@@ -124,12 +188,12 @@ function App() {
 
             <form className="flex flex-col gap-4 w-full max-w-sm mx-auto mt-6" onSubmit={handleLoginSubmit}>
                 <label className="text-m text-gray-600 mt-2" htmlFor="username">Username</label>
-                <input className="border border-gray-300 rounded-lg px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" id="username" type="text" />
+                <input className="border border-gray-300 rounded-lg px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" id="username" name="username" autoComplete="username" type="text" />
 
                 <label className="text-m text-gray-600 mt-2" htmlFor="password">Password</label>
-                <input className= {'border border-gray-300 rounded-lg px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition' + (passwordType === 'password'? ' bg-white-100' : ' bg-yellow-100')} id="password" type= {passwordType} />
+                <input className={'border border-gray-300 rounded-lg px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition' + (passwordType === 'password' ? ' bg-white-100' : ' bg-yellow-100')} id="password" name="password" autoComplete="password" type={passwordType} />
 
-                <button className="w-24 bg-gray-600 text-white font-semibold py-1 px-0 rounded-lg shadow hover:bg-gray-700 transition-colors duration-200 self-end" type="button" onClick={handleTogglePasswordClick} > {passwordType === 'password'? 'Show' : 'Hide'}</button>
+                <button className="w-24 bg-gray-600 text-white font-semibold py-1 px-0 rounded-lg shadow hover:bg-gray-700 transition-colors duration-200 self-end" type="button" onClick={handleTogglePasswordClick} > {passwordType === 'password' ? 'Show' : 'Hide'}</button>
 
                 <button className="bg-blue-600 text-white font-semibold py-2 px-16 rounded-lg shadow hover:bg-blue-700 transition-colors duration-200 self-center" >Login</button>
             </form>
@@ -149,24 +213,28 @@ function App() {
 
             <form className="flex flex-col gap-4 w-full max-w-sm mx-auto mt-6" onSubmit={handleRegisterSubmit}>
                 <label className="text-m text-gray-600 mt-2" htmlFor="name">Name</label>
-                <input className="border border-gray-300 rounded-lg px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" id="name" type="text" />
+                <input className="border border-gray-300 rounded-lg px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+                    id="name" name="name" autoComplete="name" type="text" />
 
                 <label className="text-m text-gray-600 mt-2" htmlFor="email">Email</label>
-                <input className="border border-gray-300 rounded-lg px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" id="email" type="email" />
+                <input className="border border-gray-300 rounded-lg px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+                    id="email" name="email" autoComplete="email" type="email" />
 
                 <label className="text-m text-gray-600 mt-2">Username</label>
-                <input className="border border-gray-300 rounded-lg px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" id="username" type="text" />
+                <input className="border border-gray-300 rounded-lg px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+                    id="username" name="username" autoComplete="username" type="text" />
 
                 <label className="text-m text-gray-600 mt-2" htmlFor='password'>Password</label>
+                <input className={'border border-gray-300 rounded-lg px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition' + (passwordType === 'password' ? ' bg-white-100' : ' bg-yellow-100')}
+                    id="password" name="password" autoComplete="off" type={passwordType} />
 
-                <input className= {'border border-gray-300 rounded-lg px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition' + (passwordType === 'password'? ' bg-white-100' : ' bg-yellow-100')}  id="password" type={passwordType} />
-
-                <button className="w-24 bg-gray-600 text-white font-semibold py-1 px-0 rounded-lg shadow hover:bg-gray-700 transition-colors duration-200 self-end" type="button" onClick={handleTogglePasswordClick}>{passwordType === 'password'? 'show' : 'Hide'}</button>
+                <button className="w-24 bg-gray-600 text-white font-semibold py-1 px-0 rounded-lg shadow hover:bg-gray-700 transition-colors duration-200 self-end" type="button" onClick={handleTogglePasswordClick}>{passwordType === 'password' ? 'show' : 'Hide'}</button>
 
                 <label className="text-m text-gray-600 mt-2" htmlFor="passwordRepeat">Repeat Password</label>
-                <input className= {'border border-gray-300 rounded-lg px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition' + (passwordRepeatType === 'password'? ' bg-white-100' : ' bg-yellow-100')}  id="passwordRepeat" type={passwordRepeatType} />
+                <input className={'border border-gray-300 rounded-lg px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition' + (passwordRepeatType === 'password' ? ' bg-white-100' : ' bg-yellow-100')}
+                    id="passwordRepeat" name="passwordRepeat" autoComplete="off" type={passwordRepeatType} />
 
-                <button className="w-24 bg-gray-600 text-white font-semibold py-1 px-0 rounded-lg shadow hover:bg-gray-700 transition-colors duration-200 self-end" type="button" onClick={handleTogglePasswordRepeatClick}>{passwordRepeatType === 'password'? 'show' : 'Hide'}</button>
+                <button className="w-24 bg-gray-600 text-white font-semibold py-1 px-0 rounded-lg shadow hover:bg-gray-700 transition-colors duration-200 self-end" type="button" onClick={handleTogglePasswordRepeatClick}>{passwordRepeatType === 'password' ? 'show' : 'Hide'}</button>
 
                 <button className="bg-blue-600 text-white font-semibold py-2 px-16 rounded-lg shadow hover:bg-blue-700 transition-colors duration-200 self-center" type="submit">Register</button>
             </form>
@@ -178,52 +246,39 @@ function App() {
         </div>
 
     //home
-    if (view === 'home')
+    if (view === 'home') {
+        const petItems = []
+
+        for (const pet of pets) {
+            const petItem = <li className="flex gap-8 my-4 items-center p-4 bg-white rounded-lg shadow hover:shadow-lg transition-shadow">
+                <div className="flex items-center gap-4">
+                    <img src={pet.image} className="rounded-full w-20 h-20 object-cover border-2 border-blue-500" />
+                    <p className="text-2xl font-semibold text-gray-400">{pet.name}</p>
+
+                </div>
+                <button className="w-10 h-10 bg-gray-400 text-white rounded-full flex items-center justify-center self-center ml-auto shadow-md hover:bg-gray-500 active:scale-95 transition-all duration-200 justify-self-end">🗑</button>
+            </li>
+            petItems.push(petItem)
+        }
+
         return <div className="flex flex-col gap-5 items-center justify-center min-h-screen">
+
             <h1 className="text-5xl font-extrabold text-blue-600 text-center mt-6 tracking-tight">MyPet</h1>
 
             <h2 className="text-3xl font-semibold text-blue-500 text-center mt-4 tracking-tight">Welcome Home</h2>
 
             <div className="flex justify-between gap-8">
-                <button className="bg-blue-600 text-white font-semibold py-2 px-16 rounded-lg shadow hover:bg-blue-700 transition-colors duration-200 self-center" onClick={handleAddPetClick}>+ Pet</button>
+                <button className="bg-blue-600 text-white font-semibold py-2 px-16 rounded-lg shadow hover:bg-blue-700 transition-colors duration-200 self-center" onClick={handleAddPetClick} type="button">+ Pet</button>
 
-                <button className="w-24 bg-gray-600 text-white font-semibold py-1 px-0 rounded-lg shadow hover:bg-gray-700 transition-colors duration-200 self-end" onClick={handleLoginClick} type="button">Logout</button>
+                <button className="w-24 bg-gray-600 text-white font-semibold py-1 px-0 rounded-lg shadow hover:bg-gray-700 transition-colors duration-200 self-end" onClick={handleLogoutClick} type="button">Logout</button>
             </div>
 
             <ul className="flex flex-col gap-2 mt-2">
-                <li className="flex gap-8 my-4 items-center p-4 bg-white rounded-lg shadow hover:shadow-lg transition-shadow">
-                    <div className="flex items-center gap-4">
-                        <img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExeTdhYXNmd28yMWE4MXJpNHIwam01NWw0d2Fud3V2eDg0NzVscnY2MiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/Sm999hwfG7DZnnbK0a/giphy.gif" className="rounded-full w-20 h-20 object-cover border-2 border-blue-500" />
-                        <p className="text-2xl font-semibold text-gray-400">Picket</p>
-                    </div>
-                    <button className="w-10 h-10 bg-gray-400 text-white rounded-full flex items-center justify-center self-center ml-auto shadow-md hover:bg-gray-500 active:scale-95 transition-all duration-200 justify-self-end">🗑</button>
-                </li>
-
-
-                <li className="flex gap-8 my-4 items-center p-4 bg-white rounded-lg shadow hover:shadow-lg transition-shadow"><div className="flex items-center gap-4">
-                    <img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExdWlkeWhrMWNjeDNkNjZsZGd2Zzgyd2J4MGd3MDUzeXplbzR1N2YyYiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/BtThjFrZkhA2Qzr60r/giphy.gif" className="rounded-full w-20 h-20 object-cover border-2 border-blue-500" />
-                    <p className="text-2xl font-semibold text-gray-400">Niffler</p></div>
-                    <button className="w-10 h-10 bg-gray-400 text-white rounded-full flex items-center justify-center self-center ml-auto shadow-md hover:bg-gray-500 active:scale-95 transition-all duration-200 justify-self-end">🗑</button>
-                </li>
-
-
-                <li className="flex gap-8 my-4 items-center p-4 bg-white rounded-lg shadow hover:shadow-lg transition-shadow"><div className="flex items-center gap-4">
-                    <img src="https://i.pinimg.com/originals/f5/a1/3a/f5a13aa18d1212d54f9613642214d3c7.gif" className="rounded-full w-20 h-20 object-cover border-2 border-blue-500" />
-                    <p className="text-2xl font-semibold text-gray-400">Demiguse</p>
-                </div>
-                    <button className="w-10 h-10 bg-gray-400 text-white rounded-full flex items-center justify-center self-center ml-auto shadow-md hover:bg-gray-500 active:scale-95 transition-all duration-200 justify-self-end">🗑</button>
-                </li>
-
-
-                <li className="flex gap-8 my-4 items-center p-4 bg-white rounded-lg shadow hover:shadow-lg transition-shadow"><div className="flex items-center gap-4">
-                    <img src="https://i.pinimg.com/originals/98/e0/64/98e064cd4e8d3f42c4587aa4ce32a9ef.gif" className="rounded-full w-20 h-20 object-cover border-2 border-blue-500" />
-                    <p className="text-2xl font-semibold text-gray-400">Thunderbird</p>
-                </div>
-                    <button className="w-10 h-10 bg-gray-400 text-white rounded-full flex items-center justify-center self-center ml-auto shadow-md hover:bg-gray-500 active:scale-95 transition-all duration-200 justify-self-end">🗑</button>
-                </li>
-
+                {petItems}
             </ul>
+
         </div>
+    }
 
     // add pet
     if (view === 'add-pet')
@@ -233,35 +288,40 @@ function App() {
             <div className="flex justify-between gap-10 mt-4">
                 <h2 className="text-3xl font-semibold text-blue-500 text-center  tracking-tight">Add new pet</h2>
 
-                <a className="cursor-pointer underline font-bold text-gray-700 text-lg" onClick={handleHomeClick}>Back</a>
+                <a className="cursor-pointer underline font-bold text-gray-700 text-lg" onClick={handleBackClick}>Back</a>
             </div>
 
-            <form className="flex flex-col gap-4 w-full max-w-sm mx-auto mt-6">
+            <form className="flex flex-col gap-4 w-full max-w-sm mx-auto mt-6" onSubmit = {handleAddPetSubmit}>
                 <label className="text-m text-gray-600 mt-2" htmlFor="name">Name</label>
-                <input className="border border-gray-300 rounded-lg px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" id="name" type="text" />
+                <input className="border border-gray-300 rounded-lg px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+                    id="name" name="name" autoComplete="off" type="text" />
 
                 <label className="text-m text-gray-600 mt-2" htmlFor="date">Date of Birth</label>
-                <input className="border border-gray-300 rounded-lg px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" id="date" type="date" />
+                <input className="border border-gray-300 rounded-lg px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+                    id="birthdate" name="birthdate" autoComplete="off" type="date" />
 
                 <label className="text-m text-gray-600 mt-2" htmlFor="weight">Weight (kg)</label>
-                <input className="border border-gray-300 rounded-lg px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" type="number" step="0.01" />
+                <input className="border border-gray-300 rounded-lg px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+                    type="number" name="weight" autoComplete="off" step="0.01" />
 
                 <label className="text-m text-gray-600 mt-2" htmlFor="image">Image</label>
-                <input className="border border-gray-300 rounded-lg px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" id="image" type="url" />
+                <input className="border border-gray-300 rounded-lg px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+                    id="image" name="image" autoComplete="off" type="url" />
 
                 <button className="bg-blue-600 text-white font-semibold py-2 px-16 rounded-lg shadow hover:bg-blue-700 transition-colors duration-200 self-center" type="submit">Add Pet</button>
             </form>
 
-            <p className="text-red-600 text-sm mt-2 font-medium"></p>
-
-        </div>
-
-    //pet
-    if (view === 'pet')
-        return <div className="flex flex-col gap-5 items-center justify-center min-h-screen" >
-            <h1 className="text-5xl font-extrabold text-blue-600 text-center mt-6 tracking-tight">MyPet</h1>
-
-            <h2 className="text-3xl font-semibold text-blue-500 text-center mt-4 tracking-tight">Pet details</h2>
+            <p className="text-red-600 text-sm mt-2 font-medium">{message}</p>
 
         </div>
 }
+
+//pet
+/*
+if (view === 'pet')
+    return <div className="flex flex-col gap-5 items-center justify-center min-h-screen" >
+        <h1 className="text-5xl font-extrabold text-blue-600 text-center mt-6 tracking-tight">MyPet</h1>
+
+        <h2 className="text-3xl font-semibold text-blue-500 text-center mt-4 tracking-tight">Pet details</h2>
+    </div>
+    */
