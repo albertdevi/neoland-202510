@@ -12,11 +12,12 @@ function App() {
     const [passwordType, setPasswordType] = useState('password')
     const [passwordRepeatType, setPasswordRepeatType] = useState('password')
     const [pets, setPets] = useState([])
+    const [petId, setPetId] = useState(null)
 
     const loginFormRef = useRef()
     const registerFormRef = useRef()
 
-    const handleLoginClick = event => {
+    const handleLoginClick = () => {
         event.preventDefault()
 
         if (registerFormRef.current)
@@ -28,7 +29,7 @@ function App() {
         setPasswordRepeatType('password')
     }
 
-    const handleRegisterClick = event => {
+    const handleRegisterClick = () => {
         event.preventDefault()
 
         if (loginFormRef.current)
@@ -40,32 +41,16 @@ function App() {
         setPasswordRepeatType('password')
     }
 
-    const handleLoginSubmit = event => {
-        event.preventDefault()
-
-        const form = event.target
-
-        const username = form.username.value
-        const password = form.password.value
+    const handleLogin = () => {
 
         try {
-            logic.loginUser(username, password)
-
-            form.reset()
-
             const pets = logic.getPets()
-
-            const newPets = []
-
-            for (const pet of pets) {
-                newPets.push(pet)
-            }
 
             setView('home')
             setMessage('')
             setPasswordType('password')
             setPasswordRepeatType('password')
-            setPets(newPets)
+            setPets(pets)
         } catch (error) {
             setMessage(error.message)
         }
@@ -89,6 +74,8 @@ function App() {
 
             setView('login')
             setMessage('')
+            setPasswordType('password')
+            setPasswordRepeatType('password')
         } catch (error) {
             setMessage(error.message)
         }
@@ -110,12 +97,12 @@ function App() {
     const handleLogoutClick = event => {
         event.preventDefault()
 
-        setMessage('')
-
         try {
             logic.logoutUser()
 
             setView('login')
+            setMessage('')
+            setPets([])
         } catch (error) {
             setMessage('sorry, there was an error on logout, please try it later')
         }
@@ -150,15 +137,41 @@ function App() {
 
             const pets = logic.getPets()
 
-            const newPets = []
-
-            for (const pet of pets) {
-                newPets.push(pet)
-            }
-            
             setMessage('')
             setView('home')
-            setPets(newPets)
+            setPets(pets)
+        } catch (error) {
+            setMessage(error.message)
+        }
+    }
+
+
+    const handleDeletePetClick = event => {
+        event.preventDefault()
+
+        const button = event.target
+
+        const petId = button.id
+
+        setPetId(petId)
+    }
+
+    const handleCancelDeletePetClick = event => {
+        event.preventDefault()
+
+        setPetId(null)
+    }
+
+    const handleConfirmDeletePetClick = event => {
+        event.preventDefault()
+
+        try {
+            logic.deletePet(petId)
+
+            const pets = logic.getPets()
+
+            setPetId(null)
+            setPets(pets)
         } catch (error) {
             setMessage(error.message)
         }
@@ -168,40 +181,13 @@ function App() {
 
     // landing
     if (view === 'landing')
-        return <div className="flex flex-col gap-5 items-center justify-center min-h-screen">
+        return <Landing onLoginClick={handleLoginClick}
+            onRegisterClick={handleRegisterClick} />
 
-            <h1 className="text-5xl font-extrabold text-blue-600 text-center mt-6 tracking-tight">MyPet</h1>
-
-            <p className="text-3xl font-semibold text-blue-500 text-center mt-4 tracking-tight">Welcome!</p>
-
-            <nav className="text-gray-700 text-lg leading-loose max-w-md mx-auto mt-4 text-center">
-                <a className="cursor-pointer underline font-bold" onClick={handleLoginClick}>Login</a> or <a className="cursor-pointer underline font-bold" onClick={handleRegisterClick}>Register</a>
-            </nav>
-        </div>
 
     //login
     if (view === 'login')
-        return <div className="flex flex-col items-center justify-center min-h-screen">
-            <h1 className="text-5xl font-extrabold text-blue-600 text-center mt-6 tracking-tight">MyPet</h1>
-
-            <h2 className="text-3xl font-semibold text-blue-500 text-center mt-4 tracking-tight">Login</h2>
-
-            <form className="flex flex-col gap-4 w-full max-w-sm mx-auto mt-6" onSubmit={handleLoginSubmit}>
-                <label className="text-m text-gray-600 mt-2" htmlFor="username">Username</label>
-                <input className="border border-gray-300 rounded-lg px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" id="username" name="username" autoComplete="username" type="text" />
-
-                <label className="text-m text-gray-600 mt-2" htmlFor="password">Password</label>
-                <input className={'border border-gray-300 rounded-lg px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition' + (passwordType === 'password' ? ' bg-white-100' : ' bg-yellow-100')} id="password" name="password" autoComplete="password" type={passwordType} />
-
-                <button className="w-24 bg-gray-600 text-white font-semibold py-1 px-0 rounded-lg shadow hover:bg-gray-700 transition-colors duration-200 self-end" type="button" onClick={handleTogglePasswordClick} > {passwordType === 'password' ? 'Show' : 'Hide'}</button>
-
-                <button className="bg-blue-600 text-white font-semibold py-2 px-16 rounded-lg shadow hover:bg-blue-700 transition-colors duration-200 self-center" >Login</button>
-            </form>
-
-            <a className="text-gray-700 text-lg leading-loose max-w-md mx-auto mt-4 text-center cursor-pointer underline font-bold" onClick={handleRegisterClick}>Register</a>
-
-            <p className="text-red-600 text-sm mt-2 font-medium"> {message} </p>
-        </div>
+        return <Login onLogin={handleLogin} onRegisterClick={handleRegisterClick} />
 
     // Register
     if (view === 'register')
@@ -256,7 +242,7 @@ function App() {
                     <p className="text-2xl font-semibold text-gray-400">{pet.name}</p>
 
                 </div>
-                <button className="w-10 h-10 bg-gray-400 text-white rounded-full flex items-center justify-center self-center ml-auto shadow-md hover:bg-gray-500 active:scale-95 transition-all duration-200 justify-self-end">🗑</button>
+                <button id={pet.id} className="w-10 h-10 bg-gray-400 text-white rounded-full flex items-center justify-center self-center ml-auto shadow-md hover:bg-gray-500 active:scale-95 transition-all duration-200 justify-self-end" onClick={handleDeletePetClick}>🗑</button>
             </li>
             petItems.push(petItem)
         }
@@ -277,6 +263,17 @@ function App() {
                 {petItems}
             </ul>
 
+            {petId && <div className="w-full h-full fixed top-0 left-0 bg-black/75 flex justify-center items-center">
+                <div className="bg-white p-8 rounded-lg shadow hover:shadow-lg transition-shadow gap-5">
+                    <p className="text-3xl font-semibold text-blue-500 text-center mt-0 mb-5 tracking-tight">Delete Pet?</p>
+
+                    <div className="flex justify-center gap-2">
+                        <button className="bg-blue-600 text-white font-semibold py-2 px-6 rounded-lg shadow hover:bg-blue-700 transition-colors duration-200 self-center" onClick={handleCancelDeletePetClick}>❌</button>
+                        <button className="bg-blue-600 text-white font-semibold py-2 px-6 rounded-lg shadow hover:bg-blue-700 transition-colors duration-200 self-center" onClick={handleConfirmDeletePetClick}>✅</button>
+                    </div>
+                </div>
+            </div>}
+            <p>{message}</p>
         </div>
     }
 
@@ -291,7 +288,7 @@ function App() {
                 <a className="cursor-pointer underline font-bold text-gray-700 text-lg" onClick={handleBackClick}>Back</a>
             </div>
 
-            <form className="flex flex-col gap-4 w-full max-w-sm mx-auto mt-6" onSubmit = {handleAddPetSubmit}>
+            <form className="flex flex-col gap-4 w-full max-w-sm mx-auto mt-6" onSubmit={handleAddPetSubmit}>
                 <label className="text-m text-gray-600 mt-2" htmlFor="name">Name</label>
                 <input className="border border-gray-300 rounded-lg px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
                     id="name" name="name" autoComplete="off" type="text" />
