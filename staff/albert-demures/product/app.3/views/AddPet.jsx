@@ -1,6 +1,6 @@
 const { useState } = React
 
-function AddPet({ onGoToHome}) {
+function AddPet({ onGoToHome }) {
     console.log('AddPet ->call')
 
     const [message, setMessage] = useState('')
@@ -11,7 +11,7 @@ function AddPet({ onGoToHome}) {
         onGoToHome()
     }
 
-const handleAddPetSubmit = event => {
+    const handleAddPetSubmit = event => {
         event.preventDefault()
 
         const form = event.target
@@ -43,25 +43,17 @@ const handleAddPetSubmit = event => {
             <a className="cursor-pointer underline font-bold text-gray-700 text-lg" onClick={handleBackClick}>Back</a>
         </div>
 
-        <form className="flex flex-col gap-4 w-full max-w-sm mx-auto mt-6" onSubmit={handleAddPetSubmit}>
-            <label className="text-m text-gray-600 mt-2" htmlFor="name">Name</label>
-            <InputText
-                id="name" name="name" autoComplete="off" type="text" />
+        <Form onSubmit={handleAddPetSubmit}>
+            <Field alias="name" type="text">Name</Field>
 
-            <label className="text-m text-gray-600 mt-2" htmlFor="date">Date of Birth</label>
-            <InputText
-                id="birthdate" name="birthdate" autoComplete="off" type="date" />
+            <Field alias="birthdate" type="date">Date of birth</Field>
 
-            <label className="text-m text-gray-600 mt-2" htmlFor="weight">Weight (kg)</label>
-            <InputText
-                type="number" name="weight" autoComplete="off" step="0.01" />
+            <Field alias="weight" type="number">Weight (kg)</Field>
 
-            <label className="text-m text-gray-600 mt-2" htmlFor="image">Image</label>
-            <InputText
-                id="image" name="image" autoComplete="off" type="url" />
+            <Field alias="image" type="url">Image</Field>
 
             <ButtonBlue className="" type="submit">Add Pet</ButtonBlue>
-        </form>
+        </Form>
 
         <p className="text-red-600 text-sm mt-2 font-medium">{message}</p>
 

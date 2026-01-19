@@ -117,13 +117,17 @@ Logic.prototype.deletePet = function (petId) {
   if (pet.userId !== data.getLoggedInUserId()) throw new Error('user not owner of pet')
 
   const petIndex = data.pets.indexOf(pet)
-  
+
   data.pets.splice(petIndex, 1)
 }
 
 //función para traer el nombre
 Logic.prototype.getLoggedInUserName = function () {
-    return data.getLoggedInUserName()
+  const user = data.findUserById(data.getLoggedInUserId())
+  
+  if (user === null) throw new Error('user not found')
+
+  return user.username
 }
 
 // instance

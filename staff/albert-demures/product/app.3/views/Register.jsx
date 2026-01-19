@@ -1,4 +1,4 @@
-const {useState} = React
+const { useState } = React
 
 function Register({ onGoToLogin }) {
     console.log('Register -> call')
@@ -55,41 +55,27 @@ function Register({ onGoToLogin }) {
 
     return <div className="flex flex-col items-center justify-center min-h-screen">
 
-           <Title></Title>
+        <Title></Title>
 
-            <SubTitle>Register</SubTitle>
+        <SubTitle>Register</SubTitle>
 
-            <form className="flex flex-col gap-4 w-full max-w-sm mx-auto mt-6" onSubmit={handleRegisterSubmit}>
-                <label className="text-m text-gray-600 mt-2" htmlFor="name">Name</label>
-                <InputText
-                    id="name" name="name" autoComplete="name" type="text" />
+        <Form onSubmit={handleRegisterSubmit}>
+            <Field alias='name' type='text'>Name</Field>
 
-                <label className="text-m text-gray-600 mt-2" htmlFor="email">Email</label>
-                <InputText
-                    id="email" name="email" autoComplete="email" type="email" />
+            <Field alias='email' type='text'>Email</Field>
 
-                <label className="text-m text-gray-600 mt-2">Username</label>
-                <InputText 
-                    id="username" name="username" autoComplete="username" type="text" />
+            <Field alias='username' type='text'>Username</Field>
 
-                <label className="text-m text-gray-600 mt-2" htmlFor='password'>Password</label>
-                <InputPassword
-                    id="password" name="password" autoComplete="off" type={passwordType} />
+            <PasswordField alias='password'>Password</PasswordField>
 
-                <ButtonGray className="" type="button" onClick={handleTogglePasswordClick}>{passwordType === 'password' ? 'show' : 'Hide'}</ButtonGray>
+            <PasswordField alias='passwordRepeat'>Repeat Password</PasswordField>
 
-                <label className="text-m text-gray-600 mt-2" htmlFor="passwordRepeat">Repeat Password</label>
-                <InputPassword
-                    id="passwordRepeat" name="passwordRepeat" autoComplete="off" type={passwordRepeatType} />
+            <ButtonBlue type="submit">Register</ButtonBlue>
+        </Form>
 
-                <ButtonGray className="" type="button" onClick={handleTogglePasswordRepeatClick}>{passwordRepeatType === 'password' ? 'show' : 'Hide'}</ButtonGray>
+        <a href="" className="text-gray-700 text-lg leading-loose max-w-md mx-auto mt-4 text-center cursor-pointer underline font-bold" onClick={handleLoginClick}>Login</a>
 
-                <button className="bg-blue-600 text-white font-semibold py-2 px-16 rounded-lg shadow hover:bg-blue-700 transition-colors duration-200 self-center" type="submit">Register</button>
-            </form>
+        <p className="text-red-600 text-sm mt-2 font-medium">{message}</p>
 
-            <a href="" className="text-gray-700 text-lg leading-loose max-w-md mx-auto mt-4 text-center cursor-pointer underline font-bold" onClick={handleLoginClick}>Login</a>
-
-            <p className="text-red-600 text-sm mt-2 font-medium">{message}</p>
-
-        </div>
+    </div>
 }

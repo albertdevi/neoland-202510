@@ -125,11 +125,6 @@ Data.prototype.findPetById = function (petId) {
   return null
 }
 
-// función para conseguir el nombre del usuario conectado
-Data.prototype.getLoggedInUserName = function () {
-  const user = this.findUserById(this.loggedInUserId)
-  return user ? user.username : null
-}
 
 // crear nueva coleción de datos
 const data = new Data()

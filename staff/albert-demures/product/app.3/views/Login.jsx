@@ -48,18 +48,13 @@ function Login({ onGoToHome, onGoToRegister }) {
 
         <SubTitle>Login</SubTitle>
 
-        <form className="flex flex-col gap-4 w-full max-w-sm mx-auto mt-6" onSubmit={handleLoginSubmit}>
-            <label className="text-m text-gray-600 mt-2" htmlFor="username">Username</label>
-            <InputText  id="username" name="username" autoComplete="username" type="text" />
+        <Form onSubmit={handleLoginSubmit}>
+            <Field alias="username" type="text">Username</Field>
 
-            <label className="text-m text-gray-600 mt-2" htmlFor="password">Password</label>
-
-            <InputPassword id="password" name="password" autoComplete="password" type={passwordType} />
-
-            <ButtonGray className="" type="button" onClick={handleTogglePasswordClick}> {passwordType === 'password' ? 'Show' : 'Hide'}</ButtonGray>
+            <PasswordField alias="password">Password</PasswordField>
 
             <ButtonBlue className="" type="submit" >Login</ButtonBlue>
-        </form>
+        </Form>
 
         <a className="text-gray-700 text-lg leading-loose max-w-md mx-auto mt-4 text-center cursor-pointer underline font-bold" onClick={handleRegisterClick}>Register</a>
 
