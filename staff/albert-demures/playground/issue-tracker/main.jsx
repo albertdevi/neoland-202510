@@ -97,24 +97,26 @@ function App() {
             <div className={headerStyles[issueStatus]}>
 
                 <h2 className="text-l font-bold">{issueSubject}</h2>
+                <div className="flex justify-end gap-2 w-full">
+                    <button id="statusButton" className={buttonStyles[issueStatus]}
+                        onClick={() => {
+                            console.log('click')
+                            // Al hacer click, avanza el estado del issue de forma cíclica y fuerza el re-render
+                            logic.setIssueStatus(issueId, statuses[count])
+                            // Preparo el count para el siguiente estado. El % hace que cuando pase el statuses.lenght, en este caso si es = a 4, vuelvo al principio
+                            setCount((count + 1) % statuses.length)
 
-                <button id="statusButton" className={buttonStyles[issueStatus]}
-                    onClick={() => {
-                        console.log('click')
-                        // Al hacer click, avanza el estado del issue de forma cíclica y fuerza el re-render
-                        logic.setIssueStatus(issueId, statuses[count])
-                          // Preparo el count para el siguiente estado. El % hace que cuando pase el statuses.lenght, en este caso si es = a 4, vuelvo al principio
-                        setCount((count + 1) % statuses.length)
+                            //Creo una constante con todas las issues nuevas
+                            const issues = logic.getAllIssues()
+                            // Creo un nuevo array, con las issues actualizadas.
+                            setIssues([...issues])
 
-                        //Creo una constante con todas las issues nuevas
-                        const issues = logic.getAllIssues()
-                        // Creo un nuevo array, con las issues actualizadas.
-                        setIssues([...issues])
-                      
-                    }}
-                >
-                    {issueStatus} {statusIcons[issueStatus]}
-                </button>
+                        }}
+                    >
+                        {issueStatus} {statusIcons[issueStatus]}
+                    </button>
+                    <button id={issue.id} className="w-8 h-8 text-sm bg-gray-200 rounded-full flex items-center justify-center shadow-md hover:bg-gray-300 active:scale-95 transition-all duration-200 " /*</div>onClick={handleDeletePetClick}*/>🗑</button>
+                </div>
             </div>
 
             <div className="px-5 py-4 flex flex-col gap-2">
