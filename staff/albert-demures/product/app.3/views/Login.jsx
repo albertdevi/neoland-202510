@@ -1,4 +1,6 @@
-function Login({onLogin, onRegisterClick}) {
+const { useState } = React
+
+function Login({ onGoToHome, onGoToRegister }) {
     console.log('Login -> call')
 
     const [message, setMessage] = useState('')
@@ -20,7 +22,7 @@ function Login({onLogin, onRegisterClick}) {
             setMessage('')
             setPasswordType('password')
 
-            onLogin()
+            onGoToHome()
         } catch (error) {
             setMessage(error.message)
         }
@@ -35,27 +37,28 @@ function Login({onLogin, onRegisterClick}) {
     const handleRegisterClick = event => {
         event.preventDefault()
 
-        onRegisterClick()
+        onGoToRegister()
     }
 
 
     console.log('Login -> render')
 
     return <div className="flex flex-col items-center justify-center min-h-screen">
-        <h1 className="text-5xl font-extrabold text-blue-600 text-center mt-6 tracking-tight">MyPet</h1>
+        <Title></Title>
 
-        <h2 className="text-3xl font-semibold text-blue-500 text-center mt-4 tracking-tight">Login</h2>
+        <SubTitle>Login</SubTitle>
 
         <form className="flex flex-col gap-4 w-full max-w-sm mx-auto mt-6" onSubmit={handleLoginSubmit}>
             <label className="text-m text-gray-600 mt-2" htmlFor="username">Username</label>
-            <input className="border border-gray-300 rounded-lg px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" id="username" name="username" autoComplete="username" type="text" />
+            <InputText  id="username" name="username" autoComplete="username" type="text" />
 
             <label className="text-m text-gray-600 mt-2" htmlFor="password">Password</label>
-            <input className={'border border-gray-300 rounded-lg px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition' + (passwordType === 'password' ? ' bg-white-100' : ' bg-yellow-100')} id="password" name="password" autoComplete="password" type={passwordType} />
 
-            <button className="w-24 bg-gray-600 text-white font-semibold py-1 px-0 rounded-lg shadow hover:bg-gray-700 transition-colors duration-200 self-end" type="button" onClick={handleTogglePasswordClick} > {passwordType === 'password' ? 'Show' : 'Hide'}</button>
+            <InputPassword id="password" name="password" autoComplete="password" type={passwordType} />
 
-            <button className="bg-blue-600 text-white font-semibold py-2 px-16 rounded-lg shadow hover:bg-blue-700 transition-colors duration-200 self-center" >Login</button>
+            <ButtonGray className="" type="button" onClick={handleTogglePasswordClick}> {passwordType === 'password' ? 'Show' : 'Hide'}</ButtonGray>
+
+            <ButtonBlue className="" type="submit" >Login</ButtonBlue>
         </form>
 
         <a className="text-gray-700 text-lg leading-loose max-w-md mx-auto mt-4 text-center cursor-pointer underline font-bold" onClick={handleRegisterClick}>Register</a>
