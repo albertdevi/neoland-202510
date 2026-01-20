@@ -10,7 +10,7 @@ function App() {
 
     //creo un useSatate inicial, le he puesto propiedades para iniciar con uno ya creado
     const [issues, setIssues] = useState([
-        { subject: 'Entregar gráficos', body: 'Entregar todos los gráficos también en PNG', id: 'Issue-1055', status: 'Open', date: new Date(), author: 'Albert Demures' }
+        { subject: 'Entregar gráficos', body: 'Entregar todos los gráficos también en PNG', id: 'Issue-1055', status: 'Open', date: new Date(), author: 'GBK team' }
     ])
 
     //crear estados para los errores
