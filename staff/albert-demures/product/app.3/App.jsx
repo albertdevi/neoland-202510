@@ -6,12 +6,14 @@ function App() {
     const [view, setView] = useState('landing')
 
     const handleGoToLogin = () => setView('login')
-    
+
     const handleGoToRegister = () => setView('register')
 
-    const handleGoToHome = () => setView('home') 
+    const handleGoToHome = () => setView('home')
 
     const handleGoToAddPet = () => setView('add-pet')
+
+    const handleGoToProfile = () => setView('profile')
 
     console.log('App -> render')
 
@@ -25,9 +27,11 @@ function App() {
         return <Register onGoToLogin={handleGoToLogin} />
 
     if (view === 'home')
-        return <Home onGoToAddPet={handleGoToAddPet} onGoToLogin={handleGoToLogin} />
+        return <Home onGoToAddPet={handleGoToAddPet} onGoToLogin={handleGoToLogin} onGoToProfile={handleGoToProfile} />
 
     if (view === 'add-pet')
         return <AddPet onGoToHome={handleGoToHome} />
-}
 
+    if (view === 'profile')
+        return <Profile onGoToHome={handleGoToHome} />
+}

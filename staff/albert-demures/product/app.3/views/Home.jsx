@@ -1,6 +1,6 @@
 const { useState, useEffect } = React
 
-function Home({ onGoToAddPet, onGoToLogin }) {
+function Home({ onGoToAddPet, onGoToLogin, onGoToProfile }) {
     console.log('Home -> call')
 
     const [message, setMessage] = useState('')
@@ -27,6 +27,12 @@ function Home({ onGoToAddPet, onGoToLogin }) {
         }
     }
 
+    const handleProfileClick = event => {
+        event.preventDefault()
+
+        onGoToProfile()
+    }
+
     console.log('Home -> render')
 
     return <div className="flex flex-col gap-5 items-center justify-center min-h-screen">
@@ -38,6 +44,8 @@ function Home({ onGoToAddPet, onGoToLogin }) {
         <div className="flex justify-between gap-8">
 
             <ButtonBlue className="" onClick={handleAddPetClick} type="button">+ Pet</ButtonBlue>
+
+            <ButtonBlue className="" onClick={handleProfileClick} type="button">Profile</ButtonBlue>
 
             <ButtonGray className="" onClick={handleLogoutClick} type="button">Logout</ButtonGray>
         </div>
