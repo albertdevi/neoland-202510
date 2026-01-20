@@ -3,6 +3,8 @@ root.render(<App />)
 
 const useState = React.useState
 
+const [issueID, setIssueID] = useState(null)
+
 function App() {
     console.log('App -> call')
 
@@ -13,6 +15,9 @@ function App() {
 
     //crear estados para los errores
     const [error, setError] = useState(null)
+
+    //crear estado para los ids
+    const [issueID, setIssueID] = useState(null)
 
     //Costante array que define el estilo del header según el estado.
     const headerStyles = {
@@ -75,6 +80,18 @@ function App() {
         }
     }
 
+const handleDeleteIssueClick = (event, issueId) => {
+    event.preventDefault()
+
+    try {
+        logic.deleteIssue(issueId) // ✅ ahora sí existe
+        const issues = logic.getAllIssues()
+        setIssues([...issues])
+    } catch (error) {
+        console.error(error)
+    }
+}
+
     console.log('App -> render')
     //Creo un array para ir guardando los list items
     const listItems = []
@@ -115,7 +132,11 @@ function App() {
                     >
                         {issueStatus} {statusIcons[issueStatus]}
                     </button>
-                    <button id={issue.id} className="w-8 h-8 text-sm bg-gray-200 rounded-full flex items-center justify-center shadow-md hover:bg-gray-300 active:scale-95 transition-all duration-200 " /*</div>onClick={handleDeletePetClick}*/>🗑</button>
+                    <button
+                        id={issue.id}
+                        className="w-8 h-8 text-sm bg-gray-200 rounded-full flex items-center justify-center shadow-md hover:bg-gray-300 active:scale-95 transition-all duration-200"
+                        onClick={(e) => handleDeleteIssueClick(e, issue.id)}
+                    >🗑</button>
                 </div>
             </div>
 

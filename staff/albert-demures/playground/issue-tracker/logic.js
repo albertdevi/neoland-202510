@@ -47,7 +47,18 @@ class Logic {
         issue.status = newStatus
     }
 
+
+
+    deleteIssue(issueID) {
+        const issueIndex = data.issues.findIndex(issue => issue.id === issueID)
+        if (issueIndex !== -1) {
+            data.issues.splice(issueIndex, 1)
+        } else {
+            throw new Error('Issue not found')
+        }
+    }
+
 }
 
-// instance
-const logic = new Logic()
+    // instance
+    const logic = new Logic()
