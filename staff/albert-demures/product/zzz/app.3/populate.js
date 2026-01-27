@@ -1,5 +1,3 @@
-import { data, User, Pet} from './data'
-
 data.insertUser(new User('user-' + data.usersCount, 'Newt Scamander', 'newt@scamander.com', 'newt', '123123123', 'regular'))
 data.insertUser(new User('user-' + data.usersCount, 'Rubeus Hagrid', 'rubeus@hagrid.com', 'hagrid', '123123123', 'regular'))
 data.insertUser(new User('user-' + data.usersCount, 'Hermione Granger', 'hermione@granger.com', 'hermione', '123123123', 'regular'))

@@ -1,4 +1,4 @@
-export function Input({ type, className = '', alias, autoComplete}) {
+function Input({ type, className = '', alias, autoComplete}) {
     return (
         <input id={alias} type={type} name={alias} autoComplete={autoComplete || alias} className={`
                 border border-gray-300 rounded-lg px-3 py-2 shadow-sm

@@ -1,13 +1,6 @@
-import { useState } from 'react'
+const { useState } = React
 
-import { Form } from './components/commons/Form'
-import { Field } from './components/commons/Field'
-import { PasswordField } from './components/commons/PasswordField'
-import { ButtonBlue } from './components/commons/ButtonBlue'
-
-import { logic } from '../logic'
-
-export function Login({ onGoToHome, onGoToRegister }) {
+function Login({ onGoToHome, onGoToRegister }) {
     console.log('Login -> call')
 
     const [message, setMessage] = useState('')

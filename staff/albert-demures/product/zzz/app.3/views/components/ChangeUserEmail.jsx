@@ -1,10 +1,6 @@
-import { useState } from 'react'
+const { useState } = React
 
-import { Form } from './commons/Form'
-import { Field } from './commons/Field'
-import { ButtonBlue } from './commons/Button'
-
-export function ChangeUserEmail({ }) {
+function ChangeUserEmail({ }) {
     console.log('ChangeUserEmail -> call')
 
     const [message, setMessage] = useState('')

@@ -1,8 +1,6 @@
-import { useState, useEffect } from 'react'
+const { useState, useEffect } = React
 
-import { logic } from '../../logic'
-
-export function PetList() {
+function PetList() {
     console.log('PetList -> call')
 
     const [message, setMessage] = useState('')

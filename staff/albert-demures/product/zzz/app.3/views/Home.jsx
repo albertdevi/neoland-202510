@@ -1,15 +1,6 @@
-import { useState } from 'react'
+const { useState, useEffect } = React
 
-import { Title } from './components/commons/Title'
-import { SubTitle } from './components/commons/SubTitle'
-import { ButtonBlue } from './components/commons/ButtonBlue'
-import { ButtonGray } from './components/commons/ButtonGray'
-import { PetList } from './components/PetList'
-
-import { logic } from '../logic'
-
-
-export function Home({ onGoToAddPet, onGoToLogin, onGoToProfile }) {
+function Home({ onGoToAddPet, onGoToLogin, onGoToProfile }) {
     console.log('Home -> call')
 
     const [message, setMessage] = useState('')

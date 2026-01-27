@@ -1,13 +1,6 @@
-import { useState } from 'react'
+const { useSTate } = React
 
-import { AnchorMenu } from './components/commons/AnchorMenu'
-import { Anchor } from './components/commons/Anchor'
-import { Title } from './components/commons/Title'
-import { SubTitle } from './components/commons/SubTitle'
-import { ChangeUserEmail } from './components/ChangeUserEmail'
-import { ChangeUserPassword } from './components/ChangeUserPassword'
-
-export function Profile({ onGoToHome }) {
+function Profile({ onGoToHome }) {
     console.log('Profile -> call')
 
     const [view, setView] = useState(null)

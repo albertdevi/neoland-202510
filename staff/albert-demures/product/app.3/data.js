@@ -1,7 +1,7 @@
 // models
 
 //Función para añadir usuarios
-class User {
+export class User {
   constructor(id, name, email, username, password, role) {
     this.id = id
     this.name = name
@@ -14,117 +14,116 @@ class User {
 
 // Función para añadir mascotas
 
-class Pet{
-constructor(id, userId, /*chip,*/ name, /*gender,*/ birthdate, weight,/*species, race, colors*/ image) {
-  this.id = id
-  this.userId = userId
-  // this.chip = chip
-  this.name = name
-  // this.gender = gender
-  this.birthdate = birthdate
-  this.weight = weight
-  //  this.species = species
-  // this.race = race
-  // this.colors = colors
-  this.image = image
-}
+export class Pet {
+  constructor(id, userId, /*chip,*/ name, /*gender,*/ birthdate, weight,/*species, race, colors*/ image) {
+    this.id = id
+    this.userId = userId
+    // this.chip = chip
+    this.name = name
+    // this.gender = gender
+    this.birthdate = birthdate
+    this.weight = weight
+    //  this.species = species
+    // this.race = race
+    // this.colors = colors
+    this.image = image
+  }
 }
 
 //manager
 // función para añadir información general
 
-
-function Data() {
-  this.users = []
-  this.usersCount = 0
-  this.pets = []
-  this.petsCount = 0
-  this.loggedInUserId = null
-}
+class Data {
+  constructor() {
+    this.users = []
+    this.usersCount = 0
+    this.pets = []
+    this.petsCount = 0
+    this.loggedInUserId = null
+  }
 
 // función para añadir un usuario
-Data.prototype.insertUser = function (user) {
-  this.users.push(user)
-  this.usersCount++
-};
-
-
+insertUser(user) {
+    this.users.push(user)
+    this.usersCount++
+  }
 
 //funión para buscar un usuario por su correo
-Data.prototype.findUserByEmail = function (email) {
-  for (let i = 0; i < this.users.length; i++) {
-    const user = this.users[i]
+findUserByEmail(email) {
+    for (let i = 0; i < this.users.length; i++) {
+      const user = this.users[i]
 
-    if (user.email === email) return user
+      if (user.email === email) return user
+    }
+
+    return null;
   }
-
-  return null;
-};
 
 // función para buscar un usuario por su username
-Data.prototype.findUserByUsername = function (username) {
-  for (let i = 0; i < this.users.length; i++) {
-    const user = this.users[i]
+findUserByUsername(username) {
+    for (let i = 0; i < this.users.length; i++) {
+      const user = this.users[i]
 
-    if (user.username === username) return user
+      if (user.username === username) return user
+    }
+
+    return null
   }
-
-  return null
-};
 
 // función para buscar un usuario por su Id
-Data.prototype.findUserById = function (id) {
-  for (let i = 0; i < this.users.length; i++) {
-    const user = this.users[i]
+findUserById(id) {
+    for (let i = 0; i < this.users.length; i++) {
+      const user = this.users[i]
 
-    if (user.id === id) return user
+      if (user.id === id) return user
+    }
+
+    return null
   }
 
-  return null
-}
-
 // función para establacer un usuario conectado
-Data.prototype.setLoggedInUserId = function (userId) {
-  this.loggedInUserId = userId
-}
+    setLoggedInUserId(userId) {
+        this.loggedInUserId = userId
+    }
+
 
 // función para conseguir el ID del usuario conectado
-Data.prototype.getLoggedInUserId = function () {
-  return this.loggedInUserId
-}
+getLoggedInUserId() {
+    return this.loggedInUserId
+  }
 
 // función para añadir una mascota
-Data.prototype.insertPet = function (pet) {
-  this.pets.push(pet)
-  this.petsCount++
-};
+insertPet(pet) {
+    this.pets.push(pet)
+    this.petsCount++
+  }
 
 //función para buscar una mascota según el id del usuario
 
-Data.prototype.findPetsByUserId = function (userId) {
-  const foundPets = []
+findPetsByUserId(userId) {
+    const foundPets = []
 
-  for (let i = 0; i < this.pets.length; i++) {
-    const pet = this.pets[i]
+    for (let i = 0; i < this.pets.length; i++) {
+      const pet = this.pets[i]
 
-    if (pet.userId === userId)
-      foundPets.push(pet)
+      if (pet.userId === userId)
+        foundPets.push(pet)
+    }
+
+    return foundPets
   }
 
-  return foundPets
-}
+findPetById(petId) {
+    for (let i = 0; i < this.pets.length; i++) {
+      const pet = this.pets[i]
 
-Data.prototype.findPetById = function (petId) {
-  for (let i = 0; i < this.pets.length; i++) {
-    const pet = this.pets[i]
+      if (pet.id === petId)
+        return pet
+    }
 
-    if (pet.id === petId)
-      return pet
+    return null
   }
-
-  return null
 }
-
 
 // crear nueva coleción de datos
-const data = new Data()
+export const data = new Data()

@@ -1,5 +1,3 @@
-import {data, User, Pet} from './data'
-
 const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
 const URL_REGEX = /(www|http:|https:)+[^\s]+[\w]/
 const ISODATE_REGEX = /^\d{4}-\d{2}-\d{2}$/
@@ -8,6 +6,7 @@ const PET_ID_REGEX = /^pet-[0-9]+$/
 class Logic {
   constructor() {
   }
+
 
   // Función registrar un nuevo usuario, enviando errores
   registerUser(name, email, username, password, passwordRepeat) {
@@ -208,4 +207,4 @@ class Logic {
 }
 
 // instance
-export const logic = new Logic()
+const logic = new Logic();
