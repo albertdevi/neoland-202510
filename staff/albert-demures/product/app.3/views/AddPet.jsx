@@ -5,6 +5,7 @@ import { SubTitle } from './components/commons/SubTitle'
 import { Form } from './components/commons/Form'
 import { Field } from './components/commons/Field'
 import { ButtonBlue } from './components/commons/ButtonBlue'
+import { logic } from '../logic'
 
 export function AddPet({ onGoToHome }) {
     console.log('AddPet ->call')

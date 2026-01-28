@@ -2,7 +2,8 @@ import { useState } from 'react'
 
 import { Form } from './commons/Form'
 import { PasswordField } from './commons/PasswordField'
-import { ButtonBlue } from './commons/Button'
+import { ButtonBlue } from './commons/ButtonBlue'
+import { logic } from '../../logic'
 
 export function ChangeUserPassword({ }) {
     console.log('ChangeUserPassword -> call')

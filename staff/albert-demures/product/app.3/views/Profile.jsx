@@ -6,6 +6,7 @@ import { Title } from './components/commons/Title'
 import { SubTitle } from './components/commons/SubTitle'
 import { ChangeUserEmail } from './components/ChangeUserEmail'
 import { ChangeUserPassword } from './components/ChangeUserPassword'
+import { ChangeUserUsername } from './components/ChangeUserUsername'
 
 export function Profile({ onGoToHome }) {
     console.log('Profile -> call')

@@ -1,0 +1,25 @@
+{
+  "hash": "59d8695f",
+  "configHash": "6d11b3a1",
+  "lockfileHash": "e3b0c442",
+  "browserHash": "20849d64",
+  "optimized": {
+    "react": {
+      "src": "../../staff/albert-demures/product/app.3/node_modules/react/index.js",
+      "file": "react.js",
+      "fileHash": "23c76035",
+      "needsInterop": true
+    },
+    "react-dom/client": {
+      "src": "../../staff/albert-demures/product/app.3/node_modules/react-dom/client.js",
+      "file": "react-dom_client.js",
+      "fileHash": "744d3f98",
+      "needsInterop": true
+    }
+  },
+  "chunks": {
+    "chunk-V6UYGDN3": {
+      "file": "chunk-V6UYGDN3.js"
+    }
+  }
+}
