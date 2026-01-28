@@ -12,7 +12,7 @@ class Logic {
             body: body,
             status: 'Open',
             date: new Date(),
-            author: 'Albert Demures'
+            author: 'GBK team'
         }
         data.insertIssue(issue)
     }
