@@ -85,13 +85,13 @@ class Logic {
 
     const user = data.findUserById(userId)
 
-  if (!user) throw new Error ('user not found')
+    if (!user) throw new Error('user not found')
 
     if (user.email !== email) throw new Error('email does not belong to user')
 
-      const otherUser = data.findUserByEmail(newEmail)
+    const otherUser = data.findUserByEmail(newEmail)
 
-      if (otherUser) throw new Error('newEmail belongs to another user')
+    if (otherUser) throw new Error('newEmail belongs to another user')
 
     user.email = newEmail
   }
@@ -114,7 +114,7 @@ class Logic {
 
     const user = data.findUserById(userId)
 
-    if (!user) throw new Error ('user not found')
+    if (!user) throw new Error('user not found')
 
     if (user.password !== password) throw new Error('incorrect password')
 
@@ -122,7 +122,10 @@ class Logic {
   }
 
   // función cmbiar Username
-  changeUserUsername(username, newUsername, newUsernameRepeat) {
+  changeUserUsername(userId, username, newUsername, newUsernameRepeat) {
+    if (typeof userId !== 'string') throw new Error('invalid userId type')
+    if (!USER_ID_REGEX.test(userId)) throw new Error('invalid userId format')
+
     if (typeof username !== "string") throw new Error("invalid username type")
     if (username.length < 3) throw new Error("invalid username length")
 
@@ -134,9 +137,15 @@ class Logic {
 
     if (newUsername !== newUsernameRepeat) throw new Error('newUsername and newUsernameRepeat do not match')
 
-    const user = data.findUserById(data.getLoggedInUserId())
+    const user = data.findUserById(userId)
+
+    if (!user) throw new Error ('user not found')
 
     if (user.username !== username) throw new Error('incorrect Username')
+
+    const otherUser = data.findUserByUsername(newUsername)
+
+    if (otherUser) throw new Error('newUsername belongs to another user')
 
     user.username = newUsername
   }

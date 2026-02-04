@@ -60,18 +60,6 @@ api.post('/pets', jsonBodyParser, (req, res) => {
     }
 })
 
-api.get('/pets', (req, res) => {
-    try {
-        const userId = req.headers.authorization.slice(6)
-
-
-        const pets = logic.getPets(userId)
-
-        res.json(pets)
-    } catch (error) {
-        res.status(400).json({ error: error.constructor.name, message: error.message })
-    }
-})
 
 
 api.delete('/pets/:petId', (req, res) => {
@@ -115,5 +103,34 @@ api.patch('/users/password', jsonBodyParser, (req, res) => {
         res.status(400).json({ error: error.constructor.name, message: error.message })
     }
 })
+
+
+api.patch('/users/username', jsonBodyParser, (req, res) => {
+    try {
+        const userId = req.headers.authorization.slice(6)
+
+        const { username, newUsername, newUsernameRepeat } = req.body
+
+        logic.changeUserUsername(userId, username, newUsername, newUsernameRepeat)
+
+        res.status(204).send()
+    } catch (error) {
+        res.status(400).json({ error: error.constructor.name, message: error.message })
+    }
+})
+
+api.get('/pets', (req, res) => {
+    try {
+        const userId = req.headers.authorization.slice(6)
+
+
+        const pets = logic.getPets(userId)
+
+        res.json(pets)
+    } catch (error) {
+        res.status(400).json({ error: error.constructor.name, message: error.message })
+    }
+})
+
 
 api.listen(8080, () => console.log('API listening on port 8080'))
