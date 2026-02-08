@@ -18,3 +18,5 @@ const before = Date.now()
 while(Date.now() - before < 5000) {
     //console.log('loop', new Date().toISOString())
 }
+
+console.log('eneded writing memory', new Date().toISOSstring())
