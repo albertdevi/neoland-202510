@@ -1,5 +1,6 @@
 // Importamos la librería Express desde node_modules
 const express = require('express')
+const cores = require('cors')
 
 const { logic } = require('./logic')
 
