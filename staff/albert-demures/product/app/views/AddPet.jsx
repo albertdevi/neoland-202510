@@ -6,11 +6,12 @@ import { Form } from './components/commons/Form'
 import { Field } from './components/commons/Field'
 import { ButtonBlue } from './components/commons/ButtonBlue'
 import { logic } from '../logic'
+import { Feedback } from './components/commons/Feedback'
 
 export function AddPet({ onGoToHome }) {
     console.log('AddPet ->call')
 
-    const [message, setMessage] = useState('')
+    const [feedback, setFeedback] = useState(null)
 
     const handleBackClick = event => {
         event.preventDefault()
@@ -30,12 +31,15 @@ export function AddPet({ onGoToHome }) {
 
         try {
             logic.addPet(name, birthdate, weight, image)
+                .then(() => {
 
-            form.reset()
+                    form.reset()
 
-            onGoToHome()
+                    onGoToHome()
+                })
+                .catch(error => setFeedback({ message: error.message, level: 'error' }))
         } catch (error) {
-            setMessage(error.message)
+            setFeedback({ message: error.message, level: 'error' })
         }
     }
 
@@ -62,7 +66,7 @@ export function AddPet({ onGoToHome }) {
             <ButtonBlue className="" type="submit">Add Pet</ButtonBlue>
         </Form>
 
-        <p className="text-red-600 text-sm mt-2 font-medium">{message}</p>
+         {feedback && <Feedback feedback={feedback} />}
 
     </div >
 }

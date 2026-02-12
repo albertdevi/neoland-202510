@@ -1,6 +1,7 @@
 // Importamos la librería Express desde node_modules
 const express = require('express')
-const cores = require('cors')
+const cors = require('cors')
+require('./populate')
 
 const { logic } = require('./logic')
 
@@ -8,14 +9,7 @@ const api = express()
 
 const jsonBodyParser = express.json()
 
-/*
-api.get('/', (req, res) => {
-    res.send('Hello!')
-})
-
-api.get('/', (req, res) => {
-    res.json('Hello:"world!')
-}) */
+api.use(cors())
 
 api.get('/', (req, res) => res.json({ message: 'Hello! from API ;)' }))
 
@@ -33,14 +27,13 @@ api.post('/users', jsonBodyParser, (req, res) => {
 
 })
 
-
 api.post('/users/auth', jsonBodyParser, (req, res) => {
     try {
         const { username, password } = req.body
 
         const userId = logic.authenticateUser(username, password)
 
-        res.send(userId)
+        res.json(userId)
     } catch (error) {
         res.status(400).json({ error: error.constructor.name, message: error.message })
     }

@@ -7,14 +7,14 @@ import { Form } from './components/commons/Form'
 import { Field } from './components/commons/Field'
 import { PasswordField } from './components/commons/PasswordField'
 import { ButtonBlue } from './components/commons/ButtonBlue'
+import { Feedback } from './components/commons/Feedback'
 
 import { logic } from '../logic'
 
 export function Login({ onGoToHome, onGoToRegister }) {
     console.log('Login -> call')
 
-    const [message, setMessage] = useState('')
-    const [passwordType, setPasswordType] = useState('password')
+    const [feedback, setFeedback] = useState(null) 
 
     const handleLoginSubmit = event => {
         event.preventDefault()
@@ -26,22 +26,17 @@ export function Login({ onGoToHome, onGoToRegister }) {
 
         try {
             logic.loginUser(username, password)
+                .then(() => {
+                    form.reset()
 
-            form.reset()
+                    setFeedback(null)
 
-            setMessage('')
-            setPasswordType('password')
-
-            onGoToHome()
+                    onGoToHome()
+                })
+                .catch(error => setFeedback({ message: error.message, level: 'error' }))
         } catch (error) {
-            setMessage(error.message)
+            setFeedback({ message: error.message, level: 'error' })
         }
-    }
-
-    const handleTogglePasswordClick = event => {
-        event.preventDefault()
-
-        setPasswordType(passwordType === 'password' ? 'text' : 'password')
     }
 
     const handleRegisterClick = event => {
@@ -68,6 +63,7 @@ export function Login({ onGoToHome, onGoToRegister }) {
 
         <a className="text-gray-700 text-lg leading-loose max-w-md mx-auto mt-4 text-center cursor-pointer underline font-bold" onClick={handleRegisterClick}>Register</a>
 
-        <p className="text-red-600 text-sm mt-2 font-medium"> {message} </p>
+        
+        {feedback && <Feedback feedback={feedback} />}
     </div>
 }

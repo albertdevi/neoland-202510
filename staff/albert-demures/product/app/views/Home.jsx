@@ -4,6 +4,8 @@ import { Title } from './components/commons/Title'
 import { SubTitle } from './components/commons/SubTitle'
 import { ButtonBlue } from './components/commons/ButtonBlue'
 import { ButtonGray } from './components/commons/ButtonGray'
+import { Feedback } from './components/commons/Feedback'
+
 import { PetList } from './components/PetList'
 
 import { logic } from '../logic'
@@ -12,8 +14,7 @@ import { logic } from '../logic'
 export function Home({ onGoToAddPet, onGoToLogin, onGoToProfile }) {
     console.log('Home -> call')
 
-    const [message, setMessage] = useState('')
-    const [pets, setPets] = useState([])
+    const [feedback, setFeedback] = useState(null)
 
     const handleAddPetClick = event => {
         event.preventDefault()
@@ -27,15 +28,13 @@ export function Home({ onGoToAddPet, onGoToLogin, onGoToProfile }) {
         try {
             logic.logoutUser()
 
-            setMessage('')
-            setPets([])
+            setFeedback(null)
 
             onGoToLogin()
         } catch (error) {
-            setMessage('sorry, there was an error on logout, please, try it later')
+            setFeedback({ message: 'sorry, there was an error on logout, please, try it later', level: 'error' })
         }
     }
-
     const handleProfileClick = event => {
         event.preventDefault()
 
@@ -48,7 +47,7 @@ export function Home({ onGoToAddPet, onGoToLogin, onGoToProfile }) {
 
         <Title></Title>
 
-        <SubTitle>Welcome Home, {logic.getLoggedInUserName()}</SubTitle>
+        <SubTitle>Welcome Home,</SubTitle>
 
         <div className="flex justify-between gap-8">
 
@@ -61,6 +60,6 @@ export function Home({ onGoToAddPet, onGoToLogin, onGoToProfile }) {
 
         <PetList />
 
-        <p>{message}</p>
+        {feedback && <Feedback feedback={feedback} />}
     </div>
 }

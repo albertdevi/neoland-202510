@@ -1,4 +1,4 @@
-import { data, User, Pet } from './data'
+import { data } from './data'
 
 const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
 const URL_REGEX = /(www|http:|https:)+[^\s]+[\w]/
@@ -64,14 +64,32 @@ class Logic {
     if (typeof password !== "string") throw new Error("invalid password type")
     if (password.length < 8) throw new Error("invalid password length")
 
-    const user = data.findUserByUsername(username)
+    return fetch('http://localhost:8080/users/auth', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ username, password })
+    })
+      .then(res => {
+        debugger
+        const { status } = res
 
-    if (user === null) throw new Error("user not found")
+        if (status === 200)
+          return res.json()
+            .then(userId => {
+              debugger
+              data.setLoggedInUserId(userId)
+            })
 
-    if (user.password !== password) throw new Error("incorrect password")
+        return res.json()
+          .then(body => {
+            debugger
+            const { error, message } = body
 
-    data.setLoggedInUserId(user.id)
-
+            throw new Error(message)
+          })
+      })
   }
 
 
@@ -84,6 +102,8 @@ class Logic {
 
   //función cambiar userEmail
   changeUserEmail(email, newEmail, newEmailRepeat) {
+    if (data.getLoggedInUserId() === null) throw new Error('user not logged in')
+
     if (typeof email !== 'string') throw new Error('invalid email type')
     if (email.length < 6) throw new Error('invalid email length')
     if (!EMAIL_REGEX.test(email)) throw new Error('invalid email format')
@@ -98,16 +118,37 @@ class Logic {
 
     if (newEmail !== newEmailRepeat) throw new Error('newEmail and newEmailRepeat do not match')
 
-    const user = data.findUserById(data.getLoggedInUserId())
+    return fetch('http://localhost:8080/users/email', {
+      method: 'PATCH',
+      headers: {
+         Authorization: 'Basic ' + data.getLoggedInUserId(),
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ email, newEmail, newEmailRepeat })
+    })
 
-    if (user.email !== email) throw new Error('email do not belong to user')
+      .then(res => {
+        debugger
+        const { status } = res
 
-    user.email = newEmail
+        if (status === 204)
+          return
+
+        return res.json()
+          .then(body => {
+            debugger
+            const { error, message } = body
+
+            throw new Error(message)
+          })
+      })
   }
 
 
   // función cambiar password
   changeUserPassword(password, newPassword, newPasswordRepeat) {
+     if (data.getLoggedInUserId() === null) throw new Error('user not logged in')
+
     if (typeof password !== "string") throw new Error("invalid password type")
     if (password.length < 8) throw new Error("invalid password length")
 
@@ -119,16 +160,38 @@ class Logic {
 
     if (newPassword !== newPasswordRepeat) throw new Error('newPassword and newPasswordRepeat do not match')
 
-    const user = data.findUserById(data.getLoggedInUserId())
+return fetch('http://localhost:8080/users/password', {
+      method: 'PATCH',
+      headers: {
+         Authorization: 'Basic ' + data.getLoggedInUserId(),
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ password, newPassword, newPasswordRepeat })
+    })
 
-    if (user.password !== password) throw new Error('incorrect password')
+      .then(res => {
+        debugger
+        const { status } = res
 
-    user.password = newPassword
+        if (status === 204)
+          return
+
+        return res.json()
+          .then(body => {
+            debugger
+            const { error, message } = body
+
+            throw new Error(message)
+          })
+      })
+
   }
 
 
   // función cmbiar Username
   changeUserUsername(username, newUsername, newUsernameRepeat) {
+     if (data.getLoggedInUserId() === null) throw new Error('user not logged in')
+
     if (typeof username !== "string") throw new Error("invalid username type")
     if (username.length < 3) throw new Error("invalid username length")
 
@@ -140,20 +203,37 @@ class Logic {
 
     if (newUsername !== newUsernameRepeat) throw new Error('newUsername and newUsernameRepeat do not match')
 
-    const user = data.findUserById(data.getLoggedInUserId())
+return fetch('http://localhost:8080/users/username', {
+      method: 'PATCH',
+      headers: {
+         Authorization: 'Basic ' + data.getLoggedInUserId(),
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ username, newUsername, newUsernameRepeat })
+    })
 
-    if (user.username !== username) throw new Error('incorrect Username')
+      .then(res => {
+        debugger
+        const { status } = res
 
-    user.username = newUsername
+        if (status === 204)
+          return
+
+        return res.json()
+          .then(body => {
+            debugger
+            const { error, message } = body
+
+            throw new Error(message)
+          })
+      })
   }
-
+ 
+  
 
   // función para añadir una nueva mascota
   addPet(name, birthdate, weight, image) {
     if (data.getLoggedInUserId() === null) throw new Error('user not logged in')
-
-    const user = data.findUserById(data.getLoggedInUserId())
-    if (user === null) throw new Error('user not found')
 
     if (typeof name !== 'string') throw new Error('invalid name type')
     if (name.length < 1) throw new Error('invalid name length')
@@ -168,48 +248,100 @@ class Logic {
 
     if (!URL_REGEX.test(image)) throw new Error('invalid image format')
 
-    const pet = new Pet('pet-' + data.petsCount, data.getLoggedInUserId(), name, birthdate, weight, image)
+    return fetch('http://localhost:8080/pets', {
+      method: 'POST',
+      headers: {
+        Authorization: 'Basic ' + data.getLoggedInUserId(),
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ name, birthdate, weight, image })
+    })
 
-    data.insertPet(pet)
+      .then(res => {
+        debugger
+        const { status } = res
+
+        if (status === 201)
+          return
+
+        return res.json()
+          .then(body => {
+            debugger
+            const { error, message } = body
+
+            console.error(error, message)
+          })
+      })
   }
 
   // función para consegir las mascotas de un usuario
   getPets() {
     if (data.getLoggedInUserId() === null) throw new Error('user not logged in')
 
-    const user = data.findUserById(data.getLoggedInUserId())
-    if (user === null) throw new Error('user not found')
+    return fetch('http://localhost:8080/pets', {
+      method: 'GET',
+      headers: {
+        Authorization: 'Basic ' + data.getLoggedInUserId()
+      }
+    })
+      .then(res => {
+        debugger
+        const { status } = res
 
-    const pets = data.findPetsByUserId(data.getLoggedInUserId())
+        if (status === 200)
+          return res.json()
+            .then(pets => {
+              debugger
+              return pets
+            })
 
-    return pets
+        return res.json()
+          .then(body => {
+            debugger
+            const { error, message } = body
+
+            throw new Error(message)
+          })
+      })
+
+
   }
 
   //función eliminar una mascota
   deletePet(petId) {
     if (data.getLoggedInUserId() === null) throw new Error('user not logged in')
 
-    const user = data.findUserById(data.getLoggedInUserId())
-    if (user === null) throw new Error('user not found')
-
     if (typeof petId !== 'string') throw new Error('invalid pet-id type')
 
     if (!PET_ID_REGEX.test(petId)) throw new Error('invalid pet-id format')
 
-    const pet = data.findPetById(petId)
+    return fetch('http://localhost:8080/pets/' + petId, {
+      method: 'DELETE',
+      headers: {
+        Authorization: 'Basic ' + data.getLoggedInUserId()
+      }
+    })
+      .then(res => {
+        debugger
+        const { status } = res
 
-    if (pet === null) throw new Error('pet not found')
+        if (status === 204)
+          return
 
-    if (pet.userId !== data.getLoggedInUserId()) throw new Error('user not owner of pet')
+        return res.json()
+          .then(body => {
+            debugger
+            const { error, message } = body
 
-    const petIndex = data.pets.indexOf(pet)
-
-    data.pets.splice(petIndex, 1)
+            console.error(error, message)
+          })
+      })
   }
+
+
 
   //función para traer el nombre
   getLoggedInUserName() {
-    const user = data.findUserById(data.getLoggedInUserId())
 
     if (user === null) throw new Error('user not found')
 

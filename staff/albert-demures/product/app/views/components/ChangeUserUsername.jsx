@@ -2,13 +2,14 @@ import { useState } from 'react'
 
 import { Form } from './commons/Form'
 import { Field } from './commons/Field'
+import { Feedback } from './commons/Feedback'
 import { ButtonBlue } from './commons/ButtonBlue'
 import { logic } from '../../logic'
 
 export function ChangeUserUsername({ }) {
     console.log('ChangeUserUsername -> call')
 
-    const [message, setMessage] = useState('')
+   const [feedback, setFeedback] = useState(null)
 
     const handleChangeUsernameSubmit = event => {
         event.preventDefault()
@@ -19,14 +20,20 @@ export function ChangeUserUsername({ }) {
         const newUsername = form.newUsername.value
         const newUsernameRepeat = form.newUsernameRepeat.value
 
-        try {
-            logic.changeUserUsername(username, newUsername, newUsernameRepeat)
+         try {
+            logic.changeUserPassword(password, newPassword, newPasswordRepeat)
+                .then(() => {
 
-            form.reset()
+                    form.reset()
+
+                    setFeedback({ message: 'Username succesfully updated', level: 'success' })
+                })
+                .catch(error => {
+                    setFeedback({ message: error.message, level: 'error' })
+                })
         } catch (error) {
-            setMessage(error.message)
+            setFeedback({ message: error.message, level: 'error' })
         }
-
     }
 
     console.log('ChangeUserUsername -> render')
@@ -44,7 +51,7 @@ export function ChangeUserUsername({ }) {
 
         </Form>
 
-        <p>{message}</p>
+        {feedback && <Feedback feedback={feedback} />}
     </div>
 
 }

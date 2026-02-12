@@ -6,13 +6,14 @@ import { PasswordField } from './components/commons/PasswordField'
 import { ButtonBlue } from './components/commons/ButtonBlue'
 import { Title } from './components/commons/Title'
 import { SubTitle } from './components/commons/SubTitle'
+import { Feedback } from './components/commons/Feedback'
 
 import { logic } from '../logic'
 
 export function Register({ onGoToLogin }) {
     console.log('Register -> call')
 
-    const [message, setMessage] = useState('')
+    const [feedback, setFeedback] = useState(null)
 
     const handleRegisterSubmit = event => {
         event.preventDefault()
@@ -25,33 +26,19 @@ export function Register({ onGoToLogin }) {
         const password = form.password.value
         const passwordRepeat = form.passwordRepeat.value
 
-        try {
+try {
             logic.registerUser(name, email, username, password, passwordRepeat)
-            .then(() =>{
+                .then(() => {
+                    form.reset()
 
-            form.reset()
+                    setFeedback(null)
 
-            setMessage('')
-
-            onGoToLogin()
-            
-            })
-            .catch(error => setMessage(error.message))
+                    onGoToLogin()
+                })
+                .catch(error => setFeedback({ message: error.message, level: 'error' }))
         } catch (error) {
-            setMessage(error.message)
+            setFeedback({ message: error.message, level: 'error' })
         }
-    }
-
-    const handleTogglePasswordClick = event => {
-        event.preventDefault()
-
-        setPasswordType(passwordType === 'password' ? 'text' : 'password')
-    }
-
-    const handleTogglePasswordRepeatClick = event => {
-        event.preventDefault()
-
-        setPasswordRepeatType(passwordRepeatType === 'password' ? 'text' : 'password')
     }
 
     const handleLoginClick = event => {
@@ -84,7 +71,8 @@ export function Register({ onGoToLogin }) {
 
         <a href="" className="text-gray-700 text-lg leading-loose max-w-md mx-auto mt-4 text-center cursor-pointer underline font-bold" onClick={handleLoginClick}>Login</a>
 
-        <p className="text-red-600 text-sm mt-2 font-medium">{message}</p>
+
+        {feedback && <Feedback feedback={feedback} />}
 
     </div>
 }

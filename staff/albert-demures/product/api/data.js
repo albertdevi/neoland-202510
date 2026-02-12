@@ -1,7 +1,7 @@
 // models
 
 //Función para añadir usuarios
- class User {
+class User {
   constructor(id, name, email, username, password, role) {
     this.id = id
     this.name = name
@@ -14,7 +14,7 @@
 
 // Función para añadir mascotas
 
- class Pet {
+class Pet {
   constructor(id, userId, /*chip,*/ name, /*gender,*/ birthdate, weight,/*species, race, colors*/ image) {
     this.id = id
     this.userId = userId
@@ -42,14 +42,14 @@ class Data {
     this.loggedInUserId = null
   }
 
-// función para añadir un usuario
-insertUser(user) {
+  // función para añadir un usuario
+  insertUser(user) {
     this.users.push(user)
     this.usersCount++
   }
 
-//funión para buscar un usuario por su correo
-findUserByEmail(email) {
+  //funión para buscar un usuario por su correo
+  findUserByEmail(email) {
     for (let i = 0; i < this.users.length; i++) {
       const user = this.users[i]
 
@@ -59,8 +59,8 @@ findUserByEmail(email) {
     return null;
   }
 
-// función para buscar un usuario por su username
-findUserByUsername(username) {
+  // función para buscar un usuario por su username
+  findUserByUsername(username) {
     for (let i = 0; i < this.users.length; i++) {
       const user = this.users[i]
 
@@ -70,8 +70,8 @@ findUserByUsername(username) {
     return null
   }
 
-// función para buscar un usuario por su Id
-findUserById(id) {
+  // función para buscar un usuario por su Id
+  findUserById(id) {
     for (let i = 0; i < this.users.length; i++) {
       const user = this.users[i]
 
@@ -81,15 +81,15 @@ findUserById(id) {
     return null
   }
 
-// función para añadir una mascota
-insertPet(pet) {
+  // función para añadir una mascota
+  insertPet(pet) {
     this.pets.push(pet)
     this.petsCount++
   }
 
-//función para buscar una mascota según el id del usuario
+  //función para buscar una mascota según el id del usuario
 
-findPetsByUserId(userId) {
+  findPetsByUserId(userId) {
     const foundPets = []
 
     for (let i = 0; i < this.pets.length; i++) {
@@ -102,7 +102,7 @@ findPetsByUserId(userId) {
     return foundPets
   }
 
-findPetById(petId) {
+  findPetById(petId) {
     for (let i = 0; i < this.pets.length; i++) {
       const pet = this.pets[i]
 
@@ -115,11 +115,10 @@ findPetById(petId) {
 }
 
 // crear nueva coleción de datos
- const data = new Data()
+const data = new Data()
 
- module.exports =  {
-
+module.exports = {
   User,
   Pet,
   data
- }
+}
