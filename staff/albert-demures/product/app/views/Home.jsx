@@ -11,7 +11,7 @@ import { PetList } from './components/PetList'
 import { logic } from '../logic'
 
 
-export function Home({ onGoToAddPet, onGoToLogin, onGoToProfile }) {
+export function Home({ onGoToAddPet, onGoToLogin, onGoToProfile, onGoToPetDetail }) {
     console.log('Home -> call')
 
     const [feedback, setFeedback] = useState(null)
@@ -41,6 +41,8 @@ export function Home({ onGoToAddPet, onGoToLogin, onGoToProfile }) {
         onGoToProfile()
     }
 
+const handleGoToPetDetail = petId => onGoToPetDetail(petId)
+
     console.log('Home -> render')
 
     return <div className="flex flex-col gap-5 items-center justify-center min-h-screen">
@@ -58,7 +60,7 @@ export function Home({ onGoToAddPet, onGoToLogin, onGoToProfile }) {
             <ButtonGray className="" onClick={handleLogoutClick} type="button">Logout</ButtonGray>
         </div>
 
-        <PetList />
+        <PetList onGoToPetDetail ={handleGoToPetDetail} />
 
         {feedback && <Feedback feedback={feedback} />}
     </div>

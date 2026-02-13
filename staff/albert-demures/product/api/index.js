@@ -70,6 +70,28 @@ api.delete('/pets/:petId', (req, res) => {
     }
 })
 
+api.get('/pets/:petId', (req, res) => { 
+
+ try {
+        const userId = req.headers.authorization.slice(6)
+
+        const { petId } = req.params
+
+        const pet = logic.getPet(userId, petId)
+
+        res.json(pet)
+
+        res.status(204).send()
+    } catch (error) {
+        res.status(400).json({ error: error.constructor.name, message: error.message })
+    }
+
+})
+
+
+
+
+
 api.patch('/users/email', jsonBodyParser, (req, res) => {
     try {
         const userId = req.headers.authorization.slice(6)
@@ -125,6 +147,7 @@ api.get('/pets', (req, res) => {
         res.status(400).json({ error: error.constructor.name, message: error.message })
     }
 })
+
 
 
 api.listen(8080, () => console.log('API listening on port 8080'))

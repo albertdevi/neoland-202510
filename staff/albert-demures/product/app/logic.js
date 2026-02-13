@@ -339,6 +339,36 @@ return fetch('http://localhost:8080/users/username', {
   }
 
 
+  getPet(petId) {
+    if (data.getLoggedInUserId() === null) throw new Error('user not logged in')
+
+    if (typeof petId !== 'string') throw new Error('invalid pet-id type')
+
+    if (!PET_ID_REGEX.test(petId)) throw new Error('invalid pet-id format')
+
+    return fetch('http://localhost:8080/pets/' + petId, {
+      method: 'GET',
+      headers: {
+        Authorization: 'Basic ' + data.getLoggedInUserId()
+      }
+    })
+      .then(res => {
+        debugger
+        const { status } = res
+
+        if (status === 200)
+          return res.json()
+
+        return res.json()
+          .then(body => {
+            debugger
+            const { error, message } = body
+
+            throw new Error(message)
+          })
+      })
+  }
+
 
   //función para traer el nombre
   getLoggedInUserName() {
