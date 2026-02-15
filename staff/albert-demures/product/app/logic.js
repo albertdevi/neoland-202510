@@ -121,7 +121,7 @@ class Logic {
     return fetch('http://localhost:8080/users/email', {
       method: 'PATCH',
       headers: {
-         Authorization: 'Basic ' + data.getLoggedInUserId(),
+        Authorization: 'Basic ' + data.getLoggedInUserId(),
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({ email, newEmail, newEmailRepeat })
@@ -147,7 +147,7 @@ class Logic {
 
   // función cambiar password
   changeUserPassword(password, newPassword, newPasswordRepeat) {
-     if (data.getLoggedInUserId() === null) throw new Error('user not logged in')
+    if (data.getLoggedInUserId() === null) throw new Error('user not logged in')
 
     if (typeof password !== "string") throw new Error("invalid password type")
     if (password.length < 8) throw new Error("invalid password length")
@@ -160,10 +160,10 @@ class Logic {
 
     if (newPassword !== newPasswordRepeat) throw new Error('newPassword and newPasswordRepeat do not match')
 
-return fetch('http://localhost:8080/users/password', {
+    return fetch('http://localhost:8080/users/password', {
       method: 'PATCH',
       headers: {
-         Authorization: 'Basic ' + data.getLoggedInUserId(),
+        Authorization: 'Basic ' + data.getLoggedInUserId(),
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({ password, newPassword, newPasswordRepeat })
@@ -190,7 +190,7 @@ return fetch('http://localhost:8080/users/password', {
 
   // función cmbiar Username
   changeUserUsername(username, newUsername, newUsernameRepeat) {
-     if (data.getLoggedInUserId() === null) throw new Error('user not logged in')
+    if (data.getLoggedInUserId() === null) throw new Error('user not logged in')
 
     if (typeof username !== "string") throw new Error("invalid username type")
     if (username.length < 3) throw new Error("invalid username length")
@@ -203,10 +203,10 @@ return fetch('http://localhost:8080/users/password', {
 
     if (newUsername !== newUsernameRepeat) throw new Error('newUsername and newUsernameRepeat do not match')
 
-return fetch('http://localhost:8080/users/username', {
+    return fetch('http://localhost:8080/users/username', {
       method: 'PATCH',
       headers: {
-         Authorization: 'Basic ' + data.getLoggedInUserId(),
+        Authorization: 'Basic ' + data.getLoggedInUserId(),
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({ username, newUsername, newUsernameRepeat })
@@ -228,8 +228,80 @@ return fetch('http://localhost:8080/users/username', {
           })
       })
   }
- 
+
+
+  // función cmbiar name
+  changeUserName(name) {
+    if (data.getLoggedInUserId() === null) throw new Error('user not logged in')
+
+    if (typeof name !== "string") throw new Error("invalid name type")
+    if (name.length < 2) throw new Error("invalid username length")
+
+    return fetch('http://localhost:8080/users/name', {
+      method: 'PATCH',
+      headers: {
+        Authorization: 'Basic ' + data.getLoggedInUserId(),
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ name })
+    })
+
+      .then(res => {
+        debugger
+        const { status } = res
+
+        if (status === 204)
+          return
+
+        return res.json()
+          .then(body => {
+            debugger
+            const { error, message } = body
+
+            throw new Error(message)
+          })
+      })
+  }
+
+
+   // función cmbiar image
+  changeUserImage (image) {
+    if (data.getLoggedInUserId() === null) throw new Error('user not logged in')
+
+    if (typeof image !== "string") throw new Error("invalid image type")
+    if (image.length < 2) throw new Error("invalid user image length")
+
+    return fetch('http://localhost:8080/users/image', {
+      method: 'PATCH',
+      headers: {
+        Authorization: 'Basic ' + data.getLoggedInUserId(),
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ image })
+    })
+
+      .then(res => {
+        debugger
+        const { status } = res
+
+        if (status === 204)
+          return
+
+        return res.json()
+          .then(body => {
+            debugger
+            const { error, message } = body
+
+            throw new Error(message)
+          })
+      })
+  }
+
+
+
   
+
+
 
   // función para añadir una nueva mascota
   addPet(name, birthdate, weight, image) {
@@ -371,11 +443,33 @@ return fetch('http://localhost:8080/users/username', {
 
 
   //función para traer el nombre
-  getLoggedInUserName() {
+  getLoggedInUser() {
+    const userId = data.getLoggedInUserId()
+    if (data.getLoggedInUserId() === null) throw new Error('user not logged in')
 
-    if (user === null) throw new Error('user not found')
+    if (typeof userId !== 'string') throw new Error('invalid user-id type')
 
-    return user.username
+    return fetch('http://localhost:8080/user/', {
+      method: 'GET',
+      headers: {
+        Authorization: 'Basic ' + userId
+      }
+    })
+      .then(res => {
+        debugger
+        const { status } = res
+
+        if (status === 200)
+          return res.json()
+
+        return res.json()
+          .then(body => {
+            debugger
+            const { error, message } = body
+
+            throw new Error(message)
+          })
+      })
   }
 
 }

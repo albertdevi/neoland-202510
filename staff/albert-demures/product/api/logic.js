@@ -150,6 +150,36 @@ class Logic {
     user.username = newUsername
   }
 
+
+  changeUserName(userId, name) {
+    if (typeof userId !== 'string') throw new Error('invalid userId type')
+    if (!USER_ID_REGEX.test(userId)) throw new Error('invalid userId format')
+
+    if (typeof name !== "string") throw new Error("invalid name type")
+    if (name.length < 3) throw new Error("invalid name length")
+
+    const user = data.findUserById(userId)
+
+    if (!user) throw new Error('user not found')
+
+    user.name = name
+  }
+
+
+    changeUserImage(userId, image) {
+    if (typeof userId !== 'string') throw new Error('invalid userId type')
+    if (!USER_ID_REGEX.test(userId)) throw new Error('invalid userId format')
+
+    if (typeof image !== "string") throw new Error("invalid image type")
+    if (image.length < 3) throw new Error("invalid image length")
+
+    const user = data.findUserById(userId)
+
+    if (!user) throw new Error('user not found')
+
+    user.image = image
+  }
+
   // función para añadir una nueva mascota
   addPet(userId, name, birthdate, weight, image) {
     if (typeof userId !== 'string') throw new Error('invalid userId type')
@@ -229,16 +259,16 @@ class Logic {
   }
 
   //función para traer el nombre
-  getLoggedInUserName() {
-    const user = data.findUserById(data.getLoggedInUserId())
+  getLoggedInUser(userId) {
+    if (typeof userId !== 'string') throw new Error('invalid userId type')
+    if (!USER_ID_REGEX.test(userId)) throw new Error('invalid userId format')
 
+    const user = data.findUserById(userId)
     if (!user) throw new Error('user not found')
 
-    return user.username
+    return user
   }
 }
-
-
 
 // instance
 const logic = new Logic()

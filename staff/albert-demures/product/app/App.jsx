@@ -13,6 +13,7 @@ export function App() {
 
     const [view, setView] = useState('landing')
     const [petId, setPetId] = useState(null)
+    const [userId, setUserId] = useState(null)
 
     const handleGoToLogin = () => setView('login')
 
@@ -38,7 +39,7 @@ export function App() {
 
         {view === 'register' && <Register onGoToLogin={handleGoToLogin} />}
 
-        {view === 'home' && <Home onGoToAddPet={handleGoToAddPet} onGoToLogin={handleGoToLogin} onGoToProfile={handleGoToProfile} onGoToPetDetail={handleGoToPetDetail} />}
+        {view === 'home' && <Home userId={userId} onGoToAddPet={handleGoToAddPet} onGoToLogin={handleGoToLogin} onGoToProfile={handleGoToProfile} onGoToPetDetail={handleGoToPetDetail} />}
 
         {view === 'add-pet' && <AddPet onGoToHome={handleGoToHome} />}
 

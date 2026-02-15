@@ -2,13 +2,14 @@
 
 //Función para añadir usuarios
 class User {
-  constructor(id, name, email, username, password, role) {
+  constructor(id, name, email, username, password, role, image) {
     this.id = id
     this.name = name
     this.email = email
     this.username = username
     this.password = password
     this.role = role
+    this.image = image
   }
 }
 

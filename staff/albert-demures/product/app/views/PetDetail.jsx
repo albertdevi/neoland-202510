@@ -42,14 +42,14 @@ export function PetDetail({ onGoToHome, petId }) {
 
         <Title></Title>
 
-        {pet && <div className="flex flex-col items-center gap-4">
-            <img src={pet.image} className="rounded-full w-40 h-40 object-cover" />
+        {pet && <div className="flex flex-col items-center gap-4 shadow hover:shadow-lg transition-shadow px-30 py-10 rounded-lg bg-radial bg-radial bg-gradient-to-r from-gray-25 to-gray-100 ">
+            <img src={pet.image} className="rounded-full w-60 h-60 object-cover border-4 border-blue-500" />
 
             <SubTitle>{pet.name}</SubTitle>
 
-            <p>Weight: {pet.weight} kgs</p>
+            <p><span className = "font-bold">Weight: </span>{pet.weight} kgs</p>
 
-            <p>Birtdate: {pet.birthdate}</p>
+            <p><span className = "font-bold">Birtdate: </span>{pet.birthdate}</p>
         </div>}
 
         {feedback && <Feedback feedback={feedback} />}

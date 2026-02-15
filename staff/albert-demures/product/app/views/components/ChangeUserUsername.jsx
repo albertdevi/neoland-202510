@@ -41,7 +41,7 @@ export function ChangeUserUsername({ }) {
 
     return <div>
         <Form onSubmit={handleChangeUsernameSubmit}>
-            <Field alias="username" type="ntext">Username</Field>
+            <Field alias="username" type="text">Username</Field>
 
             <Field alias="newUsername" type="text">New Username</Field>
 

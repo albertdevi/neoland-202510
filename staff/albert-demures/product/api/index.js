@@ -1,12 +1,13 @@
 // Importamos la librería Express desde node_modules
 const express = require('express')
 const cors = require('cors')
+
 require('./populate')
 
+const { data } = require('./data') //preguntar por esto
 const { logic } = require('./logic')
 
 const api = express()
-
 const jsonBodyParser = express.json()
 
 api.use(cors())
@@ -135,6 +136,37 @@ api.patch('/users/username', jsonBodyParser, (req, res) => {
     }
 })
 
+api.patch('/users/name', jsonBodyParser, (req, res) => {
+    try {
+        const userId = req.headers.authorization.slice(6)
+
+        const {name, } = req.body
+
+        logic.changeUserName(userId, name)
+
+        res.status(204).send()
+    } catch (error) {
+        res.status(400).json({ error: error.constructor.name, message: error.message })
+    }
+})
+
+
+api.patch('/users/image', jsonBodyParser, (req, res) => {
+    try {
+        const userId = req.headers.authorization.slice(6)
+
+        const {image, } = req.body
+
+        logic.changeUserImage(userId, image)
+
+        res.status(204).send()
+    } catch (error) {
+        res.status(400).json({ error: error.constructor.image, message: error.message })
+    }
+})
+
+
+
 api.get('/pets', (req, res) => {
     try {
         const userId = req.headers.authorization.slice(6)
@@ -143,6 +175,22 @@ api.get('/pets', (req, res) => {
         const pets = logic.getPets(userId)
 
         res.json(pets)
+    } catch (error) {
+        res.status(400).json({ error: error.constructor.name, message: error.message })
+    }
+})
+
+
+api.get('/user', (req, res) => {
+    try {
+        const userId = req.headers.authorization.slice(6)
+
+
+        const user = data.findUserById(userId)
+
+         if (!user) throw new Error('user not found')
+
+        res.json(user)
     } catch (error) {
         res.status(400).json({ error: error.constructor.name, message: error.message })
     }
