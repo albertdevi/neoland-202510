@@ -95,10 +95,12 @@ class Logic {
 
   //funcion para hacer logout del usuario
   logoutUser() {
-    data.setLoggedInUserId(null)
+    data.removeLoggedInUserId()
   }
 
-
+  isUserLoggedIn() {
+    return !!data.getLoggedInUserId()
+  }
 
   //función cambiar userEmail
   changeUserEmail(email, newEmail, newEmailRepeat) {
@@ -118,7 +120,7 @@ class Logic {
 
     if (newEmail !== newEmailRepeat) throw new Error('newEmail and newEmailRepeat do not match')
 
-    return fetch('http://localhost:8080/users/email', {
+    return fetch('http://localhost:8080/users/me/email', {
       method: 'PATCH',
       headers: {
         Authorization: 'Basic ' + data.getLoggedInUserId(),
@@ -160,7 +162,7 @@ class Logic {
 
     if (newPassword !== newPasswordRepeat) throw new Error('newPassword and newPasswordRepeat do not match')
 
-    return fetch('http://localhost:8080/users/password', {
+    return fetch('http://localhost:8080/users/me/password', {
       method: 'PATCH',
       headers: {
         Authorization: 'Basic ' + data.getLoggedInUserId(),
@@ -184,7 +186,6 @@ class Logic {
             throw new Error(message)
           })
       })
-
   }
 
 
@@ -203,7 +204,7 @@ class Logic {
 
     if (newUsername !== newUsernameRepeat) throw new Error('newUsername and newUsernameRepeat do not match')
 
-    return fetch('http://localhost:8080/users/username', {
+    return fetch('http://localhost:8080/users/me/username', {
       method: 'PATCH',
       headers: {
         Authorization: 'Basic ' + data.getLoggedInUserId(),
@@ -237,7 +238,7 @@ class Logic {
     if (typeof name !== "string") throw new Error("invalid name type")
     if (name.length < 2) throw new Error("invalid username length")
 
-    return fetch('http://localhost:8080/users/name', {
+    return fetch('http://localhost:8080/users/me/name', {
       method: 'PATCH',
       headers: {
         Authorization: 'Basic ' + data.getLoggedInUserId(),
@@ -264,14 +265,14 @@ class Logic {
   }
 
 
-   // función cmbiar image
-  changeUserImage (image) {
+  // función cmbiar image
+  changeUserImage(image) {
     if (data.getLoggedInUserId() === null) throw new Error('user not logged in')
 
     if (typeof image !== "string") throw new Error("invalid image type")
-    if (image.length < 2) throw new Error("invalid user image length")
+    if (!URL_REGEX.test(image)) throw new Error('invalid image format')
 
-    return fetch('http://localhost:8080/users/image', {
+    return fetch('http://localhost:8080/users/me/image', {
       method: 'PATCH',
       headers: {
         Authorization: 'Basic ' + data.getLoggedInUserId(),
@@ -281,7 +282,6 @@ class Logic {
     })
 
       .then(res => {
-        debugger
         const { status } = res
 
         if (status === 204)
@@ -289,18 +289,12 @@ class Logic {
 
         return res.json()
           .then(body => {
-            debugger
             const { error, message } = body
 
             throw new Error(message)
           })
       })
   }
-
-
-
-  
-
 
 
   // función para añadir una nueva mascota
@@ -357,30 +351,25 @@ class Logic {
       }
     })
       .then(res => {
-        debugger
         const { status } = res
 
         if (status === 200)
           return res.json()
-            .then(pets => {
-              debugger
-              return pets
-            })
 
-        return res.json()
-          .then(body => {
-            debugger
-            const { error, message } = body
-
-            throw new Error(message)
-          })
       })
 
+    return res.json()
+      .then(body => {
 
+        const { error, message } = body
+
+        throw new Error(message)
+      })
   }
 
+
   //función eliminar una mascota
-  deletePet(petId) {
+  removePet(petId) {
     if (data.getLoggedInUserId() === null) throw new Error('user not logged in')
 
     if (typeof petId !== 'string') throw new Error('invalid pet-id type')
@@ -425,7 +414,6 @@ class Logic {
       }
     })
       .then(res => {
-        debugger
         const { status } = res
 
         if (status === 200)
@@ -433,7 +421,51 @@ class Logic {
 
         return res.json()
           .then(body => {
-            debugger
+            const { error, message } = body
+
+            throw new Error(message)
+          })
+      })
+  }
+
+
+
+  modifyPet(petId, name, birthdate, weight, image) {
+    if (data.getLoggedInUserId() === null) throw new Error('user not logged in')
+
+    if (typeof petId !== 'string') throw new Error('invalid pet-id type')
+
+    if (!PET_ID_REGEX.test(petId)) throw new Error('invalid pet-id format')
+
+    if (typeof name !== 'string') throw new Error('invalid name type')
+    if (name.length < 1) throw new Error('invalid name length')
+
+    if (typeof birthdate !== 'string') throw new Error('invalid birthdate type')
+
+    if (!ISODATE_REGEX.test(birthdate)) throw new Error('invalid birthdate format')
+
+    if (typeof weight !== 'number' || isNaN(weight)) throw new Error('invalid weight type')
+
+    if (typeof image !== 'string') throw new Error('invalid image type')
+
+    if (!URL_REGEX.test(image)) throw new Error('invalid image format')
+
+    return fetch('http://localhost:8080/pets/' + petId, {
+      method: 'PUT',
+      headers: {
+        Authorization: 'Basic ' + data.getLoggedInUserId(),
+        'Content-type': 'application/json'
+      },
+      body: JSON.stringify({ name, birthdate, weight, image })
+    })
+      .then(res => {
+        const { status } = res
+
+        if (status === 204)
+          return
+
+        return res.json()
+          .then(body => {
             const { error, message } = body
 
             throw new Error(message)
@@ -447,16 +479,13 @@ class Logic {
     const userId = data.getLoggedInUserId()
     if (data.getLoggedInUserId() === null) throw new Error('user not logged in')
 
-    if (typeof userId !== 'string') throw new Error('invalid user-id type')
-
-    return fetch('http://localhost:8080/user/', {
+    return fetch('http://localhost:8080/users/me', {
       method: 'GET',
       headers: {
         Authorization: 'Basic ' + userId
       }
     })
       .then(res => {
-        debugger
         const { status } = res
 
         if (status === 200)
@@ -464,7 +493,6 @@ class Logic {
 
         return res.json()
           .then(body => {
-            debugger
             const { error, message } = body
 
             throw new Error(message)

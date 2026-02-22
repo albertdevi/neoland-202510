@@ -1,1 +1,1 @@
-curl -X PATCH -H 'Authorization: Basic user-0' -H 'Content-Type: application/json' -d '{"password":"123123123", "newPassword":"123123123v2", "newPasswordRepeat":"123123123v2"}'  http://localhost:8080/users/password -v
+curl -X PATCH -H 'Authorization: Basic user-0' -H 'Content-Type: application/json' -d '{"password":"123123123", "newPassword":"123123123v2", "newPasswordRepeat":"123123123v2"}'  http://localhost:8080/users/me/password -v

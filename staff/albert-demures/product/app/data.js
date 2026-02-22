@@ -1,19 +1,19 @@
 //manager
 
 class Data {
-  constructor() {
-    this.loggedInUserId = null
-  }
-
   // función para establacer un usuario conectado
   setLoggedInUserId(userId) {
-    this.loggedInUserId = userId
+    sessionStorage.userId = userId
   }
 
 
   // función para conseguir el ID del usuario conectado
   getLoggedInUserId() {
-    return this.loggedInUserId
+    return sessionStorage.userId
+  }
+
+  removeLoggedInUserId(){
+    delete sessionStorage.userId
   }
 
 }

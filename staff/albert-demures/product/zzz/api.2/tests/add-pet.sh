@@ -1,0 +1,1 @@
+curl -H 'Authorization: Basic user-0' -H 'Content-Type: application/json' -d '{"name":"Fosc","birthdate":"2022-02-22","weight":2,"image":"https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExZmRibXNwNmJmYzd2N3hhOG42dXZjNHR6eTEzMzhhamN0Yzl5ZWUxaiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/48NyDgBRvGYmpdfNww/giphy.gif"}' http://localhost:8080/pets -v

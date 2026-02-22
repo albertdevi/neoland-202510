@@ -1,0 +1,1 @@
+curl -X PUT -H 'Authorization: Basic user-0' -H 'Content-Type: application/json' -d '{"name":"lemur2", "birthdate":"2022-06-05", "weight":3,"image":"https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExZW1hYjVtN2E5OTVodzd5b2NldjNtdHR3eWdqZDQ3MmZqZ2NmOXFlMyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/qx3ZHdrmcJXDc56SmD/giphy.gif"}'  http://localhost:8080/pets/pet-1 -v

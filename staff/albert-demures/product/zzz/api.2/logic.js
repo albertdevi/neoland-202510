@@ -41,7 +41,7 @@ class Logic {
     if (user !== null) throw new Error("user username already exists")
 
     user = new User(
-      "user-" + data.usersCount, name, email, username, password, null, "regular")
+      "user-" + data.usersCount, name, email, username, password, "regular")
 
     data.insertUser(user)
   }
@@ -93,10 +93,7 @@ class Logic {
 
     if (otherUser) throw new Error('newEmail belongs to another user')
 
-    const { name, username, password, image } = user
-
-    data.updateUser(new User(userId, name, newEmail, username, password, image))
-
+    user.email = newEmail
   }
 
   // función cambiar password
@@ -121,9 +118,7 @@ class Logic {
 
     if (user.password !== password) throw new Error('incorrect password')
 
-    const { name, email, username, image } = user
-
-    data.updateUser(new User(userId, name, email, username, newPassword, image))
+    user.password = newPassword
   }
 
   // función cmbiar Username
@@ -152,22 +147,7 @@ class Logic {
 
     if (otherUser) throw new Error('newUsername belongs to another user')
 
-    const { name, email, password, image } = user
-
-    data.updateUser(new User(userId, name, email, newUsername, password, image))
-  }
-
-  //función para traer el nombre
-  getUser(userId) {
-    if (typeof userId !== 'string') throw new Error('invalid userId type')
-    if (!USER_ID_REGEX.test(userId)) throw new Error('invalid userId format')
-
-    const user = data.findUserById(userId)
-    if (!user) throw new Error('user not found')
-
-    const { name, email, username, image } = user
-
-    return { name, email, username, image }
+    user.username = newUsername
   }
 
 
@@ -182,26 +162,22 @@ class Logic {
 
     if (!user) throw new Error('user not found')
 
-      const { email, password, username, image } = user
-
-    data.updateUser(new User(userId, name, email, username, password, image))
+    user.name = name
   }
 
 
-  changeUserImage(userId, image) {
+    changeUserImage(userId, image) {
     if (typeof userId !== 'string') throw new Error('invalid userId type')
     if (!USER_ID_REGEX.test(userId)) throw new Error('invalid userId format')
 
     if (typeof image !== "string") throw new Error("invalid image type")
-    if (!URL_REGEX.test(image)) throw new Error('invalid image format')
+    if (image.length < 3) throw new Error("invalid image length")
 
     const user = data.findUserById(userId)
 
     if (!user) throw new Error('user not found')
 
-      const { name, email, password, username} = user
-
-    data.updateUser(new User(userId, name, email, username, password, image))
+    user.image = image
   }
 
   // función para añadir una nueva mascota
@@ -247,7 +223,6 @@ class Logic {
   removePet(userId, petId) {
     if (typeof userId !== 'string') throw new Error('invalid userId type')
     if (!USER_ID_REGEX.test(userId)) throw new Error('invalid userId format')
-
     if (typeof petId !== 'string') throw new Error('invalid pet-id type')
     if (!PET_ID_REGEX.test(petId)) throw new Error('invalid pet-id format')
 
@@ -260,13 +235,14 @@ class Logic {
 
     if (pet.userId !== userId) throw new Error('user not owner of pet')
 
-    data.deletePet(petId)
+    const petIndex = data.pets.indexOf(pet)
+
+    data.pets.splice(petIndex, 1)
   }
 
   getPet(userId, petId) {
     if (typeof userId !== 'string') throw new Error('invalid userId type')
     if (!USER_ID_REGEX.test(userId)) throw new Error('invalid userId format')
-
     if (typeof petId !== 'string') throw new Error('invalid pet-id type')
     if (!PET_ID_REGEX.test(petId)) throw new Error('invalid pet-id format')
 
@@ -274,6 +250,7 @@ class Logic {
     if (!user) throw new Error('user not found')
 
     const pet = data.findPetById(petId)
+
     if (!pet) throw new Error('pet not found')
 
     if (pet.userId !== userId) throw new Error('user not owner of pet')
@@ -281,37 +258,17 @@ class Logic {
     return pet
   }
 
-
-
-  modifyPet(userId, petId, name, birthdate, weight, image) {
+  //función para traer el nombre
+  getLoggedInUser(userId) {
     if (typeof userId !== 'string') throw new Error('invalid userId type')
     if (!USER_ID_REGEX.test(userId)) throw new Error('invalid userId format')
 
-    if (typeof petId !== 'string') throw new Error('invalid pet-id type')
-    if (!PET_ID_REGEX.test(petId)) throw new Error('invalid pet-id format')
-
-    if (typeof name !== 'string') throw new Error('invalid name type')
-    if (name.length < 1) throw new Error('invalid name length')
-
-    if (typeof birthdate !== 'string') throw new Error('invalid birthdate type')
-
-    if (!ISODATE_REGEX.test(birthdate)) throw new Error('invalid birthdate format')
-
-    if (typeof weight !== 'number' || isNaN(weight)) throw new Error('invalid weight type')
-
-    if (typeof image !== 'string') throw new Error('invalid image type')
-
-    if (!URL_REGEX.test(image)) throw new Error('invalid image format')
-
     const user = data.findUserById(userId)
-    if (user === null) throw new Error('user not found')
+    if (!user) throw new Error('user not found')
 
-    const pet = data.findPetById(petId)
-    if (!pet) throw new Error('pet not found')
+    const { name, email, username, image} = user
 
-    if (pet.userId !== userId) throw new Error('user not owner of pet')
-
-    data.updatePet(new Pet(petId, userId, name, birthdate, weight, image))
+    return { name, email, username, image}
   }
 }
 

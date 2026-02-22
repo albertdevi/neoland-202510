@@ -1,9 +1,9 @@
 const { data, User, Pet } = require('./data')
 
-data.insertUser(new User('user-' + data.usersCount, 'Newt Scamander', 'newt@scamander.com', 'newt', '123123123', 'https://cdn.prod.website-files.com/656b574d4c3db5a4d0ef52fa/65bfd725125bf7226cde3344_AdinaABA%20(15).jpg', 'regular' ))
-data.insertUser(new User('user-' + data.usersCount, 'Rubeus Hagrid', 'rubeus@hagrid.com', 'hagrid', '123123123',  'https://i.pinimg.com/474x/94/e7/8b/94e78bcecce6ed3b1de1f3c58c1e55a5.jpg', 'regular'))
-data.insertUser(new User('user-' + data.usersCount, 'Hermione Granger', 'hermione@granger.com', 'hermione', '123123123',  'https://platform.vox.com/wp-content/uploads/sites/2/chorus/uploads/chorus_asset/file/7154725/harry-potter-top-10-hermione-granger-moments-hermione-granger-358045.jpg?quality=90&strip=all&crop=0,15.095986038394,100,69.808027923211', 'regular'))
-data.insertUser(new User('user-' + data.usersCount, 'Albus Dumbledore', 'albus@dumbledore.com', 'dumbledore', '123123123',  'https://upload.wikimedia.org/wikipedia/en/e/e8/Dumbledore_-_Prisoner_of_Azkaban.jpg', 'regular'))
+data.insertUser(new User('user-' + data.usersCount, 'Newt Scamander', 'newt@scamander.com', 'newt', '123123123', 'regular', 'https://cdn.prod.website-files.com/656b574d4c3db5a4d0ef52fa/65bfd725125bf7226cde3344_AdinaABA%20(15).jpg' ))
+data.insertUser(new User('user-' + data.usersCount, 'Rubeus Hagrid', 'rubeus@hagrid.com', 'hagrid', '123123123', 'regular', 'https://i.pinimg.com/474x/94/e7/8b/94e78bcecce6ed3b1de1f3c58c1e55a5.jpg'))
+data.insertUser(new User('user-' + data.usersCount, 'Hermione Granger', 'hermione@granger.com', 'hermione', '123123123', 'regular', 'https://platform.vox.com/wp-content/uploads/sites/2/chorus/uploads/chorus_asset/file/7154725/harry-potter-top-10-hermione-granger-moments-hermione-granger-358045.jpg?quality=90&strip=all&crop=0,15.095986038394,100,69.808027923211'))
+data.insertUser(new User('user-' + data.usersCount, 'Albus Dumbledore', 'albus@dumbledore.com', 'dumbledore', '123123123', 'regular', 'https://upload.wikimedia.org/wikipedia/en/e/e8/Dumbledore_-_Prisoner_of_Azkaban.jpg'))
 
 
 data.insertPet(new Pet('pet-' + data.petsCount, 'user-0', 'Picket', '2022-05-05', 1, 'https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExeTdhYXNmd28yMWE4MXJpNHIwam01NWw0d2Fud3V2eDg0NzVscnY2MiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/Sm999hwfG7DZnnbK0a/giphy.gif'))

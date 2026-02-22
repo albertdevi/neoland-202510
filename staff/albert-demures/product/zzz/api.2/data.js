@@ -2,14 +2,14 @@
 
 //Función para añadir usuarios
 class User {
-  constructor(id, name, email, username, password, image, role,) {
+  constructor(id, name, email, username, password, role, image) {
     this.id = id
     this.name = name
     this.email = email
     this.username = username
     this.password = password
-    this.image = image
     this.role = role
+    this.image = image
   }
 }
 
@@ -51,29 +51,35 @@ class Data {
 
   //funión para buscar un usuario por su correo
   findUserByEmail(email) {
-    const user = this.users.find(user => user.email === email)
+    for (let i = 0; i < this.users.length; i++) {
+      const user = this.users[i]
 
-    return user || null;
+      if (user.email === email) return user
+    }
+
+    return null;
   }
 
   // función para buscar un usuario por su username
   findUserByUsername(username) {
-    const user = this.users.find(user => user.username === username)
+    for (let i = 0; i < this.users.length; i++) {
+      const user = this.users[i]
 
-    return user || null;
+      if (user.username === username) return user
+    }
+
+    return null
   }
 
   // función para buscar un usuario por su Id
-  findUserById(userId) {
-    const user = this.users.find(user => user.id === userId)
+  findUserById(id) {
+    for (let i = 0; i < this.users.length; i++) {
+      const user = this.users[i]
 
-    return user || null
-  }
+      if (user.id === id) return user
+    }
 
-  updateUser(updatedUser){
-    const index = this.users.findIndex(user => user.id === updatedUser.id)
-
-    this.users[index] = updatedUser
+    return null
   }
 
   // función para añadir una mascota
@@ -85,27 +91,27 @@ class Data {
   //función para buscar una mascota según el id del usuario
 
   findPetsByUserId(userId) {
-    const foundPets = this.pets.filter(pet => pet.userId === userId)
+    const foundPets = []
+
+    for (let i = 0; i < this.pets.length; i++) {
+      const pet = this.pets[i]
+
+      if (pet.userId === userId)
+        foundPets.push(pet)
+    }
 
     return foundPets
   }
 
   findPetById(petId) {
-    const pet = this.pets.find(pet => pet.id === petId)
+    for (let i = 0; i < this.pets.length; i++) {
+      const pet = this.pets[i]
 
-    return pet || null
-  }
+      if (pet.id === petId)
+        return pet
+    }
 
-  updatePet(updatedPet) {
-    const index = this.pets.findIndex(pet => pet.id === updatedPet.id)
-
-    this.pets[index] = updatedPet
-  }
-
-  deletePet(petId) {
-    const index = this.pets.findIndex(pet => pet.id === petId)
-
-    data.pets.splice(index, 1)
+    return null
   }
 }
 

@@ -40,7 +40,7 @@ export function ChangeUserEmail({ }) {
     console.log('ChangeUserEmail -> render')
 
 
-    return <div>
+    return <div >
         <Form onSubmit={handleChangeEmailSubmit}>
             <Field alias="email" type="email">E-mail</Field>
 

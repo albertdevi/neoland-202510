@@ -40,13 +40,30 @@ api.post('/users/auth', jsonBodyParser, (req, res) => {
     }
 })
 
-api.patch('/users/me/name', jsonBodyParser, (req, res) => {
+api.post('/pets', jsonBodyParser, (req, res) => {
+
     try {
         const userId = req.headers.authorization.slice(6)
 
-        const {name, } = req.body
+        const { name, birthdate, weight, image } = req.body
 
-        logic.changeUserName(userId, name)
+        logic.addPet(userId, name, birthdate, weight, image)
+
+        res.status(201).send()
+    } catch (error) {
+        res.status(400).json({ error: error.constructor.name, message: error.message })
+    }
+})
+
+
+
+api.delete('/pets/:petId', (req, res) => {
+    try {
+        const userId = req.headers.authorization.slice(6)
+
+        const { petId } = req.params
+
+        logic.removePet(userId, petId)
 
         res.status(204).send()
     } catch (error) {
@@ -54,8 +71,29 @@ api.patch('/users/me/name', jsonBodyParser, (req, res) => {
     }
 })
 
+api.get('/pets/:petId', (req, res) => {
 
-api.patch('/users/me/email', jsonBodyParser, (req, res) => {
+    try {
+        const userId = req.headers.authorization.slice(6)
+
+        const { petId } = req.params
+
+        const pet = logic.getPet(userId, petId)
+
+        res.json(pet)
+
+        res.status(204).send()
+    } catch (error) {
+        res.status(400).json({ error: error.constructor.name, message: error.message })
+    }
+
+})
+
+
+
+
+
+api.patch('/users/email', jsonBodyParser, (req, res) => {
     try {
         const userId = req.headers.authorization.slice(6)
 
@@ -69,7 +107,7 @@ api.patch('/users/me/email', jsonBodyParser, (req, res) => {
     }
 })
 
-api.patch('/users/me/password', jsonBodyParser, (req, res) => {
+api.patch('/users/password', jsonBodyParser, (req, res) => {
     try {
         const userId = req.headers.authorization.slice(6)
 
@@ -84,7 +122,7 @@ api.patch('/users/me/password', jsonBodyParser, (req, res) => {
 })
 
 
-api.patch('/users/me/username', jsonBodyParser, (req, res) => {
+api.patch('/users/username', jsonBodyParser, (req, res) => {
     try {
         const userId = req.headers.authorization.slice(6)
 
@@ -98,49 +136,32 @@ api.patch('/users/me/username', jsonBodyParser, (req, res) => {
     }
 })
 
-
-api.get('/users/me', (req, res) => {
+api.patch('/users/name', jsonBodyParser, (req, res) => {
     try {
         const userId = req.headers.authorization.slice(6)
 
-           const user = logic.getUser(userId)
+        const { name, } = req.body
 
- /*       const user = data.findUserById(userId)
-        if (!user) throw new Error('user not found') */
+        logic.changeUserName(userId, name)
 
-        res.json(user)
+        res.status(204).send()
     } catch (error) {
         res.status(400).json({ error: error.constructor.name, message: error.message })
     }
 })
 
-api.patch('/users/me/image', jsonBodyParser, (req, res) => {
+
+api.patch('/users/image', jsonBodyParser, (req, res) => {
     try {
         const userId = req.headers.authorization.slice(6)
 
-        const {image, } = req.body
+        const { image, } = req.body
 
         logic.changeUserImage(userId, image)
 
         res.status(204).send()
     } catch (error) {
         res.status(400).json({ error: error.constructor.image, message: error.message })
-    }
-})
-
-
-api.post('/pets', jsonBodyParser, (req, res) => {
-
-    try {
-        const userId = req.headers.authorization.slice(6)
-
-        const { name, birthdate, weight, image } = req.body
-
-        logic.addPet(userId, name, birthdate, weight, image)
-
-        res.status(201).send()
-    } catch (error) {
-        res.status(400).json({ error: error.constructor.name, message: error.message })
     }
 })
 
@@ -160,51 +181,15 @@ api.get('/pets', (req, res) => {
 })
 
 
-api.delete('/pets/:petId', (req, res) => {
+api.get('/user/', (req, res) => {
     try {
         const userId = req.headers.authorization.slice(6)
 
-        const { petId } = req.params
 
-        logic.removePet(userId, petId)
+        user = data.findUserById(userId)
+        if (!user) throw new Error('user not found') 
 
-        res.status(204).send()
-    } catch (error) {
-        res.status(400).json({ error: error.constructor.name, message: error.message })
-    }
-})
-
-
-api.get('/pets/:petId', (req, res) => { 
-
- try {
-        const userId = req.headers.authorization.slice(6)
-
-        const { petId } = req.params
-
-        const pet = logic.getPet(userId, petId)
-
-        res.json(pet)
-
-        res.status(204).send()
-    } catch (error) {
-        res.status(400).json({ error: error.constructor.name, message: error.message })
-    }
-
-})
-
-
-api.put('/pets/:petId', jsonBodyParser, (req, res) => {
-    try {
-        const userId = req.headers.authorization.slice(6)
-
-        const { petId } = req.params
-
-        const {name, birthdate, weight, image} = req.body
-
-        logic.modifyPet(userId, petId, name, birthdate, weight, image)
-
-        res.status(204).send()
+        res.json(user)
     } catch (error) {
         res.status(400).json({ error: error.constructor.name, message: error.message })
     }

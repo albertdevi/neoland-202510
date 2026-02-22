@@ -50,7 +50,7 @@ export function ChangeUserImage({ }) {
 
     return <div>
         <Form onSubmit={handleChangeImageSubmit}>
-            {user && (<Field alias="image" type="text" placeholder={user?.userimage}>Update your image url </Field>
+            {user && (<Field alias="image" type="url" placeholder={user?.userimage}>Update your image via new URL</Field>
 
             )}
 

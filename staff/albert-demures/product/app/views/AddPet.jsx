@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import { Title } from './components/commons/Title'
+import { Header } from './components/commons/Header'
 import { SubTitle } from './components/commons/SubTitle'
 import { Anchor } from './components/commons/Anchor'
 import { Form } from './components/commons/Form'
@@ -46,15 +46,9 @@ export function AddPet({ onGoToHome }) {
 
     console.log('AddPet -> render')
 
-    return < div className="flex flex-col items-center justify-center min-h-screen" >
+    return < div className="flex flex-col items-center mt-20 min-h-screen" >
 
-
-        <div className="fixed top-4 right-4 z-50">
-            <Anchor className="flex items-center gap-1 rounded-full bg-white px-4 py-2 text-sm font-medium shadow hover:bg-gray-50 transition" onClick={handleBackClick}>Back</Anchor>
-        </div>
-
-
-        <Title></Title>
+        <Header onGoToHome={onGoToHome} />
 
         <div className="flex justify-between gap-10 mt-4">
             <SubTitle>Add new pet</SubTitle>
