@@ -11,7 +11,7 @@ import { PetList } from './components/PetList'
 import { logic } from '../logic'
 
 
-export function Home({ onGoToAddPet, onGoToLogin, onGoToProfile, onGoToPetDetail }) {
+export function Home({ onGoToAddPet,  onUserLoggedOut, onGoToProfile, onGoToPetDetail }) {
     console.log('Home -> call')
 
     const [feedback, setFeedback] = useState(null)
@@ -47,15 +47,15 @@ export function Home({ onGoToAddPet, onGoToLogin, onGoToProfile, onGoToPetDetail
         try {
             logic.logoutUser()
 
-            setFeedback(null)
-
-            onGoToLogin()
+            onUserLoggedOut()
         } catch (error) {
             setFeedback({ message: 'sorry, there was an error on logout, please, try it later', level: 'error' })
         }
     }
 
     const handleProfileClick = event => {
+
+              event.preventDefault()
 
         onGoToProfile()
     }
