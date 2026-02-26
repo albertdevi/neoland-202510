@@ -1,8 +1,8 @@
 // models
 
 //Función para añadir usuarios
-class User {
-  constructor(id, name, email, username, password, image, role,) {
+export class User {
+  constructor(id, name, email, username, password, image, role) {
     this.id = id
     this.name = name
     this.email = email
@@ -15,7 +15,7 @@ class User {
 
 // Función para añadir mascotas
 
-class Pet {
+export class Pet {
   constructor(id, userId, /*chip,*/ name, /*gender,*/ birthdate, weight,/*species, race, colors*/ image) {
     this.id = id
     this.userId = userId
@@ -110,10 +110,5 @@ class Data {
 }
 
 // crear nueva coleción de datos
-const data = new Data()
+export const data = new Data()
 
-module.exports = {
-  User,
-  Pet,
-  data
-}

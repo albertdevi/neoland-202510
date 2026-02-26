@@ -55,8 +55,6 @@ export function Home({ onGoToAddPet,  onUserLoggedOut, onGoToProfile, onGoToPetD
 
     const handleProfileClick = event => {
 
-              event.preventDefault()
-
         onGoToProfile()
     }
 

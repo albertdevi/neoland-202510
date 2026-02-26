@@ -1,1 +1,1 @@
-curl -X PATCH -H 'Authorization: Basic user-0' -H 'Content-Type: application/json' -d '{"username":"lexio", "newUsername":"eloi3", "newUsernameRepeat":"eloi3"}' http://localhost:8080/users/me/username -v
+curl -X PATCH -H 'Authorization: Basic user-0' -H 'Content-Type: application/json' -d '{"username":"newt", "newUsername":"lexio", "newUsernameRepeat":"lexio"}' http://localhost:8080/users/me/username -v

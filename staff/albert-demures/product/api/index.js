@@ -1,20 +1,22 @@
 // Importamos la librería Express desde node_modules
-const express = require('express')
-const cors = require('cors')
+import express from 'express'
+import cors from 'cors'
+import './populate.js'
 
-require('./populate')
+import { logic } from './logic.js'
 
-const { data } = require('./data') //preguntar por esto
-const { logic } = require('./logic')
+import { DuplicityError, ExistenceError, OwnershipError, SystemError, ValidationError, CredentialError } from './errors.js'
 
 const api = express()
+
 const jsonBodyParser = express.json()
+
 
 api.use(cors())
 
 api.get('/', (req, res) => res.json({ message: 'Hello! from API ;)' }))
 
-api.post('/users', jsonBodyParser, (req, res) => {
+api.post('/users', jsonBodyParser, (req, res, next) => {
     try {
 
         const { name, email, username, password, passwordRepeat } = req.body
@@ -23,12 +25,11 @@ api.post('/users', jsonBodyParser, (req, res) => {
 
         res.status(201).send()
     } catch (error) {
-        res.status(400).json({ error: error.constructor.name, message: error.message })
+        next(error)
     }
-
 })
 
-api.post('/users/auth', jsonBodyParser, (req, res) => {
+api.post('/users/auth', jsonBodyParser, (req, res, next) => {
     try {
         const { username, password } = req.body
 
@@ -36,26 +37,26 @@ api.post('/users/auth', jsonBodyParser, (req, res) => {
 
         res.json(userId)
     } catch (error) {
-        res.status(400).json({ error: error.constructor.name, message: error.message })
+        next(error)
     }
 })
 
-api.patch('/users/me/name', jsonBodyParser, (req, res) => {
+api.patch('/users/me/name', jsonBodyParser, (req, res, next) => {
     try {
         const userId = req.headers.authorization.slice(6)
 
-        const {name, } = req.body
+        const { name, } = req.body
 
         logic.changeUserName(userId, name)
 
         res.status(204).send()
     } catch (error) {
-        res.status(400).json({ error: error.constructor.name, message: error.message })
+        next(error)
     }
 })
 
 
-api.patch('/users/me/email', jsonBodyParser, (req, res) => {
+api.patch('/users/me/email', jsonBodyParser, (req, res, next) => {
     try {
         const userId = req.headers.authorization.slice(6)
 
@@ -65,7 +66,7 @@ api.patch('/users/me/email', jsonBodyParser, (req, res) => {
 
         res.status(204).send()
     } catch (error) {
-        res.status(400).json({ error: error.constructor.name, message: error.message })
+        next(error)
     }
 })
 
@@ -99,14 +100,14 @@ api.patch('/users/me/username', jsonBodyParser, (req, res) => {
 })
 
 
-api.get('/users/me', (req, res) => {
+api.get('/users/me', jsonBodyParser, (req, res) => {
     try {
         const userId = req.headers.authorization.slice(6)
 
-           const user = logic.getUser(userId)
+        const user = logic.getUser(userId)
 
- /*       const user = data.findUserById(userId)
-        if (!user) throw new Error('user not found') */
+        /*       const user = data.findUserById(userId)
+               if (!user) throw new Error('user not found') */
 
         res.json(user)
     } catch (error) {
@@ -118,13 +119,13 @@ api.patch('/users/me/image', jsonBodyParser, (req, res) => {
     try {
         const userId = req.headers.authorization.slice(6)
 
-        const {image, } = req.body
+        const { image } = req.body
 
         logic.changeUserImage(userId, image)
 
         res.status(204).send()
     } catch (error) {
-        res.status(400).json({ error: error.constructor.image, message: error.message })
+        res.status(400).json({ error: error.constructor.name, message: error.message })
     }
 })
 
@@ -175,9 +176,9 @@ api.delete('/pets/:petId', (req, res) => {
 })
 
 
-api.get('/pets/:petId', (req, res) => { 
+api.get('/pets/:petId', (req, res) => {
 
- try {
+    try {
         const userId = req.headers.authorization.slice(6)
 
         const { petId } = req.params
@@ -185,8 +186,6 @@ api.get('/pets/:petId', (req, res) => {
         const pet = logic.getPet(userId, petId)
 
         res.json(pet)
-
-        res.status(204).send()
     } catch (error) {
         res.status(400).json({ error: error.constructor.name, message: error.message })
     }
@@ -200,7 +199,7 @@ api.put('/pets/:petId', jsonBodyParser, (req, res) => {
 
         const { petId } = req.params
 
-        const {name, birthdate, weight, image} = req.body
+        const { name, birthdate, weight, image } = req.body
 
         logic.modifyPet(userId, petId, name, birthdate, weight, image)
 
@@ -210,5 +209,26 @@ api.put('/pets/:petId', jsonBodyParser, (req, res) => {
     }
 })
 
+api.use((error, req, res, next) => {
+    let status = 500
+    let errorName = error.constructor.name
+
+    const { message } = error
+
+    if (error instanceof ValidationError)
+        status = 400
+    else if (error instanceof DuplicityError)
+        status = 409
+    else if (error instanceof ExistenceError)
+        status = 404
+    else if (error instanceof CredentialError)
+        status = 401
+    else if (error instanceof OwnershipError)
+        status = 403
+    else
+        errorName = SystemError.name
+
+    res.status(status).json({ error: errorName, message })
+})
 
 api.listen(8080, () => console.log('API listening on port 8080'))
