@@ -18,7 +18,6 @@ export function App() {
     console.log('App -> call')
 
     const [feedback, setFeedback] = useState(null)
-
     let loggedIn = false
 
     const navigate = useNavigate()
