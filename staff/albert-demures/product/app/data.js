@@ -2,18 +2,18 @@
 
 class Data {
   // función para establacer un usuario conectado
-  setLoggedInUserId(userId) {
-    sessionStorage.userId = userId
+  setToken(token) {
+    sessionStorage.token = token
   }
 
 
   // función para conseguir el ID del usuario conectado
-  getLoggedInUserId() {
-    return sessionStorage.userId
+  getLoggedInToken() {
+    return sessionStorage.token
   }
 
-  removeLoggedInUserId(){
-    delete sessionStorage.userId
+  removeLoggedInToken(){
+    delete sessionStorage.token
   }
 
 }

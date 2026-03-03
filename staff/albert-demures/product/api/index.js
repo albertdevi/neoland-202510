@@ -50,7 +50,7 @@ api.post('/users/auth', (req, res, next) => {
 
         const token = jwt.sign({ sub: userId }, JWT_SECRET)
 
-        res.json(token)
+        res.json({token})
     } catch (error) {
         next(error)
     }
