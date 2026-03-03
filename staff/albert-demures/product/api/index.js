@@ -1,11 +1,18 @@
 // Importamos la librería Express desde node_modules
 import express from 'express'
 import cors from 'cors'
+import morganBody from 'morgan-body'
+import jwt from 'jsonwebtoken'
+
 import './populate.js'
 
 import { logic } from './logic.js'
 
-import { DuplicityError, ExistenceError, OwnershipError, SystemError, ValidationError, CredentialError } from './errors.js'
+import { DuplicityError, ExistenceError, OwnershipError, SystemError, ValidationError, CredentialError, AuthError } from './errors.js'
+
+const { JsonWebTokenError } = jwt
+
+const JWT_SECRET = 'zuko tiene una hermanastra'
 
 const api = express()
 
@@ -14,11 +21,17 @@ const jsonBodyParser = express.json()
 
 api.use(cors())
 
+api.use(jsonBodyParser)
+
+morganBody(api, {
+    logAllReqHeader: true,
+    logAllResHeader: true
+})
+
 api.get('/', (req, res) => res.json({ message: 'Hello! from API ;)' }))
 
-api.post('/users', jsonBodyParser, (req, res, next) => {
+api.post('/users', (req, res, next) => {
     try {
-
         const { name, email, username, password, passwordRepeat } = req.body
 
         logic.registerUser(name, email, username, password, passwordRepeat)
@@ -29,21 +42,25 @@ api.post('/users', jsonBodyParser, (req, res, next) => {
     }
 })
 
-api.post('/users/auth', jsonBodyParser, (req, res, next) => {
+api.post('/users/auth', (req, res, next) => {
     try {
         const { username, password } = req.body
 
         const userId = logic.authenticateUser(username, password)
 
-        res.json(userId)
+        const token = jwt.sign({ sub: userId }, JWT_SECRET)
+
+        res.json(token)
     } catch (error) {
         next(error)
     }
 })
 
-api.patch('/users/me/name', jsonBodyParser, (req, res, next) => {
+api.patch('/users/me/name', (req, res, next) => {
     try {
-        const userId = req.headers.authorization.slice(6)
+        const token = req.headers.authorization.slice(7)
+
+        const { sub: userId } = jwt.verify(token, JWT_SECRET)
 
         const { name, } = req.body
 
@@ -56,9 +73,11 @@ api.patch('/users/me/name', jsonBodyParser, (req, res, next) => {
 })
 
 
-api.patch('/users/me/email', jsonBodyParser, (req, res, next) => {
+api.patch('/users/me/email', (req, res, next) => {
     try {
-        const userId = req.headers.authorization.slice(6)
+        const token = req.headers.authorization.slice(7)
+
+        const { sub: userId } = jwt.verify(token, JWT_SECRET)
 
         const { email, newEmail, newEmailRepeat } = req.body
 
@@ -70,9 +89,11 @@ api.patch('/users/me/email', jsonBodyParser, (req, res, next) => {
     }
 })
 
-api.patch('/users/me/password', jsonBodyParser, (req, res) => {
+api.patch('/users/me/password', (req, res) => {
     try {
-        const userId = req.headers.authorization.slice(6)
+        const token = req.headers.authorization.slice(7)
+
+        const { sub: userId } = jwt.verify(token, JWT_SECRET)
 
         const { password, newPassword, newPasswordRepeat } = req.body
 
@@ -85,9 +106,11 @@ api.patch('/users/me/password', jsonBodyParser, (req, res) => {
 })
 
 
-api.patch('/users/me/username', jsonBodyParser, (req, res) => {
+api.patch('/users/me/username', (req, res) => {
     try {
-        const userId = req.headers.authorization.slice(6)
+        const token = req.headers.authorization.slice(7)
+
+        const { sub: userId } = jwt.verify(token, JWT_SECRET)
 
         const { username, newUsername, newUsernameRepeat } = req.body
 
@@ -100,14 +123,13 @@ api.patch('/users/me/username', jsonBodyParser, (req, res) => {
 })
 
 
-api.get('/users/me', jsonBodyParser, (req, res) => {
+api.get('/users/me', (req, res) => {
     try {
-        const userId = req.headers.authorization.slice(6)
+        const token = req.headers.authorization.slice(7)
+
+        const { sub: userId } = jwt.verify(token, JWT_SECRET)
 
         const user = logic.getUser(userId)
-
-        /*       const user = data.findUserById(userId)
-               if (!user) throw new Error('user not found') */
 
         res.json(user)
     } catch (error) {
@@ -115,9 +137,11 @@ api.get('/users/me', jsonBodyParser, (req, res) => {
     }
 })
 
-api.patch('/users/me/image', jsonBodyParser, (req, res) => {
+api.patch('/users/me/image', (req, res) => {
     try {
-        const userId = req.headers.authorization.slice(6)
+        const token = req.headers.authorization.slice(7)
+
+        const { sub: userId } = jwt.verify(token, JWT_SECRET)
 
         const { image } = req.body
 
@@ -130,10 +154,12 @@ api.patch('/users/me/image', jsonBodyParser, (req, res) => {
 })
 
 
-api.post('/pets', jsonBodyParser, (req, res) => {
+api.post('/pets', (req, res) => {
 
     try {
-        const userId = req.headers.authorization.slice(6)
+        const token = req.headers.authorization.slice(7)
+
+        const { sub: userId } = jwt.verify(token, JWT_SECRET)
 
         const { name, birthdate, weight, image } = req.body
 
@@ -149,7 +175,9 @@ api.post('/pets', jsonBodyParser, (req, res) => {
 
 api.get('/pets', (req, res) => {
     try {
-        const userId = req.headers.authorization.slice(6)
+        const token = req.headers.authorization.slice(7)
+
+        const { sub: userId } = jwt.verify(token, JWT_SECRET)
 
 
         const pets = logic.getPets(userId)
@@ -163,7 +191,9 @@ api.get('/pets', (req, res) => {
 
 api.delete('/pets/:petId', (req, res) => {
     try {
-        const userId = req.headers.authorization.slice(6)
+        const token = req.headers.authorization.slice(7)
+
+        const { sub: userId } = jwt.verify(token, JWT_SECRET)
 
         const { petId } = req.params
 
@@ -179,7 +209,9 @@ api.delete('/pets/:petId', (req, res) => {
 api.get('/pets/:petId', (req, res) => {
 
     try {
-        const userId = req.headers.authorization.slice(6)
+        const token = req.headers.authorization.slice(7)
+
+        const { sub: userId } = jwt.verify(token, JWT_SECRET)
 
         const { petId } = req.params
 
@@ -189,13 +221,14 @@ api.get('/pets/:petId', (req, res) => {
     } catch (error) {
         res.status(400).json({ error: error.constructor.name, message: error.message })
     }
-
 })
 
 
-api.put('/pets/:petId', jsonBodyParser, (req, res) => {
+api.put('/pets/:petId', (req, res) => {
     try {
-        const userId = req.headers.authorization.slice(6)
+        const token = req.headers.authorization.slice(7)
+
+        const { sub: userId } = jwt.verify(token, JWT_SECRET)
 
         const { petId } = req.params
 
@@ -225,6 +258,10 @@ api.use((error, req, res, next) => {
         status = 401
     else if (error instanceof OwnershipError)
         status = 403
+    else if (error instanceof JsonWebTokenError) {
+        status = 401
+        errorName = AuthError.name
+    }
     else
         errorName = SystemError.name
 
