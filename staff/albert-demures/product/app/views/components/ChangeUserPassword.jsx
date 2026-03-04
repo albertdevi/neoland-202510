@@ -3,13 +3,10 @@ import { useState } from 'react'
 import { Form } from './commons/Form'
 import { PasswordField } from './commons/PasswordField'
 import { ButtonBlue } from './commons/ButtonBlue'
-import { Feedback } from './commons/Feedback'
 import { logic } from '../../logic'
 
-export function ChangeUserPassword({ }) {
+export function ChangeUserPassword({ onError, onSuccess }) {
     console.log('ChangeUserPassword -> call')
-
-    const [feedback, setFeedback] = useState(null)
 
     const handleChangePasswordSubmit = event => {
         event.preventDefault()
@@ -20,19 +17,16 @@ export function ChangeUserPassword({ }) {
         const newPassword = form.newPassword.value
         const newPasswordRepeat = form.newPasswordRepeat.value
 
-        try {
+      try {
             logic.changeUserPassword(password, newPassword, newPasswordRepeat)
                 .then(() => {
-
                     form.reset()
 
-                    setFeedback({ message: 'Password succesfully updated', level: 'success' })
+                    onSuccess('user password successfully updated')
                 })
-                .catch(error => {
-                    setFeedback({ message: error.message, level: 'error' })
-                })
+                .catch(error => onError(error))
         } catch (error) {
-            setFeedback({ message: error.message, level: 'error' })
+            onError(error)
         }
     }
 
@@ -48,11 +42,6 @@ export function ChangeUserPassword({ }) {
             <PasswordField alias="newPasswordRepeat" type="password">New password repeat</PasswordField>
 
             <ButtonBlue className="self-center mt-4" type="submit">Update password</ButtonBlue>
-
         </Form>
-
-
-        {feedback && <Feedback feedback={feedback} />}
     </div>
-
 }

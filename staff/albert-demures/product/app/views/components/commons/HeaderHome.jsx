@@ -30,7 +30,7 @@ export function HeaderHome({ onGoToProfile }) {
     }, [])
 
 
-    return <header className="fixed top-0 z-50 bg-white w-full  border-b border-gray-100 shadow-sm flex items-center justify-between py-3 px-6">
+    return <header className="fixed top-0 z-50 bg-white  g-opacity-80 w-full  border-b border-gray-100 shadow-sm flex items-center justify-between py-3 px-6">
 
         <Title></Title>
 

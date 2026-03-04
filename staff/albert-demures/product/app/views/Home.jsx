@@ -4,36 +4,31 @@ import { HeaderHome } from './components/commons/HeaderHome'
 import { SubTitle } from './components/commons/SubTitle'
 import { ButtonBlue } from './components/commons/ButtonBlue'
 import { ButtonGray } from './components/commons/ButtonGray'
-import { Feedback } from './components/commons/Feedback'
 
 import { PetList } from './components/PetList'
 
 import { logic } from '../logic'
 
-
-export function Home({ onGoToAddPet,  onUserLoggedOut, onGoToProfile, onGoToPetDetail }) {
+export function Home({ onGoToAddPet,  onUserLoggedOut, onGoToProfile, onGoToPetDetail, onError }) {
     console.log('Home -> call')
 
-    const [feedback, setFeedback] = useState(null)
     const [name, setName] = useState('user')
     const [image, setImage] = useState('https://cdn-icons-png.flaticon.com/512/9131/9131478.png')
 
     useEffect(() => {
-        setTimeout(() => {
+            console.log('Home -> useEffect')
+
             try {
                 logic.getLoggedInUser()
                     .then(user => {
                         setName(user.name)
                         setImage(user.image || image)
                     })
-                    .catch(error => setFeedback({ message: error.message, level: 'error' }))
+                    .catch(error => onError(error))
             } catch (error) {
-                setFeedback({ message: error.message, level: 'error' })
+                onError(error)
             }
-        }, 1000)
     }, [])
-
-
 
     const handleAddPetClick = event => {
         event.preventDefault()
@@ -53,8 +48,8 @@ export function Home({ onGoToAddPet,  onUserLoggedOut, onGoToProfile, onGoToPetD
         }
     }
 
-    const handleProfileClick = event => {
-
+   const handleProfileClick = event => {
+    
         onGoToProfile()
     }
 
@@ -75,8 +70,7 @@ export function Home({ onGoToAddPet,  onUserLoggedOut, onGoToProfile, onGoToPetD
             <ButtonGray className="" onClick={handleLogoutClick} type="button">Logout</ButtonGray>
         </div>
 
-        <PetList onGoToPetDetail={handleGoToPetDetail} />
+        <PetList onGoToPetDetail={handleGoToPetDetail} onError={onError} />
 
-        {feedback && <Feedback feedback={feedback} />}
     </div>
 }

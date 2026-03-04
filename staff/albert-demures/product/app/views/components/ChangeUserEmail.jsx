@@ -3,11 +3,10 @@ import { useState } from 'react'
 import { Form } from './commons/Form'
 import { Field } from './commons/Field'
 import { ButtonBlue } from './commons/ButtonBlue'
-import { Feedback } from './commons/Feedback'
 import { logic } from '../../logic'
 
 
-export function ChangeUserEmail({ }) {
+export function ChangeUserEmail({ onError, onSuccess}) {
     console.log('ChangeUserEmail -> call')
 
     const [feedback, setFeedback] = useState(null)
@@ -20,20 +19,17 @@ export function ChangeUserEmail({ }) {
         const email = form.email.value
         const newEmail = form.newEmail.value
         const newEmailRepeat = form.newEmailRepeat.value
-
-        try {
+        
+      try {
             logic.changeUserEmail(email, newEmail, newEmailRepeat)
                 .then(() => {
-
                     form.reset()
 
-                    setFeedback({ message: 'Email succesfully updated', level: 'success' })
+                    onSuccess('user e-mail successfully updated')
                 })
-                .catch(error => {
-                    setFeedback({ message: error.message, level: 'error' })
-                })
+                .catch(error => onError(error))
         } catch (error) {
-         setFeedback({ message: error.message, level: 'error' })
+            onError(error)
         }
     }
 

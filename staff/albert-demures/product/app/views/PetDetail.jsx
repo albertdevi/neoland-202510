@@ -5,15 +5,13 @@ import { useParams} from 'react-router'
 import { Header} from './components/commons/Header'
 import { Anchor } from './components/commons/Anchor'
 import { Title } from './components/commons/Title'
-import { Feedback } from './components/commons/Feedback'
 import { SubTitle } from './components/commons/SubTitle'
 
 import { logic } from '../logic'
 
-export function PetDetail({ onGoToHome, onGoToModifyPet }) {
+export function PetDetail({ onGoToHome, onGoToModifyPet, onError }) {
     console.log('Pet Detail -> call')
 
-    const [feedback, setFeedback] = useState(null) 
     const [pet, setPet] = useState(null)
 
     const { petId } = useParams()
@@ -22,9 +20,9 @@ export function PetDetail({ onGoToHome, onGoToModifyPet }) {
         try {
             logic.getPet(petId)
                 .then(pet => setPet(pet))
-                .catch(error => setFeedback({ message: error.message, level: 'error' }))
+                .catch(error => onError(error))
         } catch (error) {
-            setFeedback({ message: error.message, level: 'error' })
+            onError(error)
         }
     }, [])
 
@@ -58,8 +56,5 @@ export function PetDetail({ onGoToHome, onGoToModifyPet }) {
 
             <p><span className="font-bold">Birtdate: </span>{pet.birthdate}</p>
         </div>}
-
-        {feedback && <Feedback feedback={feedback} />}
-        
     </div>
 }

@@ -11,19 +11,22 @@ import { ChangeUserUsername } from './components/ChangeUserUsername'
 import { ChangeUserName } from './components/ChangeUserName'
 import { ChangeUserImage } from './components/ChangeUserImage'
 
-export function Profile({ onGoToHome }) {
+export function Profile({ onGoToHome, onError, onSuccess, onClear }) {
     console.log('Profile -> call')
 
     const [view, setView] = useState(null)
 
-    const handleBackCLick = event => {
+      const handleBackClick = event => {
         event.preventDefault()
-
+      
         onGoToHome()
     }
 
+
     const handleChangeEmailClick = event => {
         event.preventDefault()
+
+        onClear()
 
         setView('change-email')
     }
@@ -31,12 +34,15 @@ export function Profile({ onGoToHome }) {
     const handleChangePasswordClick = event => {
         event.preventDefault()
 
+        onClear()
+
         setView('change-password')
     }
 
 
     const handleChangeUsernameClick = event => {
         event.preventDefault()
+        onClear()
 
         setView('change-username')
     }
@@ -44,6 +50,7 @@ export function Profile({ onGoToHome }) {
 
     const handleChangeNameClick = event => {
         event.preventDefault()
+        onClear()
 
         setView('change-name')
     }
@@ -51,14 +58,9 @@ export function Profile({ onGoToHome }) {
     
     const handleChangeImageClick = event => {
         event.preventDefault()
+        onClear()
 
         setView('change-image')
-    }
-
-     const handleBackClick = event => {
-        event.preventDefault()
-
-        onGoToHome()
     }
 
     console.log('Profile -> render')
@@ -89,14 +91,14 @@ export function Profile({ onGoToHome }) {
 
         </nav>
 
-        {view === 'change-email' && <ChangeUserEmail />}
+        {view === 'change-email' && <ChangeUserEmail onError={onError} onSuccess={onSuccess} />}
 
-        {view === 'change-password' && <ChangeUserPassword />}
+        {view === 'change-password' && <ChangeUserPassword onError={onError} onSuccess={onSuccess}/>}
 
-        {view === 'change-username' && <ChangeUserUsername />}
+        {view === 'change-username' && <ChangeUserUsername onError={onError} onSuccess={onSuccess}/>}
 
-        {view === 'change-name' && <ChangeUserName />}
+        {view === 'change-name' && <ChangeUserName onError={onError} onSuccess={onSuccess}/>}
 
-        {view === 'change-image' && <ChangeUserImage />}
+        {view === 'change-image' && <ChangeUserImage onError={onError} onSuccess={onSuccess}/>}
     </div >
 }

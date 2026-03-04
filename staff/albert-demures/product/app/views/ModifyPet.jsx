@@ -9,14 +9,11 @@ import { Form } from './components/commons/Form'
 import { Field } from './components/commons/Field'
 import { Anchor } from './components/commons/Anchor'
 import { ButtonBlue } from './components/commons/ButtonBlue'
-import { Feedback } from './components/commons/Feedback'
 import { logic } from '../logic'
 
 
-export function ModifyPet({ onGoBack }) {
+export function ModifyPet({ onGoBack, onError, onSuccess }) {
     console.log('modifyPet -> call')
-
-    const [feedback, setFeedback] = useState(null)
 
     const [pet, setPet] = useState(null)
 
@@ -24,13 +21,15 @@ export function ModifyPet({ onGoBack }) {
 
 
     useEffect(() => {
-        try {
-            logic.getPet(petId)
-                .then(pet => setPet(pet))
-                .catch(error => setFeedback({ message: error.message, level: 'error' }))
-        } catch (error) {
-            setFeedback({ message: error.message, level: 'error' })
-        }
+        setTimeout(() => {
+            try {
+                logic.getPet(petId)
+                    .then(pet => setPet(pet))
+                    .catch(error => onError(error))
+            } catch (error) {
+                onError(error)
+            }
+        }, 1000)
     }, [])
 
     const handleBackClick = event => {
@@ -50,13 +49,12 @@ export function ModifyPet({ onGoBack }) {
         const weight = Number(form.weight.value)
         const image = form.image.value
 
-        try {
+       try {
             logic.modifyPet(petId, name, birthdate, weight, image)
-                .then(() => setFeedback({ message: 'Pet successfully modified', level: 'success' }))
-                .catch(error =>
-                    setFeedback({ message: error.message, level: 'error' }))
+                .then(() => onSuccess('pet successfully modified'))
+                .catch(error => onError(error))
         } catch (error) {
-            setFeedback({ message: error.message, level: 'error' })
+            onError(error)
         }
     }
 
@@ -82,8 +80,6 @@ export function ModifyPet({ onGoBack }) {
 
             <ButtonBlue className="self-center mt-4" type="submit">Modify pet Properties</ButtonBlue>
         </Form> : <img className="w-10 h-10 object-cover" src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExYzB1ZGJ2amdmbHZzbHZxZXVoYzc0d3JwZXJ0NXg0dW81dTVjdjE4biZlcD12MV9naWZzX3NlYXJjaCZjdD1n/pVXyJy2k7WO1n49bGg/giphy.gif" />}
-
-        {feedback && <Feedback feedback={feedback} />}
 
     </div>
 }

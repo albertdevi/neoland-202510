@@ -6,13 +6,11 @@ import { Anchor } from './components/commons/Anchor'
 import { Form } from './components/commons/Form'
 import { Field } from './components/commons/Field'
 import { ButtonBlue } from './components/commons/ButtonBlue'
+
 import { logic } from '../logic'
-import { Feedback } from './components/commons/Feedback'
 
-export function AddPet({ onGoToHome }) {
+export function AddPet({ onGoToHome, onError }) {
     console.log('AddPet ->call')
-
-    const [feedback, setFeedback] = useState(null)
 
     const handleBackClick = event => {
         event.preventDefault()
@@ -33,14 +31,13 @@ export function AddPet({ onGoToHome }) {
         try {
             logic.addPet(name, birthdate, weight, image)
                 .then(() => {
-
                     form.reset()
 
                     onGoToHome()
                 })
-                .catch(error => setFeedback({ message: error.message, level: 'error' }))
+                .catch(error => onError(error))
         } catch (error) {
-            setFeedback({ message: error.message, level: 'error' })
+            onError(error)
         }
     }
 
@@ -49,6 +46,10 @@ export function AddPet({ onGoToHome }) {
     return < div className="flex flex-col items-center mt-20 min-h-screen" >
 
         <Header onGoToHome={onGoToHome} />
+
+              <div className="fixed top-4 right-4 z-50">
+            <Anchor className="flex items-center gap-2 px-4 py-2 rounded-full bg-white text-gray-700 font-medium shadow-md   hover:bg-gray-50  hover:shadow-lg transition-all duration-200 active:scale-95 focus:outline-none focus:ring-2 focus:ring-blue-300" onClick={handleBackClick}>&lt; Back</Anchor>
+            </div>
 
         <div className="flex justify-between gap-10 mt-4">
             <SubTitle>Add new pet</SubTitle>
@@ -65,8 +66,5 @@ export function AddPet({ onGoToHome }) {
 
             <ButtonBlue className="" type="submit">Add Pet</ButtonBlue>
         </Form>
-
-         {feedback && <Feedback feedback={feedback} />}
-
     </div >
 }

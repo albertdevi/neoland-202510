@@ -1,4 +1,3 @@
-// Importamos la librería Express desde node_modules
 import express from 'express'
 import cors from 'cors'
 import morganBody from 'morgan-body'
@@ -17,7 +16,6 @@ const JWT_SECRET = 'zuko tiene una hermanastra'
 const api = express()
 
 const jsonBodyParser = express.json()
-
 
 api.use(cors())
 
@@ -48,7 +46,7 @@ api.post('/users/auth', (req, res, next) => {
 
         const userId = logic.authenticateUser(username, password)
 
-        const token = jwt.sign({ sub: userId }, JWT_SECRET)
+        const token = jwt.sign({ sub: userId }, JWT_SECRET, {expiresIn: '2h'})
 
         res.json({token})
     } catch (error) {
@@ -89,7 +87,7 @@ api.patch('/users/me/email', (req, res, next) => {
     }
 })
 
-api.patch('/users/me/password', (req, res) => {
+api.patch('/users/me/password', (req, res, next) => {
     try {
         const token = req.headers.authorization.slice(7)
 
@@ -101,12 +99,12 @@ api.patch('/users/me/password', (req, res) => {
 
         res.status(204).send()
     } catch (error) {
-        res.status(400).json({ error: error.constructor.name, message: error.message })
+       next(error)
     }
 })
 
 
-api.patch('/users/me/username', (req, res) => {
+api.patch('/users/me/username', (req, res, next) => {
     try {
         const token = req.headers.authorization.slice(7)
 
@@ -118,12 +116,12 @@ api.patch('/users/me/username', (req, res) => {
 
         res.status(204).send()
     } catch (error) {
-        res.status(400).json({ error: error.constructor.name, message: error.message })
+        next(error)
     }
 })
 
 
-api.get('/users/me', (req, res) => {
+api.get('/users/me', (req, res, next) => {
     try {
         const token = req.headers.authorization.slice(7)
 
@@ -133,11 +131,11 @@ api.get('/users/me', (req, res) => {
 
         res.json(user)
     } catch (error) {
-        res.status(400).json({ error: error.constructor.name, message: error.message })
+        next(error)
     }
 })
 
-api.patch('/users/me/image', (req, res) => {
+api.patch('/users/me/image', (req, res, next) => {
     try {
         const token = req.headers.authorization.slice(7)
 
@@ -149,12 +147,12 @@ api.patch('/users/me/image', (req, res) => {
 
         res.status(204).send()
     } catch (error) {
-        res.status(400).json({ error: error.constructor.name, message: error.message })
+        next(error)
     }
 })
 
 
-api.post('/pets', (req, res) => {
+api.post('/pets', (req, res, next) => {
 
     try {
         const token = req.headers.authorization.slice(7)
@@ -167,13 +165,13 @@ api.post('/pets', (req, res) => {
 
         res.status(201).send()
     } catch (error) {
-        res.status(400).json({ error: error.constructor.name, message: error.message })
+        next(error)
     }
 })
 
 
 
-api.get('/pets', (req, res) => {
+api.get('/pets', (req, res, next) => {
     try {
         const token = req.headers.authorization.slice(7)
 
@@ -184,12 +182,12 @@ api.get('/pets', (req, res) => {
 
         res.json(pets)
     } catch (error) {
-        res.status(400).json({ error: error.constructor.name, message: error.message })
+       next(error)
     }
 })
 
 
-api.delete('/pets/:petId', (req, res) => {
+api.delete('/pets/:petId', (req, res,next) => {
     try {
         const token = req.headers.authorization.slice(7)
 
@@ -201,12 +199,12 @@ api.delete('/pets/:petId', (req, res) => {
 
         res.status(204).send()
     } catch (error) {
-        res.status(400).json({ error: error.constructor.name, message: error.message })
+        next(error)
     }
 })
 
 
-api.get('/pets/:petId', (req, res) => {
+api.get('/pets/:petId', (req, res, next) => {
 
     try {
         const token = req.headers.authorization.slice(7)
@@ -219,12 +217,12 @@ api.get('/pets/:petId', (req, res) => {
 
         res.json(pet)
     } catch (error) {
-        res.status(400).json({ error: error.constructor.name, message: error.message })
+        next(error)
     }
 })
 
 
-api.put('/pets/:petId', (req, res) => {
+api.put('/pets/:petId', (req, res, next) => {
     try {
         const token = req.headers.authorization.slice(7)
 
@@ -238,7 +236,7 @@ api.put('/pets/:petId', (req, res) => {
 
         res.status(204).send()
     } catch (error) {
-        res.status(400).json({ error: error.constructor.name, message: error.message })
+        next(error)
     }
 })
 
@@ -261,8 +259,11 @@ api.use((error, req, res, next) => {
     else if (error instanceof JsonWebTokenError) {
         status = 401
         errorName = AuthError.name
-    }
-    else
+    } else if (error instanceof SyntaxError && error.message.includes('token')) {
+        status = 401
+        errorName = AuthError.name
+        message = 'invalid json payload in token'
+    } else
         errorName = SystemError.name
 
     res.status(status).json({ error: errorName, message })

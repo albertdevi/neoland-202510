@@ -6,15 +6,11 @@ import { PasswordField } from './components/commons/PasswordField'
 import { ButtonBlue } from './components/commons/ButtonBlue'
 import { Title } from './components/commons/Title'
 import { SubTitle } from './components/commons/SubTitle'
-import { Feedback } from './components/commons/Feedback'
 
 import { logic } from '../logic'
-import { DuplicityError, ValidationError } from '../errors'
 
-export function Register({ onGoToLogin }) {
+export function Register({ onGoToLogin, onError }) {
     console.log('Register -> call')
-
-    const [feedback, setFeedback] = useState(null)
 
     const handleRegisterSubmit = event => {
         event.preventDefault()
@@ -36,19 +32,9 @@ export function Register({ onGoToLogin }) {
 
                     onGoToLogin()
                 })
-                .catch(error => {
-                    if (error instanceof ValidationError)
-                    setFeedback({ message: error.message, level: 'warn' })
-                else if (error instanceof DuplicityError)
-                    setFeedback({ message: error.message, level: 'danger'})
-                else
-                    setFeedback({ message: 'sorry, something failed. try again later', kecek: 'error'})
-            })
+                           .catch(error => onError(error))
         } catch (error) {
-            if (error instanceof ValidationError)
-            setFeedback({ message: error.message, level: 'warn' })
-        else
-            setFeedback({ message: 'sorry, something failed. try again later', level: 'error'})
+            onError(error)
         }
     }
 
@@ -81,9 +67,6 @@ export function Register({ onGoToLogin }) {
         </Form>
 
         <a href="" className="text-gray-700 text-lg leading-loose max-w-md mx-auto mt-4 text-center cursor-pointer underline font-bold" onClick={handleLoginClick}>Login</a>
-
-
-        {feedback && <Feedback feedback={feedback} />}
 
     </div>
 }
