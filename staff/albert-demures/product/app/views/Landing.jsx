@@ -19,7 +19,6 @@ export function Landing({ onGoToLogin, onGoToRegister }) {
     console.log('Landing -> render')
 
     return <div className="flex flex-col gap-5 items-center justify-center min-h-screen">
-
         <Title></Title>
 
         <SubTitle>Welcome!</SubTitle>

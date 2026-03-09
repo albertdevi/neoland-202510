@@ -1,5 +1,3 @@
-import { useState } from 'react'
-
 import { Form } from './components/commons/Form'
 import { Field } from './components/commons/Field'
 import { PasswordField } from './components/commons/PasswordField'
@@ -32,7 +30,7 @@ export function Register({ onGoToLogin, onError }) {
 
                     onGoToLogin()
                 })
-                           .catch(error => onError(error))
+                .catch(error => onError(error))
         } catch (error) {
             onError(error)
         }
@@ -47,7 +45,6 @@ export function Register({ onGoToLogin, onError }) {
     console.log('Register -> render')
 
     return <div className="flex flex-col items-center justify-center min-h-screen">
-
         <Title></Title>
 
         <SubTitle>Register</SubTitle>
@@ -67,6 +64,5 @@ export function Register({ onGoToLogin, onError }) {
         </Form>
 
         <a href="" className="text-gray-700 text-lg leading-loose max-w-md mx-auto mt-4 text-center cursor-pointer underline font-bold" onClick={handleLoginClick}>Login</a>
-
     </div>
 }

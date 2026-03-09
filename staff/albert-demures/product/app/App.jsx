@@ -72,7 +72,7 @@ export function App() {
 
     console.log('App -> render')
 
-    return <>
+    return <div className="mt-20">
         {feedback && <Feedback feedback={feedback} />
         }
         <Routes>
@@ -84,15 +84,15 @@ export function App() {
 
             <Route path="/login" element={!loggedIn ? <Login onUserLoggedIn={handleGoToHome} onGoToRegister={handleGoToRegister} onError={handleError} /> : <Navigate to="/" />} />
 
-            <Route path="/register" element={!loggedIn ? <Register onGoToLogin={handleGoToLogin} /> : <Navigate to="/" />} />
+            <Route path="/register" element={!loggedIn ? <Register onGoToLogin={handleGoToLogin} onError={handleError} /> : <Navigate to="/" />} />
 
             <Route path="/add-pet" element={loggedIn ? <AddPet onGoToHome={handleGoToHome} onError={handleError} /> : <Navigate to="/login" />} />
 
             <Route path="/profile" element={loggedIn ? <Profile onGoToHome={handleGoToHome} onError={handleError} onSuccess={handleSuccess} onClear={handleClear} /> : <Navigate to="/login" />} />
 
-            <Route path="/pets/:petId/detail" element={loggedIn ? <PetDetail onGoToHome={handleGoToHome} onGoToModifyPet={handleGoToModifyPet} /> : <Navigate to="/login" />} />
+            <Route path="/pets/:petId/detail" element={loggedIn ? <PetDetail onGoToHome={handleGoToHome} onError={handleError} onGoToModifyPet={handleGoToModifyPet} /> : <Navigate to="/login" />} />
 
             <Route path="/pets/:petId/edit" element={loggedIn ? <ModifyPet onGoBack={handleGoToPetDetail} onError={handleError} onSuccess={handleSuccess} /> : <Navigate to="/login" />} />
         </Routes>
-    </>
+    </div>
 }

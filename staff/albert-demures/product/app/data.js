@@ -8,11 +8,11 @@ class Data {
 
 
   // función para conseguir el ID del usuario conectado
-  getLoggedInToken() {
+  getToken() {
     return sessionStorage.token
   }
 
-  removeLoggedInToken(){
+  removeToken(){
     delete sessionStorage.token
   }
 

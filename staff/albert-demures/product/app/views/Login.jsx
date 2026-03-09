@@ -5,7 +5,6 @@ import { Form } from './components/commons/Form'
 import { Field } from './components/commons/Field'
 import { PasswordField } from './components/commons/PasswordField'
 import { ButtonBlue } from './components/commons/ButtonBlue'
-import { Feedback } from './components/commons/Feedback'
 
 import { logic } from '../logic'
 
@@ -51,6 +50,5 @@ export function Login({ onUserLoggedIn, onGoToRegister, onError }) {
         </Form>
 
         <a className="text-gray-700 text-lg leading-loose max-w-md mx-auto mt-4 text-center cursor-pointer underline font-bold" onClick={handleRegisterClick}>Register</a>
-
     </div>
 }

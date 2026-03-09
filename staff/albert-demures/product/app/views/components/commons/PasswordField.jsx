@@ -1,8 +1,6 @@
 import { useState } from 'react'
-
 import { Label } from './Label'
 import { InputPassword } from './InputPassword'
-
 
 export function PasswordField({ alias, children }) {
     const [type, setType] = useState('password')

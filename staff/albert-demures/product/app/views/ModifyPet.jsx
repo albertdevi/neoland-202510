@@ -49,7 +49,7 @@ export function ModifyPet({ onGoBack, onError, onSuccess }) {
         const weight = Number(form.weight.value)
         const image = form.image.value
 
-       try {
+        try {
             logic.modifyPet(petId, name, birthdate, weight, image)
                 .then(() => onSuccess('pet successfully modified'))
                 .catch(error => onError(error))
@@ -61,12 +61,12 @@ export function ModifyPet({ onGoBack, onError, onSuccess }) {
     console.log('ModifyPet -> render')
 
 
-    return <div className='mt-24'>
+    return <div className=''>
         <Header></Header>
 
-              <div className="fixed top-4 right-4 z-50">
+        <div className="fixed top-4 right-4 z-50">
             <Anchor className="flex items-center gap-2 px-4 py-2 rounded-full bg-white text-gray-700 font-medium shadow-md   hover:bg-gray-50  hover:shadow-lg transition-all duration-200 active:scale-95 focus:outline-none focus:ring-2 focus:ring-blue-300" onClick={handleBackClick}>&lt; Back</Anchor>
-            </div>
+        </div>
 
         <SubTitle>Change your pet Properties</SubTitle>
         {pet ? <Form onSubmit={handleModifyPetSubmit}>

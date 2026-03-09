@@ -43,13 +43,12 @@ export function AddPet({ onGoToHome, onError }) {
 
     console.log('AddPet -> render')
 
-    return < div className="flex flex-col items-center mt-20 min-h-screen" >
-
+    return <div className="flex flex-col items-center min-h-screen">
         <Header onGoToHome={onGoToHome} />
-
-              <div className="fixed top-4 right-4 z-50">
+        
+        <div className="fixed top-4 right-4 z-50">
             <Anchor className="flex items-center gap-2 px-4 py-2 rounded-full bg-white text-gray-700 font-medium shadow-md   hover:bg-gray-50  hover:shadow-lg transition-all duration-200 active:scale-95 focus:outline-none focus:ring-2 focus:ring-blue-300" onClick={handleBackClick}>&lt; Back</Anchor>
-            </div>
+        </div>
 
         <div className="flex justify-between gap-10 mt-4">
             <SubTitle>Add new pet</SubTitle>

@@ -1,5 +1,3 @@
-import { useState } from 'react'
-
 import { Form } from './commons/Form'
 import { PasswordField } from './commons/PasswordField'
 import { ButtonBlue } from './commons/ButtonBlue'
@@ -31,7 +29,6 @@ export function ChangeUserPassword({ onError, onSuccess }) {
     }
 
     console.log('ChangeUserPassword -> render')
-
 
     return <div>
         <Form onSubmit={handleChangePasswordSubmit}>

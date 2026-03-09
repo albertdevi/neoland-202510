@@ -4,30 +4,29 @@ import { HeaderHome } from './components/commons/HeaderHome'
 import { SubTitle } from './components/commons/SubTitle'
 import { ButtonBlue } from './components/commons/ButtonBlue'
 import { ButtonGray } from './components/commons/ButtonGray'
-
 import { PetList } from './components/PetList'
 
 import { logic } from '../logic'
 
-export function Home({ onGoToAddPet,  onUserLoggedOut, onGoToProfile, onGoToPetDetail, onError }) {
+export function Home({ onGoToAddPet, onUserLoggedOut, onGoToProfile, onGoToPetDetail, onError }) {
     console.log('Home -> call')
 
     const [name, setName] = useState('user')
     const [image, setImage] = useState('https://cdn-icons-png.flaticon.com/512/9131/9131478.png')
 
     useEffect(() => {
-            console.log('Home -> useEffect')
+        console.log('Home -> useEffect')
 
-            try {
-                logic.getLoggedInUser()
-                    .then(user => {
-                        setName(user.name)
-                        setImage(user.image || image)
-                    })
-                    .catch(error => onError(error))
-            } catch (error) {
-                onError(error)
-            }
+        try {
+            logic.getLoggedInUser()
+                .then(user => {
+                    setName(user.name)
+                    setImage(user.image || image)
+                })
+                .catch(error => onError(error))
+        } catch (error) {
+            onError(error)
+        }
     }, [])
 
     const handleAddPetClick = event => {
@@ -48,8 +47,8 @@ export function Home({ onGoToAddPet,  onUserLoggedOut, onGoToProfile, onGoToPetD
         }
     }
 
-   const handleProfileClick = event => {
-    
+    const handleProfileClick = event => {
+
         onGoToProfile()
     }
 
@@ -57,20 +56,17 @@ export function Home({ onGoToAddPet,  onUserLoggedOut, onGoToProfile, onGoToPetD
 
     console.log('Home -> render')
 
-    return  <div className="flex flex-col gap-5 items-center mt-24">
-
+    return <div className="flex flex-col gap-5 items-center">
         <HeaderHome onGoToProfile={handleProfileClick} />
 
         <SubTitle>Welcome Home, {name}!</SubTitle>
 
         <div className="flex justify-between gap-8">
-
             <ButtonBlue className="" onClick={handleAddPetClick} type="button">+ Pet</ButtonBlue>
 
             <ButtonGray className="" onClick={handleLogoutClick} type="button">Logout</ButtonGray>
         </div>
 
         <PetList onGoToPetDetail={handleGoToPetDetail} onError={onError} />
-
     </div>
 }

@@ -1,8 +1,7 @@
-import { useState } from 'react'
-
 import { Form } from './commons/Form'
 import { Field } from './commons/Field'
 import { ButtonBlue } from './commons/ButtonBlue'
+
 import { logic } from '../../logic'
 
 export function ChangeUserUsername({ onError, onSuccess}) {
@@ -12,7 +11,6 @@ export function ChangeUserUsername({ onError, onSuccess}) {
         event.preventDefault()
 
         const form = event.target
-
         const username = form.username.value
         const newUsername = form.newUsername.value
         const newUsernameRepeat = form.newUsernameRepeat.value
@@ -32,7 +30,6 @@ export function ChangeUserUsername({ onError, onSuccess}) {
 
     console.log('ChangeUserUsername -> render')
 
-
     return <div>
         <Form onSubmit={handleChangeUsernameSubmit}>
             <Field alias="username" type="text">Username</Field>
@@ -42,8 +39,6 @@ export function ChangeUserUsername({ onError, onSuccess}) {
             <Field alias="newUsernameRepeat" type="text">New Username repeat</Field>
 
             <ButtonBlue classUsername="self-center mt-4" type="submit">Update Username</ButtonBlue>
-
         </Form>
     </div>
-
 }

@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import { Header} from './components/commons/Header'
+import { Header } from './components/commons/Header'
 import { AnchorMenu } from './components/commons/AnchorMenu'
 import { Anchor } from './components/commons/Anchor'
 import { Title } from './components/commons/Title'
@@ -16,9 +16,9 @@ export function Profile({ onGoToHome, onError, onSuccess, onClear }) {
 
     const [view, setView] = useState(null)
 
-      const handleBackClick = event => {
+    const handleBackClick = event => {
         event.preventDefault()
-      
+
         onGoToHome()
     }
 
@@ -55,7 +55,7 @@ export function Profile({ onGoToHome, onError, onSuccess, onClear }) {
         setView('change-name')
     }
 
-    
+
     const handleChangeImageClick = event => {
         event.preventDefault()
         onClear()
@@ -67,15 +67,14 @@ export function Profile({ onGoToHome, onError, onSuccess, onClear }) {
 
     return <div className="flex flex-col items-center min-h-screen">
 
-       <Header onGoToHome={onGoToHome} />
-       
+        <Header onGoToHome={onGoToHome} />
+
         <div className="fixed top-4 right-4 z-50">
-            <Anchor className="flex items-center gap-2 px-4 py-2 rounded-full bg-white text-gray-700 font-medium shadow-md   hover:bg-gray-50  hover:shadow-lg transition-all duration-200 active:scale-95 focus:outline-none focus:ring-2 focus:ring-blue-300" onClick={handleBackClick}>&lt; Back</Anchor>
-            </div>
+            <Anchor className="flex items-center gap-2 px-4 py-2 rounded-full bg-white text-gray-700 font-medium shadow-md hover:bg-gray-50  hover:shadow-lg transition-all duration-200 active:scale-95 focus:outline-none focus:ring-2 focus:ring-blue-300" onClick={handleBackClick}>&lt; Back</Anchor>
+        </div>
 
-        <div className="flex justify-between gap-10 mt-20">
+        <div className="flex justify-between gap-10">
             <SubTitle>Profile</SubTitle>
-
 
         </div>
         <nav className='flex flex-col  items-center'>
@@ -93,12 +92,12 @@ export function Profile({ onGoToHome, onError, onSuccess, onClear }) {
 
         {view === 'change-email' && <ChangeUserEmail onError={onError} onSuccess={onSuccess} />}
 
-        {view === 'change-password' && <ChangeUserPassword onError={onError} onSuccess={onSuccess}/>}
+        {view === 'change-password' && <ChangeUserPassword onError={onError} onSuccess={onSuccess} />}
 
-        {view === 'change-username' && <ChangeUserUsername onError={onError} onSuccess={onSuccess}/>}
+        {view === 'change-username' && <ChangeUserUsername onError={onError} onSuccess={onSuccess} />}
 
-        {view === 'change-name' && <ChangeUserName onError={onError} onSuccess={onSuccess}/>}
+        {view === 'change-name' && <ChangeUserName onError={onError} onSuccess={onSuccess} />}
 
-        {view === 'change-image' && <ChangeUserImage onError={onError} onSuccess={onSuccess}/>}
+        {view === 'change-image' && <ChangeUserImage onError={onError} onSuccess={onSuccess} />}
     </div >
 }
