@@ -1,5 +1,3 @@
-import { useState } from 'react'
-
 import { Header } from './components/commons/Header'
 import { SubTitle } from './components/commons/SubTitle'
 import { Anchor } from './components/commons/Anchor'

@@ -67,6 +67,6 @@ export function Home({ onGoToAddPet, onUserLoggedOut, onGoToProfile, onGoToPetDe
             <ButtonGray className="" onClick={handleLogoutClick} type="button">Logout</ButtonGray>
         </div>
 
-        <PetList onGoToPetDetail={handleGoToPetDetail} onError={onError} />
+        <PetList onGoToPetDetail={handleGoToPetDetail} />
     </div>
 }

@@ -5,10 +5,14 @@ import { ButtonBlue } from './components/commons/ButtonBlue'
 import { Title } from './components/commons/Title'
 import { SubTitle } from './components/commons/SubTitle'
 
+import { useContext } from '../context'
+
 import { logic } from '../logic'
 
-export function Register({ onGoToLogin, onError }) {
+export function Register({ onGoToLogin }) {
     console.log('Register -> call')
+
+    const { onError } = useContext()
 
     const handleRegisterSubmit = event => {
         event.preventDefault()
@@ -25,8 +29,6 @@ export function Register({ onGoToLogin, onError }) {
             logic.registerUser(name, email, username, password, passwordRepeat)
                 .then(() => {
                     form.reset()
-
-                    setFeedback(null)
 
                     onGoToLogin()
                 })

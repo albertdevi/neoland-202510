@@ -1,1 +1,1 @@
-curl -X DELETE -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1c2VyLTQiLCJpYXQiOjE3NzI1NjE0MDh9.0ts0na-BZDbzYcuDjmmpDifkPcOHFHt3wSTeRBzDCp8' http://localhost:8080/pets/pet-10 -v
+curl -X DELETE -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2OWI3MTVhMTAzYWExNWMyMmU5ZTRhZmMiLCJpYXQiOjE3NzM2ODY2NjQsImV4cCI6MTc3MzY5Mzg2NH0.XeWAno1uHeA8z2vtTx0sHw3nPD8F5G7GuNmH3XSJvmM' http://localhost:8080/pets/69b715d003aa15c22e9e4b04 -v

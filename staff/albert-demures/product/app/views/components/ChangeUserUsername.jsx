@@ -1,3 +1,5 @@
+import { useState, useEffect } from 'react'
+
 import { Form } from './commons/Form'
 import { Field } from './commons/Field'
 import { ButtonBlue } from './commons/ButtonBlue'
@@ -12,16 +14,10 @@ export function ChangeUserUsername({ onError, onSuccess}) {
 
         const form = event.target
         const username = form.username.value
-        const newUsername = form.newUsername.value
-        const newUsernameRepeat = form.newUsernameRepeat.value
- 
-        try {
-            logic.changeUserPassword(password, newPassword, newPasswordRepeat)
-                .then(() => {
-                    form.reset()
 
-                    onSuccess('userName successfully updated')
-                })
+        try {
+            logic.changeUserUsername(username)
+                .then(() => onSuccess('username successfully updated'))
                 .catch(error => onError(error))
         } catch (error) {
             onError(error)
@@ -34,9 +30,6 @@ export function ChangeUserUsername({ onError, onSuccess}) {
         <Form onSubmit={handleChangeUsernameSubmit}>
             <Field alias="username" type="text">Username</Field>
 
-            <Field alias="newUsername" type="text">New Username</Field>
-
-            <Field alias="newUsernameRepeat" type="text">New Username repeat</Field>
 
             <ButtonBlue classUsername="self-center mt-4" type="submit">Update Username</ButtonBlue>
         </Form>

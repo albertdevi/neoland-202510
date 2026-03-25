@@ -6,10 +6,14 @@ import { Field } from './components/commons/Field'
 import { PasswordField } from './components/commons/PasswordField'
 import { ButtonBlue } from './components/commons/ButtonBlue'
 
+import { useContext } from '../context'
+
 import { logic } from '../logic'
 
-export function Login({ onUserLoggedIn, onGoToRegister, onError }) {
+export function Login({ onUserLoggedIn, onGoToRegister }) {
     console.log('Login -> call')
+
+    const { onError } = useContext()
 
     const handleLoginSubmit = event => {
         event.preventDefault()

@@ -1,6 +1,6 @@
 import { data } from './data'
-import { validate } from './validate'
-import { SystemError, AuthError, errorMap } from './errors'
+
+import { validate, SystemError, AuthError, errorMap } from 'com'
 class Logic {
   constructor() {
   }
@@ -14,7 +14,7 @@ class Logic {
     validate.password(passwordRepeat, 'passwordRepeat')
     validate.match(password, passwordRepeat, 'password', 'passwordRepeat')
 
-    return fetch('http://localhost:8080/users', {
+    return fetch(`${import.meta.env.VITE_API_URL}/users`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -45,7 +45,7 @@ class Logic {
     validate.username(username)
     validate.password(password)
 
-    return fetch('http://localhost:8080/users/auth', {
+    return fetch(`${import.meta.env.VITE_API_URL}/users/auth`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -59,9 +59,8 @@ class Logic {
 
         if (status === 200)
           return res.json()
-            .then(({ token }) => {
-              data.setToken(token)
-            })
+            .catch(error => { throw new SystemError('json error') })
+            .then(token => data.setToken(token))
 
         return res.json()
           .catch(error => { throw new SystemError('json error') })
@@ -92,17 +91,16 @@ class Logic {
     validate.email(newEmailRepeat, 'newEmailRepeat')
     validate.match(newEmail, newEmailRepeat, 'newEmail', 'newEmailRepeat')
 
-    return fetch('http://localhost:8080/users/me/email', {
+    return fetch(`${import.meta.env.VITE_API_URL}/users/me/email`, {
       method: 'PATCH',
       headers: {
-        Authorization: 'Bearer ' + data.getToken(),
+        Authorization: `Bearer ${data.getToken()}`,
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({ email, newEmail, newEmailRepeat })
     })
       .catch(error => { throw new SystemError('connection error') })
       .then(res => {
-        debugger
         const { status } = res
 
         if (status === 204)
@@ -129,10 +127,10 @@ class Logic {
     validate.password(newPasswordRepeat, 'newPasswordRepeat')
     validate.match(newPassword, newPasswordRepeat, 'newPassword', 'newPasswordRepeat')
 
-    return fetch('http://localhost:8080/users/me/password', {
+    return fetch(`${import.meta.env.VITE_API_URL}/users/me/password`, {
       method: 'PATCH',
       headers: {
-        Authorization: 'Bearer ' + data.getToken(),
+        Authorization: `Bearer ${data.getToken()}`,
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({ password, newPassword, newPasswordRepeat })
@@ -140,7 +138,6 @@ class Logic {
 
       .catch(error => { throw new SystemError('connection error') })
       .then(res => {
-        debugger
         const { status } = res
 
         if (status === 204)
@@ -159,21 +156,18 @@ class Logic {
   }
 
   // función cmbiar Username
-  changeUserUsername(username, newUsername, newUsernameRepeat) {
+  changeUserUsername(username) {
     if (data.getToken() === null) throw new AuthError('user not logged in')
 
     validate.username(username)
-    validate.username(newUsername, 'newUsername')
-    validate.username(newUsernameRepeat, 'newUsernameRepeat')
-    validate.match(newUsername, newUsernameRepeat, 'newUsername', 'newUsernameRepeat')
 
-    return fetch('http://localhost:8080/users/me/username', {
+    return fetch(`${import.meta.env.VITE_API_URL}/users/me/username`, {
       method: 'PATCH',
       headers: {
-        Authorization: 'Bearer ' + data.getToken(),
+        Authorization: `Bearer ${data.getToken()}`,
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ username, newUsername, newUsernameRepeat })
+      body: JSON.stringify({ username })
     })
       .catch(error => { throw new SystemError('connection error') })
       .then(res => {
@@ -200,10 +194,10 @@ class Logic {
 
     validate.name(name)
 
-    return fetch('http://localhost:8080/users/me/name', {
+    return fetch(`${import.meta.env.VITE_API_URL}/users/me/name`, {
       method: 'PATCH',
       headers: {
-        Authorization: 'Bearer ' + data.getToken(),
+        Authorization: `Bearer ${data.getToken()}`,
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({ name })
@@ -231,10 +225,10 @@ class Logic {
   getLoggedInUser() {
     if (data.getToken() === null) throw new AuthError('user not logged in')
 
-    return fetch('http://localhost:8080/users/me', {
+    return fetch(`${import.meta.env.VITE_API_URL}/users/me`, {
       method: 'GET',
       headers: {
-        Authorization: 'Bearer ' + data.getToken()
+        Authorization: `Bearer ${data.getToken()}`,
       }
     })
       .catch(error => { throw new SystemError('connection error') })
@@ -243,7 +237,8 @@ class Logic {
 
         if (status === 200)
           return res.json()
-        // .then(user => user)
+            .catch(error => { throw new SystemError('json error') })
+            .then(user => user)
 
         return res.json()
           .catch(error => { throw new SystemError('json error') })
@@ -263,10 +258,10 @@ class Logic {
 
     validate.url(image, 'image')
 
-    return fetch('http://localhost:8080/users/me/image', {
+    return fetch(`${import.meta.env.VITE_API_URL}/users/me/image`, {
       method: 'PATCH',
       headers: {
-        Authorization: 'Bearer ' + data.getToken(),
+        Authorization: `Bearer ${data.getToken()}`,
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({ image })
@@ -299,15 +294,15 @@ class Logic {
     validate.number(weight, 'weight')
     validate.url(image, 'image')
 
-    return fetch('http://localhost:8080/pets', {
+    return fetch(`${import.meta.env.VITE_API_URL}/pets`, {
       method: 'POST',
       headers: {
-        Authorization: 'Bearer ' + data.getToken(),
+        Authorization: `Bearer ${data.getToken()}`,
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({ name, birthdate, weight, image })
     })
-      .catch(error => { throw new AuthError('connection error') })
+      .catch(error => { throw new SystemError('connection error') })
       .then(res => {
         const { status } = res
 
@@ -330,10 +325,10 @@ class Logic {
   getPets() {
     if (data.getToken() === null) throw new AuthError('user not logged in')
 
-    return fetch('http://localhost:8080/pets', {
+    return fetch(`${import.meta.env.VITE_API_URL}/pets`, {
       method: 'GET',
       headers: {
-        Authorization: 'Bearer ' + data.getToken()
+        Authorization: `Bearer ${data.getToken()}`,
       }
     })
       .catch(error => { throw new SystemError('connection error') })
@@ -342,7 +337,8 @@ class Logic {
 
         if (status === 200)
           return res.json()
-        // .then(pets => pets)
+            .catch(error => { throw new SystemError('json error') })
+            .then(pets => pets)
 
         return res.json()
           .catch(error => { throw new SystemError('json error') })
@@ -360,12 +356,12 @@ class Logic {
   removePet(petId) {
     if (data.getToken() === null) throw new AuthError('user not logged in')
 
-    validate.petId(petId)
+    validate.id(petId, 'petId')
 
-    return fetch('http://localhost:8080/pets/' + petId, {
+    return fetch(`${import.meta.env.VITE_API_URL}/pets/${petId}`, {
       method: 'DELETE',
       headers: {
-        Authorization: 'Bearer ' + data.getToken()
+        Authorization: `Bearer ${data.getToken()}`,
       }
     })
       .catch(error => { throw new SystemError('connection error') })
@@ -390,12 +386,11 @@ class Logic {
   getPet(petId) {
     if (data.getToken() === null) throw new AuthError('user not logged in')
 
-    validate.petId(petId)
+    validate.id(petId, 'petId')
 
-    return fetch('http://localhost:8080/pets/' + petId, {
-      method: 'GET',
+    return fetch(`${import.meta.env.VITE_API_URL}/pets/${petId}`, {
       headers: {
-        Authorization: 'Bearer ' + data.getToken()
+        Authorization: `Bearer ${data.getToken()}`,
       }
     })
       .catch(error => { throw new SystemError('connection error') })
@@ -404,7 +399,8 @@ class Logic {
 
         if (status === 200)
           return res.json()
-        // .then(pet => pet)
+            .catch(error => { throw new SystemError('json error') })
+            .then(pet => pet)
 
         return res.json()
           .catch(error => { throw new SystemError('json error') })
@@ -421,16 +417,16 @@ class Logic {
   modifyPet(petId, name, birthdate, weight, image) {
     if (data.getToken() === null) throw new AuthError('user not logged in')
 
-    validate.petId(petId)
+    validate.id(petId, 'petId')
     validate.name(name)
     validate.date(birthdate, 'birthdate')
     validate.number(weight, 'weight')
     validate.url(image, 'image')
 
-    return fetch('http://localhost:8080/pets/' + petId, {
+    return fetch(`${import.meta.env.VITE_API_URL}/pets/${petId}`, {
       method: 'PUT',
       headers: {
-        Authorization: 'Bearer ' + data.getToken(),
+        Authorization: `Bearer ${data.getToken()}`,
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({ name, birthdate, weight, image })

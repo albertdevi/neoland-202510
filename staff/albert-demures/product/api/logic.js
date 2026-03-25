@@ -1,11 +1,31 @@
-import { data, User, Pet } from './data.js'
-import { validate } from './validate.js'
+import bcrypt from 'bcryptjs'
 
-import { ValidationError, DuplicityError, ExistenceError, CredentialError, OwnershipError } from './errors.js'
-class Logic {
-  constructor() {
+import { data, UserData, PetData } from './data.js'
+
+import { validate, DuplicityError, ExistenceError, CredentialError, OwnershipError, SystemError } from 'com'
+
+export class User {
+  constructor(id, name, email, username, image, role) {
+    this.id = id
+    this.name = name
+    this.email = email
+    this.username = username
+    this.image = image
+    this.role = role
   }
+}
 
+export class Pet {
+  constructor(id, ownerId, name, birthdate, weight, image) {
+    this.id = id
+    this.ownerId = ownerId
+    this.name = name
+    this.birthdate = birthdate
+    this.weight = weight
+    this.image = image
+  }
+}
+export class Logic {
   registerUser(name, email, username, password, passwordRepeat) {
     validate.name(name)
     validate.email(email)
@@ -14,18 +34,25 @@ class Logic {
     validate.password(passwordRepeat, 'passwordRepeat')
     validate.match(password, passwordRepeat, 'password', 'passwordRepeat')
 
-    let user = data.findUserByEmail(email)
+    return data.findUserByEmail(email)
+      .then(userData => {
+        if (userData !== null) throw new DuplicityError("user email already exists")
 
-    if (user !== null) throw new DuplicityError("user email already exists")
+        return data.findUserByUsername(username)
+      })
+      .then(userData => {
+        if (userData !== null) throw new DuplicityError("user username already exists")
 
-    user = data.findUserByUsername(username)
+        return bcrypt.hash(password, 10)
+          .catch(error => { throw new SystemError(error.message) })
+      })
 
-    if (user !== null) throw new DuplicityError("user username already exists")
+      .then(hash => {
 
-    user = new User(
-      "user-" + data.usersCount, name, email, username, password, null, "regular")
+        const userData = new UserData(null, name, email, username, hash, null, 'regular')
 
-    data.insertUser(user)
+        return data.insertUser(userData)
+      })
   }
 
   // función entrar con un usario
@@ -33,198 +60,227 @@ class Logic {
     validate.username(username)
     validate.password(password)
 
-    const user = data.findUserByUsername(username)
+    return data.findUserByUsername(username)
+      .then(userData => {
+        if (userData === null) throw new ExistenceError('user not found')
 
-    if (user === null) throw new ExistenceError('user not found')
+        return bcrypt.compare(password, userData.password)
+          .catch(error => { throw new SystemError(error.message) })
+          .then(match => {
+            if (!match) throw new CredentialError('incorrect password')
 
-    if (user.password !== password) throw new CredentialError('incorrect password')
-
-    return user.id
+            return userData.id
+          })
+      })
   }
-
 
   //función cambiar userEmail
   changeUserEmail(userId, email, newEmail, newEmailRepeat) {
-    validate.userId(userId)
+    validate.id(userId, 'userId')
     validate.email(email)
     validate.email(newEmail, 'newEmail')
     validate.email(newEmailRepeat, 'newEmailRepeat')
     validate.match(newEmail, newEmailRepeat, 'newEmail', 'newEmailRepeat')
 
-    const user = data.findUserById(userId)
+    return data.findUserById(userId)
+      .then(userData => {
+        if (!userData) throw new ExistenceError('user not found')
 
-    if (!user) throw new ExistenceError('user not found')
+        if (userData.email !== email) throw new OwnershipError('email does not belong to user')
 
-    if (user.email !== email) throw new OwnershipError('email does not belong to user')
+        return data.findUserByEmail(newEmail)
+          .then(otherUserData => {
+            if (otherUserData) throw new OwnershipError('newEmail belongs to another user')
 
-    const otherUser = data.findUserByEmail(newEmail)
+            const { name, username, password, image, role } = userData
 
-    if (otherUser) throw new OwnershipError('newEmail belongs to another user')
-
-    const { name, username, password, image } = user
-
-    data.updateUser(new User(userId, name, newEmail, username, password, image))
+            return data.updateUser(new UserData(userId, name, newEmail, username, password, image, role))
+          })
+      })
   }
 
   // función cambiar password
   changeUserPassword(userId, password, newPassword, newPasswordRepeat) {
-    validate.userId(userId)
+    validate.id(userId, 'userId')
     validate.password(password)
     validate.password(newPassword, 'newPassword')
     validate.password(newPasswordRepeat, 'newPasswordRepeat')
     validate.match(newPassword, newPasswordRepeat, 'newPassword', 'newPasswordRepeat')
 
-    const user = data.findUserById(userId)
+    return data.findUserById(userId)
+      .then(userData => {
+        if (!userData) throw new ExistenceError('user not found')
 
-    if (!user) throw new ExistenceError('user not found')
+        return bcrypt.compare(password, userData.password)
+          .catch(error => { throw new SystemError(error.message) })
+          .then(match => {
+            if (!match) throw new CredentialError('incorrect password')
 
-    if (user.password !== password) throw new CredentialError('incorrect password')
+            return bcrypt.hash(newPassword, 10)
+              .catch(error => { throw new SystemError(error.message) })
+              .then(newHash => {
+                const { name, email, username, image, role } = userData
 
-    const { name, email, username, image } = user
-
-    data.updateUser(new User(userId, name, email, username, newPassword, image))
+                return data.updateUser(new UserData(userId, name, email, username, newHash, image, role))
+              })
+          })
+      })
   }
 
-  // función cmbiar Username
-  changeUserUsername(userId, username, newUsername, newUsernameRepeat) {
-    validate.userId(userId)
-    validate.username(username)
-    validate.username(newUsername, 'newUsername')
-    validate.username(newUsernameRepeat, 'newUsernameRepeat')
-    validate.match(newUsername, newUsernameRepeat, 'newUsername', 'newUsernameRepeat')
-
-    const user = data.findUserById(userId)
-
-    if (!user) throw new ExistenceError('user not found')
-
-    if (user.username !== username) throw new CredentialError('incorrect Username')
-
-    const otherUser = data.findUserByUsername(newUsername)
-
-    if (otherUser) throw new OwnershipError('newUsername belongs to another user')
-
-    const { name, email, password, image } = user
-
-    data.updateUser(new User(userId, name, email, newUsername, password, image))
-  }
-
-  //función para traer el nombre
   getUser(userId) {
-    validate.userId(userId)
+    validate.id(userId, 'userId')
 
-    const user = data.findUserById(userId)
-    if (!user) throw new ExistenceError('user not found')
+    return data.findUserById(userId)
+      .then(userData => {
+        if (!userData) throw new ExistenceError('user not found')
 
-    const { name, email, username, image } = user
+        const { name, email, username, image, role } = userData
 
-    return { name, email, username, image }
-  }
-
-
-  changeUserName(userId, name) {
-    validate.userId(userId)
-    validate.name(name)
-    
-    const user = data.findUserById(userId)
-
-    if (!user) throw new ExistenceError('user not found')
-
-    const { email, password, username, image } = user
-
-    data.updateUser(new User(userId, name, email, username, password, image))
+        return new User(userId, name, email, username, image, role)
+      })
   }
 
 
   changeUserImage(userId, image) {
-    validate.userId(userId)
+    validate.id(userId, 'userId')
     validate.url(image, 'image')
 
-    const user = data.findUserById(userId)
+    return data.findUserById(userId)
+      .then(userData => {
+        if (!userData) throw new ExistenceError('user not found')
 
-    if (!user) throw new ExistenceError('user not found')
+        const { name, email, password, username, role } = userData
 
-    const { name, email, password, username } = user
+        return data.updateUser(new UserData(userId, name, email, username, password, image, role))
+      })
+  }
 
-    data.updateUser(new User(userId, name, email, username, password, image))
+  changeUserName(userId, name) {
+    validate.id(userId, 'userId')
+    validate.name(name)
+
+    return data.findUserById(userId)
+      .then(userData => {
+        if (!userData) throw new ExistenceError('user not found')
+
+        const { email, username, password, image, role } = userData
+
+        return data.updateUser(new UserData(userId, name, email, username, password, image, role))
+      })
+  }
+
+  // función cmbiar Username
+  changeUserUsername(userId, username) {
+    validate.id(userId, 'userId')
+    validate.username(username)
+
+    return data.findUserById(userId)
+      .then(userData => {
+        if (!userData) throw new ExistenceError('user not found')
+
+        const { name, email, password, image, role } = userData
+
+        return data.updateUser(new UserData(userId, name, email, username, password, image, role))
+      })
   }
 
   // función para añadir una nueva mascota
   addPet(userId, name, birthdate, weight, image) {
-    validate.userId(userId)
+    validate.id(userId, 'userId')
     validate.name(name)
     validate.date(birthdate, 'birthdate')
     validate.number(weight, 'weight')
     validate.url(image, 'image')
 
-    const user = data.findUserById(userId)
-    if (!user) throw new ExistenceError('user not found')
+    return data.findUserById(userId)
+      .then(user => {
+        if (!user) throw new ExistenceError('user not found')
 
-    const pet = new Pet('pet-' + data.petsCount, userId, name, birthdate, weight, image)
+        const pet = new PetData(null, userId, name, birthdate, weight, image)
 
-    data.insertPet(pet)
+        return data.insertPet(pet)
+      })
   }
 
   // función para consegir las mascotas de un usuario
   getPets(userId) {
-    validate.userId(userId)
+    validate.id(userId, 'userId')
 
-    const user = data.findUserById(userId)
-    if (!user) throw new ExistenceError('user not found')
+    return data.findUserById(userId)
+      .then(userData => {
+        if (!userData) throw new ExistenceError('user not found')
 
-    const pets = data.findPetsByUserId(userId)
+        return data.findPetsByUserId(userId)
+      })
+      .then(petDatas => petDatas.map(petData => {
+        const { id, ownerId, name, birthdate, weight, image } = petData
 
-    return pets
+        return new Pet(id, ownerId, name, birthdate, weight, image)
+      }))
   }
 
   //función eliminar una mascota
   removePet(userId, petId) {
-    validate.userId(userId)
-    validate.petId(petId)
+    validate.id(userId, 'userId')
+    validate.id(petId, 'petId')
 
-    const user = data.findUserById(userId)
-    if (!user) throw new ExistenceError('user not found')
+    return data.findUserById(userId)
+      .then(userData => {
+        if (!userData) throw new ExistenceError('user not found')
 
-    const pet = data.findPetById(petId)
+        return data.findPetById(petId)
+      })
+      .then(petData => {
+        if (!petData) throw new ExistenceError('pet not found')
 
-    if (!pet) throw new ExistenceError('pet not found')
+        if (petData.ownerId !== userId) throw new OwnershipError('user not owner of pet')
 
-    if (pet.userId !== userId) throw new OwnershipError('user not owner of pet')
-
-    data.deletePet(petId)
+        return data.deletePet(petId)
+      })
   }
 
   getPet(userId, petId) {
-    validate.userId(userId)
-    validate.petId(petId)
+    validate.id(userId, 'userId')
+    validate.id(petId, 'petId')
 
-    const user = data.findUserById(userId)
-    if (!user) throw new ExistenceError('user not found')
+    return data.findUserById(userId)
+      .then(userData => {
+        if (!userData) throw new ExistenceError('user not found')
 
-    const pet = data.findPetById(petId)
-    if (!pet) throw new ExistenceError('pet not found')
+        return data.findPetById(petId)
+      })
+      .then(petData => {
+        if (!petData) throw new ExistenceError('pet not found')
 
-    if (pet.userId !== userId) throw new OwnershipError('user not owner of pet')
+        if (petData.ownerId !== userId) throw new OwnershipError('user not owner of pet')
 
-    return pet
+        const { id, ownerId, name, birthdate, weight, image } = petData
+
+        return new Pet(id, ownerId, name, birthdate, weight, image)
+      })
   }
 
   modifyPet(userId, petId, name, birthdate, weight, image) {
-    validate.userId(userId)
-    validate.petId(petId)
+    validate.id(userId, 'userId')
+    validate.id(petId, 'petId')
     validate.name(name)
     validate.date(birthdate, 'birthdate')
     validate.number(weight, 'weight')
     validate.url(image, 'image')
-    
-    const user = data.findUserById(userId)
-    if (user === null) throw new ExistenceError('user not found')
 
-    const pet = data.findPetById(petId)
-    if (!pet) throw new ExistenceError('pet not found')
+    return data.findUserById(userId)
+      .then(userData => {
+        if (!userData) throw new ExistenceError('user not found')
 
-    if (pet.userId !== userId) throw new OwnershipError('user not owner of pet')
+        return data.findPetById(petId)
+      })
+      .then(petData => {
+        if (!petData) throw new ExistenceError('pet not found')
 
-    data.updatePet(new Pet(petId, userId, name, birthdate, weight, image))
+        if (petData.ownerId !== userId) throw new OwnershipError('user not owner of pet')
+
+        return data.updatePet(new PetData(petId, userId, name, birthdate, weight, image))
+      })
   }
 }
 

@@ -1,0 +1,1 @@
+curl -X PATCH -H 'Authorization: Bearer -d '{"name":"Eloi2"}' http://localhost:8080/users/me/name -v
