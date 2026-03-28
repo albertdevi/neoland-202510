@@ -1,14 +1,10 @@
-import { ValidationError } from "./errors.js"
-
-const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
-const URL_REGEX = /(www|http:|https:)+[^\s]+[\w]/
-const ISODATE_REGEX = /^\d{4}-\d{2}-\d{2}$/
-const ID_REGEX = /^[0-9a-fA-F]{24}$/
+import { ValidationError } from './errors.js'
+import { EMAIL_REGEX, URL_REGEX, ISODATE_REGEX, ID_REGEX } from './regex.js'
 
 class Validate {
     name(name) {
-        if (typeof name !== "string") throw new ValidationError("invalid name type")
-        if (name.length < 1) throw new ValidationError("invalid name length")
+        if (typeof name !== 'string') throw new ValidationError('invalid name type')
+        if (name.length < 1) throw new ValidationError('invalid name length')
     }
 
     email(email, explain = 'email') {
@@ -18,17 +14,17 @@ class Validate {
     }
 
     id(id, explain = 'id') {
-        if (typeof id !== 'string') throw new ValidationError(`invalid ${ explain } type`)
-        if (!ID_REGEX.test(id)) throw new ValidationError(`invalid ${ explain } format`)
+        if (typeof id !== 'string') throw new ValidationError(`invalid ${explain} type`)
+        if (!ID_REGEX.test(id)) throw new ValidationError(`invalid ${explain} format`)
     }
 
     username(username) {
-        if (typeof username !== "string") throw new ValidationError("invalid username type")
-        if (username.length < 3) throw new ValidationError("invalid username length")
+        if (typeof username !== 'string') throw new ValidationError('invalid username type')
+        if (username.length < 3) throw new ValidationError('invalid username length')
     }
 
     password(password, explain = 'password') {
-        if (typeof password !== "string") throw new ValidationError(`invalid ${explain} type`)
+        if (typeof password !== 'string') throw new ValidationError(`invalid ${explain} type`)
         if (password.length < 8) throw new ValidationError(`invalid ${explain} length`)
     }
 
@@ -37,7 +33,7 @@ class Validate {
     }
 
     url(url, explain = 'url') {
-        if (typeof url !== "string") throw new ValidationError(`invalid ${explain} type`)
+        if (typeof url !== 'string') throw new ValidationError(`invalid ${explain} type`)
         if (!URL_REGEX.test(url)) throw new ValidationError(`invalid ${explain} format`)
     }
 

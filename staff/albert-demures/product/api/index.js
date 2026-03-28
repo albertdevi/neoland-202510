@@ -3,12 +3,12 @@ import cors from 'cors'
 import morganBody from 'morgan-body'
 import jwt from 'jsonwebtoken'
 
-import { logic } from './logic.js'
+import { logic } from './logic/index.js'
 import { DuplicityError, ExistenceError, OwnershipError, SystemError, ValidationError, CredentialError, AuthError } from 'com'
 
-import { database } from './models.js'
+import { connect } from './mongoose/index.js'
 
-database.connect(process.env.DB_URL)
+connect(process.env.DB_URL)
     .then(() => {
         console.log('DB connected')
 
@@ -26,6 +26,7 @@ database.connect(process.env.DB_URL)
             logAllReqHeader: true,
             logAllResHeader: true
         })
+
 
         api.get('/', (req, res) => res.json({ message: 'Hello! from API ;)' }))
 
@@ -46,7 +47,7 @@ database.connect(process.env.DB_URL)
                 const { username, password } = req.body
 
                 logic.authenticateUser(username, password)
-                    .then((userId) => {
+                    .then(userId => {
                         const token = jwt.sign({ sub: userId }, process.env.JWT_SECRET, { expiresIn: '1h' })
 
                         res.json(token)
@@ -56,24 +57,6 @@ database.connect(process.env.DB_URL)
                 next(error)
             }
         })
-
-
-        api.patch('/users/me/name', (req, res, next) => {
-            try {
-                const token = req.headers.authorization.slice(7)
-
-                const { sub: userId } = jwt.verify(token, process.env.JWT_SECRET)
-
-                const { name } = req.body
-
-                logic.changeUserName(userId, name)
-                    .then(() => res.status(204).send())
-                    .catch(error => next(error))
-            } catch (error) {
-                next(error)
-            }
-        })
-
 
         api.patch('/users/me/email', (req, res, next) => {
             try {
@@ -86,7 +69,6 @@ database.connect(process.env.DB_URL)
                 logic.changeUserEmail(userId, email, newEmail, newEmailRepeat)
                     .then(() => res.status(204).send())
                     .catch(error => next(error))
-
             } catch (error) {
                 next(error)
             }
@@ -101,26 +83,8 @@ database.connect(process.env.DB_URL)
                 const { password, newPassword, newPasswordRepeat } = req.body
 
                 logic.changeUserPassword(userId, password, newPassword, newPasswordRepeat)
-                    .then(() => res.status(204).send())
-                    .catch(error => next(error))
-                    
-            } catch (error) {
-                next(error)
-            }
-        })
 
-
-        api.patch('/users/me/username', (req, res, next) => {
-            try {
-                const token = req.headers.authorization.slice(7)
-
-                const { sub: userId } = jwt.verify(token, process.env.JWT_SECRET)
-
-                const { username } = req.body
-
-                logic.changeUserUsername(userId, username)
-                    .then(() => res.status(204).send())
-                    .catch(error => next(error))
+                res.status(204).send()
             } catch (error) {
                 next(error)
             }
@@ -156,6 +120,37 @@ database.connect(process.env.DB_URL)
             }
         })
 
+        api.patch('/users/me/name', (req, res, next) => {
+            try {
+                const token = req.headers.authorization.slice(7)
+
+                const { sub: userId } = jwt.verify(token, process.env.JWT_SECRET)
+
+                const { name } = req.body
+
+                logic.changeUserName(userId, name)
+                    .then(() => res.status(204).send())
+                    .catch(error => next(error))
+            } catch (error) {
+                next(error)
+            }
+        })
+
+        api.patch('/users/me/username', (req, res, next) => {
+            try {
+                const token = req.headers.authorization.slice(7)
+
+                const { sub: userId } = jwt.verify(token, process.env.JWT_SECRET)
+
+                const { username } = req.body
+
+                logic.changeUserUsername(userId, username)
+                    .then(() => res.status(204).send())
+                    .catch(error => next(error))
+            } catch (error) {
+                next(error)
+            }
+        })
 
         api.post('/pets', (req, res, next) => {
             try {
@@ -187,7 +182,6 @@ database.connect(process.env.DB_URL)
             }
         })
 
-
         api.delete('/pets/:petId', (req, res, next) => {
             try {
                 const token = req.headers.authorization.slice(7)
@@ -199,12 +193,10 @@ database.connect(process.env.DB_URL)
                 logic.removePet(userId, petId)
                     .then(() => res.status(204).send())
                     .catch(error => next(error))
-
             } catch (error) {
                 next(error)
             }
         })
-
 
         api.get('/pets/:petId', (req, res, next) => {
             try {
@@ -221,7 +213,6 @@ database.connect(process.env.DB_URL)
                 next(error)
             }
         })
-
 
         api.put('/pets/:petId', (req, res, next) => {
             try {
