@@ -6,16 +6,21 @@ import { ButtonBlue } from './components/commons/ButtonBlue'
 import { ButtonGray } from './components/commons/ButtonGray'
 import { PetList } from './components/PetList'
 
-import { logic } from '../logic'
+import { useContext } from '../context'
 
-export function Home({ onGoToAddPet, onUserLoggedOut, onGoToProfile, onGoToPetDetail, onError }) {
-    console.log('Home -> call')
+import { logic } from '../logic' 
+import { logger } from '../logger'
+
+export function Home({ onGoToAddPet, onUserLoggedOut, onGoToProfile, onGoToPetDetail, }) {
+    logger.debug('Home -> call')
+
+     const { onSuccess, onError } = useContext()
 
     const [name, setName] = useState('user')
     const [image, setImage] = useState('https://cdn-icons-png.flaticon.com/512/9131/9131478.png')
 
     useEffect(() => {
-        console.log('Home -> useEffect')
+        logger.debug('Home -> useEffect')
 
         try {
             logic.getLoggedInUser()
@@ -54,9 +59,9 @@ export function Home({ onGoToAddPet, onUserLoggedOut, onGoToProfile, onGoToPetDe
 
     const handleGoToPetDetail = petId => onGoToPetDetail(petId)
 
-    console.log('Home -> render')
+    logger.debug('Home -> render')
 
-    return <div className="flex flex-col gap-5 items-center">
+    return <div className="flex flex-col gap-5 items-center mt-20">
         <HeaderHome onGoToProfile={handleProfileClick} />
 
         <SubTitle>Welcome Home, {name}!</SubTitle>

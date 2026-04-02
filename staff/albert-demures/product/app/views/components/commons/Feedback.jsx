@@ -1,5 +1,5 @@
 export function Feedback({ feedback }) {
-    return <p className={`text-center text-white text-sm py-2 z-5000 ${feedback.level === 'success' ?
+    return <p className={`text-center text-white text-sm py-2 z-5000 mt-20 ${feedback.level === 'success' ?
         'bg-green-700'
         :
         feedback.level === 'warn' ?

@@ -3,19 +3,28 @@ import { Form } from './commons/Form'
 import { Field } from './commons/Field'
 import { ButtonBlue } from './commons/ButtonBlue'
 
-import { logic } from '../../logic'
+import { useContext } from '../../context'
 
-export function ChangeUserName({ onError, onSuccess }) {
-    console.log('ChangeUserName -> call')
+import { logic } from '../../logic' 
 
-    const [feedback, setFeedback] = useState(null)
+import { logger } from '../../logger'
+
+export function ChangeUserName() {
+    logger.debug('ChangeUserName -> call')
+
+    const { onSuccess, onError } = useContext()
+
     const [user, setUser] = useState(null)
     const [name, setName] = useState('')
 
-    useEffect(() => {
-        logic.getLoggedInUser()
-            .then(user => setUser(user))
-            .catch(error => setFeedback({ message: error.message, level: 'error' }))
+  useEffect(() => {
+        try {
+            logic.getLoggedInUser()
+                .then(user => setName(user.name))
+                .catch(error => onError(error))
+        } catch (error) {
+            onError(error)
+        }
     }, [])
 
     const handleChangeNameSubmit = event => {
@@ -27,21 +36,14 @@ export function ChangeUserName({ onError, onSuccess }) {
 
         try {
             logic.changeUserName(name)
-                .then(() => {
-
-                    form.reset()
-
-                    onSuccess('name successfully updated')
-
-                    setFeedback({ message: 'Name succesfully updated', level: 'success' })
-                })
+                .then(() => onSuccess('user name successfully updated'))
                 .catch(error => onError(error))
         } catch (error) {
             onError(error)
         }
     }
 
-    console.log('ChangeUserName -> render')
+    logger.debug('ChangeUserName -> render')
 
     return <div>
         <Form onSubmit={handleChangeNameSubmit}>

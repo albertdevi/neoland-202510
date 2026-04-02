@@ -9,11 +9,17 @@ import { Form } from './components/commons/Form'
 import { Field } from './components/commons/Field'
 import { Anchor } from './components/commons/Anchor'
 import { ButtonBlue } from './components/commons/ButtonBlue'
-import { logic } from '../logic'
+
+import { useContext } from '../context'
+
+import { logic } from '../logic' 
+import { logger } from '../logger'
 
 
-export function ModifyPet({ onGoBack, onError, onSuccess }) {
-    console.log('modifyPet -> call')
+export function ModifyPet({ onGoBack,}) {
+    logger.debug('modifyPet -> call')
+
+     const { onSuccess, onError } = useContext()
 
     const [pet, setPet] = useState(null)
 
@@ -58,10 +64,10 @@ export function ModifyPet({ onGoBack, onError, onSuccess }) {
         }
     }
 
-    console.log('ModifyPet -> render')
+    logger.debug('ModifyPet -> render')
 
 
-    return <div className=''>
+    return <div className='mt-20'>
         <Header></Header>
 
         <div className="fixed top-4 right-4 z-50">

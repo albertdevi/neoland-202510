@@ -1,8 +1,8 @@
 import bcrypt from 'bcryptjs'
 
-import { database, UserModel, PetModel } from './models.js'
+import { connect, disconnect, UserModel, PetModel } from './mongoose/index.js'
 
-database.connect('mongodb://localhost:27017/product')
+connect('mongodb://localhost:27017/product')
   .then(() => bcrypt.hash('123123123', 10))
   .then(hash => {
     const newt = new UserModel({ name: 'Newt Scamander', email: 'newt@gmail.com', username: 'Newt', password: hash })
@@ -40,6 +40,4 @@ database.connect('mongodb://localhost:27017/product')
         console.log(picket, escarbato, buckbeak, thunderbird, demiguse, fluffy, norbert, fawkes, qilin))
   })
   .catch(error => console.error(error))
-  .finally(() => database.disconnect())
-
-
+  .finally(() => disconnect())

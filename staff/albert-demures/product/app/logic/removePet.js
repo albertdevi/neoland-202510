@@ -1,3 +1,4 @@
+import { data } from '../data'
 import { validate, SystemError, errorMap } from 'com'
 
 export function removePet(petId) {

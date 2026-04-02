@@ -2,10 +2,16 @@ import { Form } from './commons/Form'
 import { Field } from './commons/Field'
 import { ButtonBlue } from './commons/ButtonBlue'
 
-import { logic } from '../../logic'
+import { useContext } from '../../context'
 
-export function ChangeUserImage({ onError, onSuccess }) {
-    console.log('ChangeUserImage -> call')
+import { logic } from '../../logic' 
+
+import { logger } from '../../logger'
+
+export function ChangeUserImage() {
+    logger.debug('ChangeUserImage -> call')
+
+    const { onSuccess, onError } = useContext()
 
     const handleChangeImageSubmit = event => {
         event.preventDefault()
@@ -27,7 +33,7 @@ export function ChangeUserImage({ onError, onSuccess }) {
         }
     }
 
-    console.log('ChangeUserImage -> render')
+    logger.debug('ChangeUserImage -> render')
 
     return <div>
         <Form onSubmit={handleChangeImageSubmit}>

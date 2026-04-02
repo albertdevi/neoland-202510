@@ -5,10 +5,15 @@ import { Form } from './components/commons/Form'
 import { Field } from './components/commons/Field'
 import { ButtonBlue } from './components/commons/ButtonBlue'
 
-import { logic } from '../logic'
+import { useContext } from '../context'
 
-export function AddPet({ onGoToHome, onError }) {
-    console.log('AddPet ->call')
+import { logic } from '../logic' 
+import { logger } from '../logger'
+
+export function AddPet({ onGoToHome}) {
+    logger.debug('AddPet ->call')
+
+     const { onSuccess, onError } = useContext()
 
     const handleBackClick = event => {
         event.preventDefault()
@@ -39,9 +44,9 @@ export function AddPet({ onGoToHome, onError }) {
         }
     }
 
-    console.log('AddPet -> render')
+    logger.debug('AddPet -> render')
 
-    return <div className="flex flex-col items-center min-h-screen">
+    return <div className="flex flex-col items-center min-h-screen mt-20">
         <Header onGoToHome={onGoToHome} />
         
         <div className="fixed top-4 right-4 z-50">

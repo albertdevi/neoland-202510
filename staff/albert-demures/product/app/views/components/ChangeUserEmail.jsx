@@ -3,12 +3,16 @@ import { Form } from './commons/Form'
 import { Field } from './commons/Field'
 import { ButtonBlue } from './commons/ButtonBlue'
 
-import { logic } from '../../logic'
+import { useContext } from '../../context'
 
-export function ChangeUserEmail({ onError, onSuccess }) {
-    console.log('ChangeUserEmail -> call')
+import { logic } from '../../logic' 
 
-    const [feedback, setFeedback] = useState(null)
+import { logger } from '../../logger'
+
+export function ChangeUserEmail() {
+    logger.debug('ChangeUserEmail -> call')
+
+    const { onSuccess, onError } = useContext()
 
     const handleChangeEmailSubmit = event => {
         event.preventDefault()
@@ -32,7 +36,7 @@ export function ChangeUserEmail({ onError, onSuccess }) {
         }
     }
 
-    console.log('ChangeUserEmail -> render')
+    logger.debug('ChangeUserEmail -> render')
 
     return <div >
         <Form onSubmit={handleChangeEmailSubmit}>
@@ -44,7 +48,5 @@ export function ChangeUserEmail({ onError, onSuccess }) {
 
             <ButtonBlue className="self-center mt-4" type="submit">Update e-mail</ButtonBlue>
         </Form>
-
-        {feedback && <Feedback feedback={feedback} />}
     </div>
 }

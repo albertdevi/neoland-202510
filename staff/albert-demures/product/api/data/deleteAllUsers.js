@@ -1,5 +1,5 @@
 import { SystemError } from 'com'
-import { UserModel } from '../mongoose/models/index.js'
+import { UserModel } from '../mongoose/index.js'
 
 export function deleteAllUsers() {
     return UserModel.deleteMany()

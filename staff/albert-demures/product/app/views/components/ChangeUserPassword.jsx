@@ -1,10 +1,16 @@
 import { Form } from './commons/Form'
 import { PasswordField } from './commons/PasswordField'
 import { ButtonBlue } from './commons/ButtonBlue'
-import { logic } from '../../logic'
 
-export function ChangeUserPassword({ onError, onSuccess }) {
-    console.log('ChangeUserPassword -> call')
+import { useContext } from '../../context'
+
+import { logic } from '../../logic' 
+import { logger } from '../../logger'
+
+export function ChangeUserPassword() {
+    logger.debug('ChangeUserPassword -> call')
+
+    const { onSuccess, onError } = useContext()
 
     const handleChangePasswordSubmit = event => {
         event.preventDefault()
@@ -28,7 +34,7 @@ export function ChangeUserPassword({ onError, onSuccess }) {
         }
     }
 
-    console.log('ChangeUserPassword -> render')
+    logger.debug('ChangeUserPassword -> render')
 
     return <div>
         <Form onSubmit={handleChangePasswordSubmit}>

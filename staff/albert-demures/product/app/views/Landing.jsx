@@ -1,8 +1,10 @@
 import { Title } from './components/commons/Title'
 import { SubTitle } from './components/commons/SubTitle'
 
+import { logger } from '../logger'
+
 export function Landing({ onGoToLogin, onGoToRegister }) {
-    console.log('Landing -> call')
+    logger.debug('Landing -> call')
 
     const handleLoginClick = event => {
         event.preventDefault()
@@ -16,7 +18,7 @@ export function Landing({ onGoToLogin, onGoToRegister }) {
         onGoToRegister()
     }
 
-    console.log('Landing -> render')
+    logger.debug('Landing -> render')
 
     return <div className="flex flex-col gap-5 items-center justify-center min-h-screen">
         <Title></Title>

@@ -8,10 +8,11 @@ import { ButtonBlue } from './components/commons/ButtonBlue'
 
 import { useContext } from '../context'
 
-import { logic } from '../logic'
+import { logic } from '../logic' 
+import { logger } from '../logger'
 
 export function Login({ onUserLoggedIn, onGoToRegister }) {
-    console.log('Login -> call')
+    logger.debug('Login -> call')
 
     const { onError } = useContext()
 
@@ -38,7 +39,7 @@ export function Login({ onUserLoggedIn, onGoToRegister }) {
         onGoToRegister()
     }
 
-    console.log('Login -> render')
+    logger.debug('Login -> render')
 
     return <div className="flex flex-col items-center justify-center min-h-screen">
         <Title></Title>

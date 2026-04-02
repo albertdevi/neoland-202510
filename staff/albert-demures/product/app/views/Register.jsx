@@ -7,10 +7,11 @@ import { SubTitle } from './components/commons/SubTitle'
 
 import { useContext } from '../context'
 
-import { logic } from '../logic'
+import { logic } from '../logic' 
+import { logger } from '../logger'
 
 export function Register({ onGoToLogin }) {
-    console.log('Register -> call')
+    logger.debug('Register -> call')
 
     const { onError } = useContext()
 
@@ -44,7 +45,7 @@ export function Register({ onGoToLogin }) {
         onGoToLogin()
     }
 
-    console.log('Register -> render')
+    logger.debug('Register -> render')
 
     return <div className="flex flex-col items-center justify-center min-h-screen">
         <Title></Title>

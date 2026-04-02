@@ -11,8 +11,10 @@ import { ChangeUserUsername } from './components/ChangeUserUsername'
 import { ChangeUserName } from './components/ChangeUserName'
 import { ChangeUserImage } from './components/ChangeUserImage'
 
+import { logger } from '../logger'
+
 export function Profile({ onGoToHome, onError, onSuccess, onClear }) {
-    console.log('Profile -> call')
+    logger.debug('Profile -> call')
 
     const [view, setView] = useState(null)
 
@@ -63,9 +65,9 @@ export function Profile({ onGoToHome, onError, onSuccess, onClear }) {
         setView('change-image')
     }
 
-    console.log('Profile -> render')
+    logger.debug('Profile -> render')
 
-    return <div className="flex flex-col items-center min-h-screen">
+    return <div className="flex flex-col items-center min-h-screen mt-20">
 
         <Header onGoToHome={onGoToHome} />
 

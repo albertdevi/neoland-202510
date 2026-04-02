@@ -1,5 +1,5 @@
 import { SystemError } from 'com'
-import { PetModel} from '../mongoose/models/index.js'
+import { PetModel} from '../mongoose/index.js'
 
   export function insertPet(pet) {
     const { ownerId, name, birthdate, weight, image } = pet

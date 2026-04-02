@@ -16,8 +16,10 @@ import { Context } from './context'
 import { AuthError, ValidationError, ExistenceError, DuplicityError, CredentialError } from 'com'
 import { logic } from './logic'
 
+import { logger } from './logger'
+
 export function App() {
-    console.log('App -> call')
+    logger.debug('App -> call')
 
     const [feedback, setFeedback] = useState(null)
     let loggedIn = false
@@ -54,24 +56,29 @@ export function App() {
             try {
                 logic.logoutUser()
 
+                logger.error(error)
                 setFeedback({ message: 'wrong session. please, login again', level: 'error' })
                 navigate('/login')
             } catch (error) {
+                logger.fatal(error)
                 setFeedback({ message: 'sorry, there was an error on logout, please, try it later', level: 'error' })
             }
-        } else if (error instanceof ValidationError)
+        } else if (error instanceof ValidationError) {
+            logger.warn(error)
             setFeedback({ message: error.message, level: 'warn' })
-        else if (error instanceof ExistenceError || error instanceof CredentialError || error instanceof DuplicityError)
+        } else if (error instanceof ExistenceError || error instanceof CredentialError || error instanceof DuplicityError){
+            logger.warn(error)
             setFeedback({ message: error.message, level: 'danger' })
-        else
-            setFeedback({ message: 'sorry, something failed. try again later', level: 'error' })
-    }
+        }else{
+            logger.fatal(error)
+            setFeedback({ message: 'sorry, something failed. try again later', level: 'error' })  
+    }}
 
     const handleSuccess = message => setFeedback({ message, level: 'success' })
 
     const handleClear = () => setFeedback(null)
 
-    console.log('App -> render')
+    logger.debug('App -> render')
 
     const contextValue = {
         onSuccess: handleSuccess,

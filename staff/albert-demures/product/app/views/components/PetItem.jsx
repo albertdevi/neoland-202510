@@ -1,11 +1,14 @@
-        export function PetItem({pet, onGoToPetDetail, onRemovePetClick}) {
-            console.log('PetItem -> call')
+       import { logger } from '../../logger'
+       
+       export function PetItem({pet, onGoToPetDetail, onRemovePetClick}) {
+
+            logger.debug('PetItem -> call')
 
             const handleGoToPetDetailClick = petId => onGoToPetDetail(petId)
 
             const handleRemovePetClick = petId => onRemovePetClick(petId)
 
-            console.log('PetItem -> render')
+            logger.debug('PetItem -> render')
 
             return <li key = {pet.id} className="flex gap-8 my-4 items-center p-4 bg-white rounded-lg shadow hover:shadow-lg transition-shadow" onClick={() => handleGoToPetDetailClick(pet.id)}>
                     <div className="flex items-center gap-4">
