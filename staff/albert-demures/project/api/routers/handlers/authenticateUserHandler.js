@@ -1,0 +1,19 @@
+import jwt from 'jsonwebtoken'
+
+import { logic } from '../../logic/index.js'
+
+export const authenticateUserHandler = (req, res, next) => {
+    try{
+        const {email, password} = req.body
+
+        logic.authenticateUser(email, password)
+        .then(userId => {
+            const token = jwt.sign({ sub: userId }, process.env.JWT_SECRET, { expiresIn: '3h' })
+
+            res.json(token)
+        })
+        .catch(error => next(error))
+    } catch (error) {
+        next(error)
+    }
+}
