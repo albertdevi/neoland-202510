@@ -1,6 +1,6 @@
 import { Title } from './components/commons/Title'
 import { Form } from './components/commons/Form'
-import { Field } from './components/commons/Field'
+import { InputField } from './components/commons/InputField'
 import { Anchor } from './components/commons/Anchor'
 import { PasswordField } from './components/commons/PasswordField'
 import { ButtonCTA } from './components/commons/ButtonCTA'
@@ -52,9 +52,9 @@ export function Register({ onGoToLogin }) {
         <Title>Register</Title>
 
         <Form onSubmit={handleRegisterSubmit}>
-            <Field alias='name' type='text'>Name</Field>
+            <InputField alias='name' type='text'>Name</InputField>
 
-            <Field alias='email' type='text'>Email</Field>
+            <InputField alias='email' type='text'>Email</InputField>
 
             <PasswordField alias='password'>Password</PasswordField>
 

@@ -7,7 +7,7 @@ import { ButtonRound } from './ButtonRound'
 
 import { logic } from '../../../logic'
 
-export function Header({ onGoToProfile, onUserLoggedOut }) {
+export function Header({ children, onGoToProfile, onUserLoggedOut }) {
 
     const [name, setName] = useState('user')
 
@@ -43,28 +43,26 @@ export function Header({ onGoToProfile, onUserLoggedOut }) {
         }
     })
 
-    return <header className='fixed top-0 z-50 w-[95%] my-4 mx-3'>
-        <div className="  bg-[#D5EDF6] w-full shadow-sm flex flex-col gap-3 py-2 px-3 rounded-xl ">
+    return <header className='fixed top-0 z-50 w-full mb-4 mx-3'>
+        <div className="  bg-[#D5EDF6] w-full shadow-sm flex flex-col gap-3 py-2 px-3 rounded-b-xl ">
 
             <h2 className='text-[#1C637D] font-bold text-lg text-lg'>Is there any new to share? <br></br> <span className="font-extrabold">{name}</span></h2>
         </div>
 
         <div
-            className="w-30 h-30 rounded-full border-8 border-[#0B2A35] absolute top-5 right-2 bg-cover bg-center bg-no-repeat"
+            className="w-28 h-28 rounded-full border-8 border-[#0B2A35] absolute top-3 right-2 bg-cover bg-center bg-no-repeat"
             style={{ backgroundImage: "url('https://cdn-icons-png.flaticon.com/512/9131/9131529.png')" }}
         >
         </div>
 
-        <nav className=' flex gap-3 mt-3'>
-            <ButtonRound className='bg-[#FF7621] flex items-center justify-center' >
-                <img src="/plus.svg" alt="plus icon" className="w-[80%] h-[80%] object-cover" />
+        <nav className=' flex gap-3 mt-3 mx-2'>
+            {children}
+
+            <ButtonRound className='bg-[#1C637D] flex items-center justify-center' >
+                <img src="/logout.svg" alt="logout icon" className="w-[98%] h-[98%] mr-1 object-cover" onClick={handleLogoutClick} />
             </ButtonRound>
 
-            <ButtonRound className='bg-[#1C637D] flex items-center justify-center'>
-                <img src="/glass.svg" alt="Glass icon" className="w-[80%] h-f[80%] object-cover" />
-            </ButtonRound>
 
-            <button className='bg-[#1C637D] text-white rounded-xl font-semibold text-sm px-1 py-2 w-20' onClick={handleLogoutClick}>Logout</button>
         </nav>
 
     </header>

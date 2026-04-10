@@ -6,6 +6,7 @@ import { Landing } from './views/Landing'
 import { Login } from './views/Login'
 import { Register } from './views/Register'
 import { Home } from './views/Home'
+import { AddArticle } from './views/AddArticle'
 import { Feedback } from './views/components/commons/Feedback'
 import { Context } from './context'
 
@@ -36,6 +37,8 @@ export function App() {
     const handleGoToLogin = () => clearFeedbackAndNavigate('/login')
 
     const handleGoToRegister = () => clearFeedbackAndNavigate('/register')
+
+    const handleGoToAddArticle = () => clearFeedbackAndNavigate('/add-article')
 
     const handleGoToHome = () => clearFeedbackAndNavigate('/')
 
@@ -81,16 +84,15 @@ export function App() {
 
             <Route path="/" element={!loggedIn ?
                 <Landing onGoToLogin={handleGoToLogin} onGoToRegister={handleGoToRegister} />
-                : 
-                <Home onUserLoggedOut={handleGoToLogin} />       
-            }/>
+                :
+                <Home onGoToAddArticle={handleGoToAddArticle} onUserLoggedOut={handleGoToLogin} />
+            } />
 
             <Route path="/login" element={!loggedIn ? <Login onUserLoggedIn={handleGoToHome} onGoToRegister={handleGoToRegister} /> : <Navigate to="/" />} />
 
             <Route path="/register" element={!loggedIn ? <Register onGoToLogin={handleGoToLogin} /> : <Navigate to="/" />} />
 
-
-            
+            <Route path="/add-article" element={loggedIn ? <AddArticle onGoToHome={handleGoToHome} /> : <Navigate to="/" />} />
 
         </Routes>
     </Context.Provider>

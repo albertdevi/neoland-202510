@@ -1,6 +1,6 @@
 import { Title } from './components/commons/Title'
 import { Form } from './components/commons/Form'
-import { Field } from './components/commons/Field'
+import { InputField } from './components/commons/InputField'
 import { Anchor } from './components/commons/Anchor'
 import { PasswordField } from './components/commons/PasswordField'
 import { ButtonCTA } from './components/commons/ButtonCTA'
@@ -47,7 +47,7 @@ return <div className=" flex flex-col gap-10 py-10 items-center justify-center m
      <img src='logo.svg' alt='News2Web logo' className='w-30 object-contain' />
 
     <Form onSubmit={handleLoginSubmit}>
-    <Field alias='email' type='text'>Email</Field>
+    <InputField alias='email' type='text'>Email</InputField>
 
     <PasswordField alias="password">Password</PasswordField>
 
