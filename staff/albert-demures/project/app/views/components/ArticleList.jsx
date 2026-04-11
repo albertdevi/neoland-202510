@@ -8,7 +8,7 @@ import { logic } from '../../logic'
 
 import { logger } from '../../logger'
 
-export function ArticleList({ }) {
+export function ArticleList({ onGoToArticleDetail}) {
     logger.debug('ArticleList -> call')
 
     const { onError } = useContext
@@ -34,7 +34,7 @@ export function ArticleList({ }) {
 
     return <div>
         <ul className="flex flex-col gap-8 mt-2">
-            {articles.map(article => <ArticleItem key={article.id} article={article} />)}
+            {articles.map(article => <ArticleItem key={article.id} article={article} onGoToArticleDetail={onGoToArticleDetail} />)}
         </ul>
     </div>
 }

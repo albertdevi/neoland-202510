@@ -11,6 +11,9 @@ import { deleteAllUsers } from './deleteAllUsers.js'
 import { insertArticle } from './insertArticle.js'
 import { findArticleById } from './findArticleById.js'
 import { findArticlesByUserId } from './findArticlesByUserId.js'
+import { deleteAllArticles } from './deleteAllArticles.js'
+import { updateArticle } from './updateArticle.js'
+import { deleteArticle } from './deleteArticle.js'
 
 
 export const data = {
@@ -24,5 +27,7 @@ export const data = {
     insertArticle,
     findArticleById,
     findArticlesByUserId,
-
+    deleteAllArticles,
+    updateArticle,
+    deleteArticle
 }

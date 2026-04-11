@@ -8,9 +8,8 @@ import { getUser } from './getUser.js'
 import { addArticle } from './addArticle.js'
 import { getArticle } from './getArticle.js'
 import { getArticles } from './getArticles.js'
-
-
-
+import { removeArticle } from './removeArticle.js'
+import { modifyArticle } from './modifyArticle.js'
 
 export const logic = {
 
@@ -20,5 +19,7 @@ export const logic = {
 
     addArticle,
     getArticle,
-    getArticles
+    getArticles,
+    removeArticle,
+    modifyArticle
 }

@@ -9,6 +9,7 @@ import { Home } from './views/Home'
 import { AddArticle } from './views/AddArticle'
 import { Feedback } from './views/components/commons/Feedback'
 import { Context } from './context'
+import { ArticleDetail } from './views/ArticleDetail'
 
 import { AuthError, ValidationError, ExistenceError, DuplicityError, CredentialError } from 'com'
 import { logic } from './logic'
@@ -41,6 +42,8 @@ export function App() {
     const handleGoToAddArticle = () => clearFeedbackAndNavigate('/add-article')
 
     const handleGoToHome = () => clearFeedbackAndNavigate('/')
+
+    const handleGoToArticleDetail = articleId => clearFeedbackAndNavigate(`/articles/${articleId}/detail`)
 
     const handleError = error => {
         if (error instanceof AuthError) {
@@ -85,7 +88,7 @@ export function App() {
             <Route path="/" element={!loggedIn ?
                 <Landing onGoToLogin={handleGoToLogin} onGoToRegister={handleGoToRegister} />
                 :
-                <Home onGoToAddArticle={handleGoToAddArticle} onUserLoggedOut={handleGoToLogin} />
+                <Home onGoToAddArticle={handleGoToAddArticle} onUserLoggedOut={handleGoToLogin} onGoToArticleDetail={handleGoToArticleDetail} />
             } />
 
             <Route path="/login" element={!loggedIn ? <Login onUserLoggedIn={handleGoToHome} onGoToRegister={handleGoToRegister} /> : <Navigate to="/" />} />
@@ -93,6 +96,8 @@ export function App() {
             <Route path="/register" element={!loggedIn ? <Register onGoToLogin={handleGoToLogin} /> : <Navigate to="/" />} />
 
             <Route path="/add-article" element={loggedIn ? <AddArticle onGoToHome={handleGoToHome} /> : <Navigate to="/" />} />
+
+            <Route path="/articles/:articleId/detail" element={loggedIn ? < ArticleDetail onGoToHome={handleGoToHome} onUserLoggedOut={handleGoToLogin} /> : <Navigate to="/login" />} />
 
         </Routes>
     </Context.Provider>

@@ -10,7 +10,7 @@ import { useContext } from '../context'
 
 import { logic } from '../logic'
 
-export function Home({ onUserLoggedOut, onGoToAddArticle }) {
+export function Home({ onUserLoggedOut, onGoToAddArticle, onGoToArticleDetail }) {
 
     const { onSuccess, onError } = useContext()
 
@@ -35,6 +35,10 @@ export function Home({ onUserLoggedOut, onGoToAddArticle }) {
         onGoToAddArticle()
     }
 
+    const handleGoToArticleDetail = articleId => onGoToArticleDetail(articleId)
+
+    logger.debug('Home -> render')
+
     return <div className=" flex flex-col justify-start py-2 px-4 items-center justify-center min-h-screen bg-gradient-to-b from-[#0A1F27] via-[#163f4f] to-[#24657D] sm:gap-4 md:gap-10 ">
         <Header onUserLoggedOut={onUserLoggedOut}>
             <ButtonRound className='bg-[#FF7621] flex items-center justify-center' >
@@ -46,7 +50,7 @@ export function Home({ onUserLoggedOut, onGoToAddArticle }) {
         </Header>
         <Title className='mt-30 mb-5'>Articles</Title>
 
-        <ArticleList></ArticleList>
+        <ArticleList onGoToArticleDetail={handleGoToArticleDetail}></ArticleList>
 
     </div>
 }
