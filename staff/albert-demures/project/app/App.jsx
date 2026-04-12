@@ -7,9 +7,11 @@ import { Login } from './views/Login'
 import { Register } from './views/Register'
 import { Home } from './views/Home'
 import { AddArticle } from './views/AddArticle'
+import { ArticleDetail } from './views/ArticleDetail'
+import { ModifyArticle } from './views/ModifyArticle'
 import { Feedback } from './views/components/commons/Feedback'
 import { Context } from './context'
-import { ArticleDetail } from './views/ArticleDetail'
+
 
 import { AuthError, ValidationError, ExistenceError, DuplicityError, CredentialError } from 'com'
 import { logic } from './logic'
@@ -44,6 +46,8 @@ export function App() {
     const handleGoToHome = () => clearFeedbackAndNavigate('/')
 
     const handleGoToArticleDetail = articleId => clearFeedbackAndNavigate(`/articles/${articleId}/detail`)
+
+    const handleGoToModifyArticle = articleId => clearFeedbackAndNavigate(`/articles/${articleId}/edit`)
 
     const handleError = error => {
         if (error instanceof AuthError) {
@@ -83,12 +87,13 @@ export function App() {
 
     return <Context.Provider value={contextValue}>
         {feedback && <Feedback feedback={feedback} />}
+
         <Routes>
 
             <Route path="/" element={!loggedIn ?
                 <Landing onGoToLogin={handleGoToLogin} onGoToRegister={handleGoToRegister} />
                 :
-                <Home onGoToAddArticle={handleGoToAddArticle} onUserLoggedOut={handleGoToLogin} onGoToArticleDetail={handleGoToArticleDetail} />
+                <Home onGoToAddArticle={handleGoToAddArticle} onUserLoggedOut={handleGoToLogin} onGoToArticleDetail={handleGoToArticleDetail} onGoToModifyArticle={handleGoToModifyArticle} />
             } />
 
             <Route path="/login" element={!loggedIn ? <Login onUserLoggedIn={handleGoToHome} onGoToRegister={handleGoToRegister} /> : <Navigate to="/" />} />
@@ -97,7 +102,9 @@ export function App() {
 
             <Route path="/add-article" element={loggedIn ? <AddArticle onGoToHome={handleGoToHome} /> : <Navigate to="/" />} />
 
-            <Route path="/articles/:articleId/detail" element={loggedIn ? < ArticleDetail onGoToHome={handleGoToHome} onUserLoggedOut={handleGoToLogin} /> : <Navigate to="/login" />} />
+            <Route path="/articles/:articleId/detail" element={loggedIn ? < ArticleDetail onGoToHome={handleGoToHome} onUserLoggedOut={handleGoToLogin} onGoToModifyArticle={handleGoToModifyArticle} /> : <Navigate to="/login" />} />
+
+            <Route path="/articles/:articleId/edit" element={loggedIn ? <ModifyArticle onGoToHome={handleGoToHome} onUserLoggedOut={handleGoToLogin} onGoBack={handleGoToArticleDetail} /> : <Navigate to="/login" />} />
 
         </Routes>
     </Context.Provider>

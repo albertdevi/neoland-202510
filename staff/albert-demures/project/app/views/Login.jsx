@@ -41,7 +41,7 @@ const handleRegisterClick = event => {
 
 logger.debug('Login -> render')
 
-return <div className=" flex flex-col gap-10 py-10 items-center justify-center min-h-screen bg-gradient-to-b from-[#0A1F27] via-[#163f4f] to-[#24657D] sm:gap-8 md:gap-10 ">
+return <div className=" flex flex-col gap-10 py-10 items-center justify-center min-h-screen bg-gradient-to-b from-[#0A1F27] via-[#163f4f] to-[#24657D] sm:gap-8 md:gap-10 py-2 px-4  ">
     <Title>Login</Title>
 
      <img src='logo.svg' alt='News2Web logo' className='w-30 object-contain' />

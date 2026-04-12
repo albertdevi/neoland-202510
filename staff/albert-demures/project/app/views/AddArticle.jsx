@@ -60,7 +60,7 @@ export function AddArticle({ onGoToHome, onUserLoggedOut, onGoToAddArticle }) {
             </ButtonRound>
 
         </Header>
-        <Title className='mt-38'>Add an article</Title>
+        <Title className='mt-32'>Add an article</Title>
 
         <Form onSubmit={handleAddArticleSubmit}>
 

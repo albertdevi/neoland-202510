@@ -7,6 +7,9 @@ import { registerUser } from './registerUser'
 import { addArticle } from './addArticle'
 import { getArticle } from './getArticle'
 import { getArticles } from './getArticles'
+import { modifyArticle } from './modifyArticle'
+import { removeArticle } from './removeArticle'
+
 
 export const logic = {
     getLoggedInUser,
@@ -17,5 +20,7 @@ export const logic = {
 
     addArticle,
     getArticle,
-    getArticles
+    getArticles,
+    modifyArticle,
+    removeArticle
 }

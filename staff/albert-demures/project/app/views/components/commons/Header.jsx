@@ -43,7 +43,7 @@ export function Header({ children, onGoToProfile, onUserLoggedOut }) {
         }
     })
 
-    return <header className='fixed top-0 z-50 w-full mb-4 mx-3'>
+    return <header className='fixed top-0 z-50 w-full mb-4 mx-3 '>
         <div className="  bg-[#D5EDF6] w-full shadow-sm flex flex-col gap-3 py-2 px-3 rounded-b-xl ">
 
             <h2 className='text-[#1C637D] font-bold text-lg text-lg'>Is there any new to share? <br></br> <span className="font-extrabold">{name}</span></h2>

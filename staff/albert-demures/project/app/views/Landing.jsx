@@ -12,7 +12,7 @@ export function Landing({ onGoToLogin, onGoToRegister}) {
         onGoToLogin()
     }
 
-    return <div className="flex flex-col gap-10 items-center justify-center min-h-screen bg-gradient-to-b from-[#0A1F27] via-[#163f4f] to-[#24657D] sm:gap-8 md:gap-10 ">
+    return <div className="flex flex-col gap-10 items-center justify-center min-h-screen bg-gradient-to-b from-[#0A1F27] via-[#163f4f] to-[#24657D] sm:gap-8 md:gap-10 py-2 px-4  ">
 
         <h1 className='font-bold font-sans text-5xl text-[#58B7DA] text-center drop-shadow-lg'> Welcome to <br /> News2Web </h1>
 

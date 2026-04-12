@@ -7,11 +7,12 @@ import { Title } from './components/commons/Title'
 import { logger } from '../logger'
 import { Header } from './components/commons/Header'
 
+
 import { useContext } from '../context'
 
 import { logic } from '../logic'
 
-export function ArticleDetail({ onGoToHome, onUserLoggedOut }) {
+export function ArticleDetail({ onGoToHome, onUserLoggedOut, onGoToModifyArticle }) {
     logger.debug('ArticleDetail -> call')
 
     const { onError } = useContext()
@@ -35,6 +36,8 @@ export function ArticleDetail({ onGoToHome, onUserLoggedOut }) {
 
         onGoToHome()
     }
+
+    const handleGoToModifyArticle = () => onGoToModifyArticle(articleId)
 
     logger.debug('ArticleDetail -> render')
 
@@ -71,6 +74,10 @@ export function ArticleDetail({ onGoToHome, onUserLoggedOut }) {
                         </span>
                     </h2>
                 </div>
+
+         <ButtonRound className="bg-[#1C637D]" onClick={handleGoToModifyArticle}>
+          <img src="/edit.svg" alt="edit icon" className="w-4 h-4" />
+        </ButtonRound>
 
                 <div className=" flex flex-col gap-2">
                     <div className="h-px w-full bg-[#2F6F86]" />
