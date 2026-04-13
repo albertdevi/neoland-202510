@@ -34,11 +34,16 @@ class Validate {
 
     date(date, explain = 'date') {
         if (typeof date !== 'string') throw new ValidationError(`invalid ${explain} type`)
-        if(!ISODATE_REGEX.test(date)) throw new ValidationError(`invalid ${explain} format`)
+        if (!ISODATE_REGEX.test(date)) throw new ValidationError(`invalid ${explain} format`)
     }
 
     number(number, explain = 'number') {
         if (typeof number !== 'number' || isNaN(number)) throw new ValidationError(`invalid ${explain} type`)
+    }
+
+    visibility(visibility) {
+        if (typeof visibility !== 'string') throw new ValidationError('invalid visibility type')
+        if (visibility !== 'public' && visibility !== 'draft') throw new ValidationError('invalid visibility option')
     }
 }
 

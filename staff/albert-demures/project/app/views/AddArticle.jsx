@@ -14,7 +14,7 @@ import { logic } from '../logic'
 
 export function AddArticle({ onGoToHome, onUserLoggedOut, onGoToAddArticle }) {
 
-    const { onError } = useContext()
+    const { onSuccess, onError } = useContext()
 
     const handleBackClick = event => {
         event.preventDefault()
@@ -42,9 +42,7 @@ export function AddArticle({ onGoToHome, onUserLoggedOut, onGoToAddArticle }) {
 
         try {
             logic.addArticle(title, subtitle, date, paragraph0, image0, paragraph1, image1, paragraph2, image2, paragraph3, image3, visibility)
-                .then(() => {
-                    form.reset()
-                })
+                .then(() => onSuccess('article successfully added'))
                 .catch(error => onError(error))
         } catch (error) {
             onError(error)
@@ -92,7 +90,6 @@ export function AddArticle({ onGoToHome, onUserLoggedOut, onGoToAddArticle }) {
             </SelectField>
 
             <ButtonCTA className="" type="submit">Create</ButtonCTA>
-
         </Form>
 
     </div>

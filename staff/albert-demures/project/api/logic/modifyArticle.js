@@ -14,7 +14,7 @@ export function modifyArticle(userId, articleId, title, subtitle, date, paragrap
     if (image2) validate.url(image2, 'image2')
     if (paragraph3) validate.name(paragraph3, 'paragraph3')
     if (image3) validate.url(image3, 'image3')
-    validate.name(visibility, 'visibility')
+    validate.visibility(visibility, 'visibility')
 
     return data.findUserById(userId)
         .then(userData => {

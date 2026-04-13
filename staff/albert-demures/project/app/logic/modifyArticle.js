@@ -16,7 +16,7 @@ export function modifyArticle(articleId, title, subtitle, date, paragraph0, imag
     if (image2) validate.url(image2, 'image2')
     if (paragraph3) validate.name(paragraph3, 'paragraph3')
     if (image3) validate.url(image3, 'image3')
-    validate.name(visibility, 'visibility')
+    validate.visibility(visibility, 'visibility')
 
     return fetch(`${import.meta.env.VITE_API_URL}/articles/${articleId}`, {
         method: 'PUT',

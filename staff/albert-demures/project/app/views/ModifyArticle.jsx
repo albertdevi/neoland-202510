@@ -16,7 +16,7 @@ import { useContext } from '../context'
 
 import { logic } from '../logic'
 
-export function ModifyArticle({ onGoToHome, onUserLoggedOut, onGoBack}) {
+export function ModifyArticle({ onGoToHome, onUserLoggedOut, onGoBack }) {
 
     const { onSuccess, onError } = useContext()
 
@@ -27,8 +27,8 @@ export function ModifyArticle({ onGoToHome, onUserLoggedOut, onGoBack}) {
     useEffect(() => {
         try {
             logic.getArticle(articleId)
-            .then(article => setArticle(article))
-            .catch(error => onError(error))
+                .then(article => setArticle(article))
+                .catch(error => onError(error))
         } catch (error) {
             onError(error)
         }
@@ -60,9 +60,7 @@ export function ModifyArticle({ onGoToHome, onUserLoggedOut, onGoBack}) {
 
         try {
             logic.modifyArticle(articleId, title, subtitle, date, paragraph0, image0, paragraph1, image1, paragraph2, image2, paragraph3, image3, visibility)
-                .then(() => {
-                    form.reset()
-                })
+                .then(() => onSuccess('article succesfully modified'))
                 .catch(error => onError(error))
         } catch (error) {
             onError(error)
@@ -72,6 +70,10 @@ export function ModifyArticle({ onGoToHome, onUserLoggedOut, onGoBack}) {
     logger.debug('ModifyArticle -> render')
 
     if (!article) return <p>Loading...</p>
+
+    const zuluDate = new Date(article.date)
+    const isoString = zuluDate.toISOString().split('T')[0]
+
 
     return <div className='flex flex-col justify-start py-2 px-4 items-center justify-center min-h-screen bg-gradient-to-b from-[#0A1F27] via-[#163f4f] to-[#24657D] sm:gap-4 md:gap-10'>
         <Header onUserLoggedOut={onUserLoggedOut}  >
@@ -88,7 +90,7 @@ export function ModifyArticle({ onGoToHome, onUserLoggedOut, onGoBack}) {
 
             <InputField alias='subtitle' type='text' defaultValue={article.subtitle}>Subtitle</InputField>
 
-            <InputField alias='date' type='date' >Date</InputField>
+            <InputField key={isoString} alias='date' type='date' defaultValue={isoString}>Date</InputField>
 
             <TextAreaField alias='paragraph0' type='text' defaultValue={article.paragraph0}>Paragraph</TextAreaField>
 
@@ -109,6 +111,7 @@ export function ModifyArticle({ onGoToHome, onUserLoggedOut, onGoBack}) {
             <SelectField alias='visibility' label="Visibility">
                 <option value='public'>Public</option>
                 <option value='draft'>Draft</option>
+                <option value='extra'>Extra</option>
             </SelectField>
 
             <ButtonCTA className="" type="submit">Modify</ButtonCTA>

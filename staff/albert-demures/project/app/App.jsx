@@ -89,7 +89,6 @@ export function App() {
         {feedback && <Feedback feedback={feedback} />}
 
         <Routes>
-
             <Route path="/" element={!loggedIn ?
                 <Landing onGoToLogin={handleGoToLogin} onGoToRegister={handleGoToRegister} />
                 :
