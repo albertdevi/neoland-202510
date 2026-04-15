@@ -10,6 +10,7 @@ import { getArticle } from './getArticle.js'
 import { getArticles } from './getArticles.js'
 import { removeArticle } from './removeArticle.js'
 import { modifyArticle } from './modifyArticle.js'
+import { getPublicArticles } from './getPublicArticles.js'
 
 export const logic = {
 
@@ -21,5 +22,6 @@ export const logic = {
     getArticle,
     getArticles,
     removeArticle,
-    modifyArticle
+    modifyArticle,
+    getPublicArticles
 }

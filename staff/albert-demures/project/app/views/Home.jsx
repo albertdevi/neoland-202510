@@ -29,7 +29,7 @@ export function Home({ onUserLoggedOut, onGoToAddArticle, onGoToArticleDetail, o
         }
     }, [])
 
-        const handleAddArticleClick = event => {
+    const handleAddArticleClick = event => {
         event.preventDefault()
 
         onGoToAddArticle()
@@ -38,7 +38,7 @@ export function Home({ onUserLoggedOut, onGoToAddArticle, onGoToArticleDetail, o
     const handleGoToArticleDetail = articleId => onGoToArticleDetail(articleId)
 
     const handleGoToModifyArticle = articleId => onGoToModifyArticle(articleId)
-    
+
 
 
     logger.debug('Home -> render')
@@ -48,9 +48,16 @@ export function Home({ onUserLoggedOut, onGoToAddArticle, onGoToArticleDetail, o
             <ButtonRound className='bg-[#FF7621] flex items-center justify-center' >
                 <img src="/plus.svg" alt="plus icon" className="w-[80%] h-[80%] object-cover" onClick={handleAddArticleClick} />
             </ButtonRound>
-                      <ButtonRound className='bg-[#1C637D] flex items-center justify-center'>
+
+            <ButtonRound className='bg-[#1C637D] flex items-center justify-center'>
                 <img src="/glass.svg" alt="Glass icon" className="w-[80%] h-f[80%] object-cover" />
             </ButtonRound>
+
+
+            <ButtonRound className='bg-[#1C637D] flex items-center justify-center'>
+                <img src="/film-reel.svg" alt="Film-reel icon" className="w-[100%] h-f[100%] object-cover" />
+            </ButtonRound>
+
         </Header>
         <Title className='mt-32 mb-5'>Articles</Title>
 

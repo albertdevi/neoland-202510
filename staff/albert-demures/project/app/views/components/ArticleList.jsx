@@ -39,7 +39,6 @@ export function ArticleList({ onGoToArticleDetail, onGoToModifyArticle }) {
         setArticleId(null)
     }
 
-
     const handleConfirmRemoveArticleClick = event => {
         event.preventDefault()
 

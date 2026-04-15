@@ -41,7 +41,7 @@ const handleRegisterClick = event => {
 
 logger.debug('Login -> render')
 
-return <div className=" flex flex-col gap-10 py-10 items-center justify-center min-h-screen bg-gradient-to-b from-[#0A1F27] via-[#163f4f] to-[#24657D] sm:gap-8 md:gap-10 py-2 px-4  ">
+return <div className=" flex flex-col gap-6 py-4 items-center justify-center min-h-screen bg-gradient-to-b from-[#0A1F27] via-[#163f4f] to-[#24657D] sm:gap-8 md:gap-10 py-2 px-4  ">
     <Title>Login</Title>
 
      <img src='logo.svg' alt='News2Web logo' className='w-30 object-contain' />
@@ -54,7 +54,7 @@ return <div className=" flex flex-col gap-10 py-10 items-center justify-center m
     <ButtonCTA className="" type="submit">Login</ButtonCTA>
 
     </Form>
-        <footer className="flex flex-col items-center gap-4 w-full max-w-sm mt-4" >
+        <footer className="flex flex-col items-center gap-4 w-full max-w-sm mt-2" >
             <div className="flex items-center w-full gap-3">
                 <div className='h-px w-full bg-[#58B7DA]'></div>
                 <p className='text-[#58B7DA] text-sm font-medium'>O</p>

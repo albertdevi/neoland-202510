@@ -9,6 +9,8 @@ import { Home } from './views/Home'
 import { AddArticle } from './views/AddArticle'
 import { ArticleDetail } from './views/ArticleDetail'
 import { ModifyArticle } from './views/ModifyArticle'
+import { Reel } from './views/Reel'
+import { ReelDetail } from './views/ReelDetail'
 import { Feedback } from './views/components/commons/Feedback'
 import { Context } from './context'
 
@@ -48,6 +50,10 @@ export function App() {
     const handleGoToArticleDetail = articleId => clearFeedbackAndNavigate(`/articles/${articleId}/detail`)
 
     const handleGoToModifyArticle = articleId => clearFeedbackAndNavigate(`/articles/${articleId}/edit`)
+
+    const handleGoToReels = userId => clearFeedbackAndNavigate(`/reels/${userId}`)
+
+    const handleGoToReelDetail = (userId, articleId) => clearFeedbackAndNavigate(`/reels/${userId}/${articleId}`)
 
     const handleError = error => {
         if (error instanceof AuthError) {
@@ -104,6 +110,10 @@ export function App() {
             <Route path="/articles/:articleId/detail" element={loggedIn ? < ArticleDetail onGoToHome={handleGoToHome} onUserLoggedOut={handleGoToLogin} onGoToModifyArticle={handleGoToModifyArticle} /> : <Navigate to="/login" />} />
 
             <Route path="/articles/:articleId/edit" element={loggedIn ? <ModifyArticle onGoToHome={handleGoToHome} onUserLoggedOut={handleGoToLogin} onGoBack={handleGoToArticleDetail} /> : <Navigate to="/login" />} />
+
+            <Route path="/reels/:userId" element={<Reel onGoToReelDetail={handleGoToReelDetail} />} />
+
+            <Route path="/reels/:userId/:articleId" element={< ReelDetail />} />
 
         </Routes>
     </Context.Provider>

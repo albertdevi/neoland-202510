@@ -1,0 +1,1 @@
+curl http://localhost:8080/articles/reels/69d566dcb87dd011a9ad166f -v

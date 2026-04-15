@@ -1,4 +1,4 @@
-import { getLoggedInUser} from './getLoggedInUser'
+import { getLoggedInUser } from './getLoggedInUser'
 import { isUserLoggedIn } from './isUserLoggedIn'
 import { loginUser } from './loginUser'
 import { logoutUser } from './logoutUser'
@@ -9,6 +9,7 @@ import { getArticle } from './getArticle'
 import { getArticles } from './getArticles'
 import { modifyArticle } from './modifyArticle'
 import { removeArticle } from './removeArticle'
+import { getPublicArticles } from './getPublicArticles'
 
 
 export const logic = {
@@ -22,5 +23,6 @@ export const logic = {
     getArticle,
     getArticles,
     modifyArticle,
-    removeArticle
+    removeArticle,
+    getPublicArticles
 }
