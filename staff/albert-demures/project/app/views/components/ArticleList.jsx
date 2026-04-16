@@ -11,7 +11,7 @@ import { logger } from '../../logger'
 export function ArticleList({ onGoToArticleDetail, onGoToModifyArticle }) {
     logger.debug('ArticleList -> call')
 
-    const { onError } = useContext
+    const { onError } = useContext()
 
     const [articles, setArticles] = useState([])
     const [articleId, setArticleId] = useState(null)
@@ -22,7 +22,10 @@ export function ArticleList({ onGoToArticleDetail, onGoToModifyArticle }) {
         try {
             logic.getArticles()
                 .then(articles => {
-                    setArticles(articles)
+                    const sortedArticles = [...articles].sort(
+                        (a,b) => new Date(b.date) - new Date(a.date)
+                    )
+                    setArticles(sortedArticles)
                 })
                 .catch(error => onError(error))
         } catch (error) {
@@ -30,8 +33,9 @@ export function ArticleList({ onGoToArticleDetail, onGoToModifyArticle }) {
         }
     }, [])
 
-    const handleRemoveArticleClick = articleId => setArticleId(articleId)
+    const handleGoToArticleDetailClick = articleId => onGoToArticleDetail(articleId)
 
+    const handleRemoveArticleClick = articleId => setArticleId(articleId)
 
     const handleCancelRemoveArticleClick = event => {
         event.preventDefault()
@@ -48,12 +52,15 @@ export function ArticleList({ onGoToArticleDetail, onGoToModifyArticle }) {
                     return logic.getArticles()
                 })
                 .then(articles => {
+                    const sortedArticles = [...articles].sort(
+                        (a, b) => new Date(b.date) - new Date(a.date)
+                    )
                     setArticleId(null)
-                    setArticles(articles)
+                    setArticles(sortedArticles)
                 })
                 .catch(error => onError(error))
         } catch (error) {
-            onError
+            onError(error)
         }
     }
 
@@ -64,16 +71,16 @@ export function ArticleList({ onGoToArticleDetail, onGoToModifyArticle }) {
             {articles.map(article => <ArticleItem key={article.id} article={article} onGoToArticleDetail={onGoToArticleDetail} onGoToModifyArticle={onGoToModifyArticle} onRemoveArticleClick={handleRemoveArticleClick} />)}
         </ul>
 
-        {articleId && <div className=" w-full h-full fixed top-0 left-0 bg-black/75 flex justify-center items-center">
-            <div className="bg-[#D5EDF6] rounded-xl px-6 py-9">
-                <p className='text-center text-3xl mb-8 font-bold text-[#1C637D]'>Are you sure to <br /> delete the article?</p>
+        {articleId && <div className=" fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50">
+            <div className="bg-[#D5EDF6] rounded-2xl px-4 py-6 shadow-2x">
+                <p className='text-center text-xl mb-6 font-bold text-[#1C637D]'>Are you sure to <br /> delete the article?</p>
 
                 <div className="flex justify-center gap-4">
-                    <button className="bg-[#1C637D] py-4 px-12 rounded-3xl" onClick={handleCancelRemoveArticleClick}>
-                        <img src="/delete.svg" alt="delete icon" className="w-6 h-6" />
+                    <button className="bg-[#1C637D] py-3 px-8 rounded-3xl" onClick={handleCancelRemoveArticleClick}>
+                        <img src="/delete.svg" alt="delete icon" className="w-4 h-4" />
                     </button>
-                    <button className="bg-[#FF7621] py-4 px-12 rounded-3xl" onClick={handleConfirmRemoveArticleClick}>
-                        <img src="/check.svg" alt="check icon" className="w-6 h-6" />
+                    <button className="bg-[#FF7621] py-3 px-8 rounded-3xl" onClick={handleConfirmRemoveArticleClick}>
+                        <img src="/check.svg" alt="check icon" className="w-4 h-4" />
                     </button>
                 </div>
             </div>

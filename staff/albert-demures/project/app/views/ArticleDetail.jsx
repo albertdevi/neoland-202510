@@ -67,17 +67,23 @@ export function ArticleDetail({ onGoToHome, onUserLoggedOut, onGoToModifyArticle
                     </h1>
 
                     <h2 className="text-sm text-[#A9C7D3]">
-                        {article.subtitle}
-                        <span className="mx-1">•</span>
+
+                        {article.subtitle && (
+                            <>
+                                {article.subtitle}
+                                <span className="mx-1">•</span>
+                            </>
+                        )}
+{}
                         <span className="text-[#5F7D88] italic">
                             {locaDateString}
                         </span>
                     </h2>
                 </div>
 
-         <ButtonRound className="bg-[#1C637D]" onClick={handleGoToModifyArticle}>
-          <img src="/edit.svg" alt="edit icon" className="w-4 h-4" />
-        </ButtonRound>
+                <ButtonRound className="bg-[#1C637D]" onClick={handleGoToModifyArticle}>
+                    <img src="/edit.svg" alt="edit icon" className="w-4 h-4" />
+                </ButtonRound>
 
                 <div className=" flex flex-col gap-2">
                     <div className="h-px w-full bg-[#2F6F86]" />
@@ -88,28 +94,34 @@ export function ArticleDetail({ onGoToHome, onUserLoggedOut, onGoToModifyArticle
                     {article.paragraph0}
                 </p>
 
-                <img
-                    src={article.image1}
-                    className="w-full h-60 object-cover rounded-xl"
-                />
+                {article.image1 && (
+                    <img
+                        src={article.image1}
+                        className="w-full h-60 object-cover rounded-xl"
+                    />
+                )}
 
                 <p className="text-base leading-relaxed text-[#D5EDF6]/90">
                     {article.paragraph1}
                 </p>
 
-                <img
-                    src={article.image2}
-                    className="w-full h-60 object-cover rounded-xl"
-                />
+                {article.image2 && (
+                    <img
+                        src={article.image2}
+                        className="w-full h-60 object-cover rounded-xl"
+                    />
+                )}
 
                 <p className="text-base leading-relaxed text-[#D5EDF6]/90">
                     {article.paragraph2}
                 </p>
 
-                <img
-                    src={article.image3}
-                    className="w-full h-60 object-cover rounded-xl"
-                />
+                {article.image3 && (
+                    <img
+                        src={article.image3}
+                        className="w-full h-60 object-cover rounded-xl"
+                    />
+                )}
 
                 <p className="text-base leading-relaxed text-[#D5EDF6]/90">
                     {article.paragraph2}

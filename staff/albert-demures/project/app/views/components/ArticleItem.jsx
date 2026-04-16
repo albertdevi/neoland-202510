@@ -44,9 +44,13 @@ export function ArticleItem({ article, onGoToArticleDetail, onRemoveArticleClick
         {article.title}
       </h2>
 
-      <h3 className="text-sm text-[#35515C]">
-        {article.subtitle}
-      </h3>
+      {article.subtitle && (
+        <>
+          <h3 className="text-sm text-[#35515C]">
+            {article.subtitle}
+          </h3>
+        </>
+      )}
 
       <p className="text-xs text-[#5F7D88]">
         {locaDateString}

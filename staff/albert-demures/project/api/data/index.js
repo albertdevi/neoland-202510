@@ -15,6 +15,7 @@ import { deleteAllArticles } from './deleteAllArticles.js'
 import { updateArticle } from './updateArticle.js'
 import { deleteArticle } from './deleteArticle.js'
 import { findPublicArticlesByUserId } from './findPublicArticlesByUserId.js'
+import { findPublicArticleById } from './findPublicArticleById.js'
 
 
 export const data = {
@@ -31,5 +32,6 @@ export const data = {
     deleteAllArticles,
     updateArticle,
     deleteArticle,
-    findPublicArticlesByUserId
+    findPublicArticlesByUserId,
+    findPublicArticleById
 }

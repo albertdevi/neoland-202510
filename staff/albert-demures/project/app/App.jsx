@@ -55,6 +55,8 @@ export function App() {
 
     const handleGoToReelDetail = (userId, articleId) => clearFeedbackAndNavigate(`/reels/${userId}/${articleId}`)
 
+    const handleGoToReel = (userId) => clearFeedbackAndNavigate(`/reels/${userId}`)
+
     const handleError = error => {
         if (error instanceof AuthError) {
             try {
@@ -113,7 +115,7 @@ export function App() {
 
             <Route path="/reels/:userId" element={<Reel onGoToReelDetail={handleGoToReelDetail} />} />
 
-            <Route path="/reels/:userId/:articleId" element={< ReelDetail />} />
+            <Route path="/reels/:userId/:articleId" element={< ReelDetail onGoToReel={handleGoToReel} />} />
 
         </Routes>
     </Context.Provider>

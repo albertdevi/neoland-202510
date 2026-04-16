@@ -12,18 +12,18 @@ import { useContext } from '../context'
 
 import { logic } from '../logic'
 
-export function ReelDetail() {
+export function ReelDetail({onGoToReel}) {
     logger.debug('ArticleDetail -> call')
 
     const { onError } = useContext()
 
     const [article, setArticle] = useState(null)
 
-    const {userId, articleId} = useParams()
+    const { userId, articleId } = useParams()
 
     useEffect(() => {
         try {
-            logic.getArticle(articleId)
+            logic.getPublicArticle(userId, articleId)
                 .then(article => setArticle(article))
                 .catch(error => onError(error))
         } catch (error) {
@@ -31,7 +31,7 @@ export function ReelDetail() {
         }
     }, [])
 
-    const handleBackClick = event => {
+    const handleGoToReel = event => {
         event.preventDefault()
 
         onGoToReel(userId)
@@ -39,15 +39,17 @@ export function ReelDetail() {
 
     logger.debug('ArticleDetail -> render')
 
-    return <div className=" flex flex-col justify-start py-2 px-4 items-center justify-center min-h-screen bg-gradient-to-b from-[#0A1F27] via-[#163f4f] to-[#24657D] sm:gap-4 md:gap-10 ">
-      
+    return <div className=" flex flex-col justify-start py-2 px-4 items-center justify-center min-h-screen sm:gap-6 md:gap-10 ">
+
         {article ? (() => {
             const zuluDate = new Date(article.date)
             const locaDateString = zuluDate.toLocaleDateString()
 
-            return <div className="w-full flex flex-col gap-4 text-[#D5EDF6] mt-5">
+            return   <div className=" min-h-screen max-w-2xl mx-auto px-4 py-6 space-y-4">
 
-                <h1>Reelsssss</h1>
+                <ButtonRound className='bg-neutral-600 hover:bg-neutral-800 transition'>
+                    <img src="/back.svg" alt="Back icon" className="w-5 h-5 object-cover" onClick={handleGoToReel} />
+                </ButtonRound>
 
                 <img
                     src={article.image0}
@@ -55,52 +57,64 @@ export function ReelDetail() {
                 />
 
                 <div className="flex flex-col gap-1">
-                    <h1 className="text-2xl font-bold leading-tight">
+                    <h1 className="text-3xl font-bold leading-tight tracking-tight">
                         {article.title}
                     </h1>
 
-                    <h2 className="text-sm text-[#A9C7D3]">
-                        {article.subtitle}
-                        <span className="mx-1">•</span>
-                        <span className="text-[#5F7D88] italic">
+                    <h2 className="text-sm text-neutral-500 leading-snug">
+
+                        {article.subtitle && (
+                            <>
+                                {article.subtitle}
+                                <span className="mx-1">•</span>
+                            </>
+                        )}
+{}
+                        <span className=" italic">
                             {locaDateString}
                         </span>
                     </h2>
                 </div>
 
-                <div className=" flex flex-col gap-2">
-                    <div className="h-px w-full bg-[#2F6F86]" />
-                    <div className="h-px w-full bg-[#2F6F86]" />
+                <div className=" flex flex-col">
+                    <div className="h-px w-full bg-neutral-200 my-2" />
+                    <div className="h-px w-full bg-neutral-200 my-2" />
                 </div>
 
-                <p className="text-base leading-relaxed text-[#D5EDF6]/90">
+                <p className="text-sm leading-7 text-neutral-800">
                     {article.paragraph0}
                 </p>
 
-                <img
-                    src={article.image1}
-                    className="w-full h-60 object-cover rounded-xl"
-                />
+                {article.image1 && (
+                    <img
+                        src={article.image1}
+                        className="w-full aspect-[16/9] object-cover rounded-2xl shadow-md my-4"
+                    />
+                )}
 
-                <p className="text-base leading-relaxed text-[#D5EDF6]/90">
+                <p className="text-sm leading-7 text-neutral-800">
                     {article.paragraph1}
                 </p>
 
-                <img
-                    src={article.image2}
-                    className="w-full h-60 object-cover rounded-xl"
-                />
+                {article.image2 && (
+                    <img
+                        src={article.image2}
+                        className="w-full aspect-[16/9] object-cover rounded-2xl shadow-md my-4"
+                    />
+                )}
 
-                <p className="text-base leading-relaxed text-[#D5EDF6]/90">
+                <p className="text-sm leading-7 text-neutral-800">
                     {article.paragraph2}
                 </p>
 
-                <img
-                    src={article.image3}
-                    className="w-full h-60 object-cover rounded-xl"
-                />
+                 {article.image3 && (
+                    <img
+                        src={article.image3}
+                        className="w-full aspect-[16/9] object-cover rounded-2xl shadow-md my-4"
+                    />
+                )}
 
-                <p className="text-base leading-relaxed text-[#D5EDF6]/90">
+                <p className="text-sm leading-7 text-neutral-800">
                     {article.paragraph2}
                 </p>
 
@@ -108,5 +122,4 @@ export function ReelDetail() {
 
         })() : null}
     </div>
-
 }

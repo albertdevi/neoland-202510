@@ -19,24 +19,25 @@ export function ReelItem({ article, onGoToReelDetail }) {
     const locaDateString = zuluDate.toLocaleDateString()
 
     return <li onClick={handleGoToReelDetailClick}
-        className={`rounded-xl shadow-lg p-2 flex flex-col gap-2
-      ${article.visibility === 'draft' ? 'bg-gray-500' : 'bg-[#8FB3C0]'} 
-    `}
-    >
+        className="rounded-2xl shadow-md p-2 flex flex-col gap-2 bg-gray-200 p-4 ">
         <img
             src={article.image0}
-            className="w-full object-cover rounded-lg"
+            className="w-full h-full object-cover rounded-2xl shadow-lg"
         />
 
-        <h2 className="text-xl font-semibold text-[#09212A] leading-tight">
+        <h2 className="text-3xl font-bold leading-tight tracking-tight">
             {article.title}
         </h2>
-
-        <h3 className="text-sm text-[#35515C]">
+        
+      {article.subtitle && (
+        <>
+          <h3 className="text-lg font-semibold leading-snug text-neutral-900">
             {article.subtitle}
-        </h3>
+          </h3>
+        </>
+      )}
 
-        <p className="text-xs text-[#5F7D88]">
+        <p className="text-xs text-neutral-500">
             {locaDateString}
         </p>
 

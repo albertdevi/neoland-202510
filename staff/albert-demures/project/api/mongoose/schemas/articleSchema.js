@@ -17,7 +17,7 @@ export const articleSchema = new Schema({
 
     subtitle: {
         type: String,
-        minLength: 1,
+
     },
 
     date: {
@@ -38,7 +38,6 @@ export const articleSchema = new Schema({
 
     paragraph1: {
         type: String,
-        minLength: 1,
     },
 
     image1: {
@@ -48,7 +47,6 @@ export const articleSchema = new Schema({
 
     paragraph2: {
         type: String,
-        minLength: 1,
     },
 
     image2: {
@@ -58,7 +56,7 @@ export const articleSchema = new Schema({
 
     paragraph3: {
         type: String,
-        minLength: 1,
+
     },
 
     image3: {
@@ -68,7 +66,6 @@ export const articleSchema = new Schema({
 
     visibility: {
         type: String,
-        minLength: 1,
         required: true
     }
 

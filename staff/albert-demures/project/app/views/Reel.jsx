@@ -37,9 +37,9 @@ export function Reel({onGoToReelDetail}) {
 
     logger.debug('ArticleList -> render')
 
-    return <div className='flex flex-col justify-start py-2 px-4 items-center justify-center sm:gap-4 md:gap-10'>
+    return <div className='"min-h-screen text-neutral-900 max-w-2xl mx-auto px-4 py-6'>
     
-        <ul className="flex flex-col gap-8 mt-2 mb-8">
+        <ul className="flex flex-col space-y-6">
             {articles.map(article => <ReelItem key={article.id} article={article} onGoToReelDetail={handleGoToReelDetail}/>)}
         </ul>
 
