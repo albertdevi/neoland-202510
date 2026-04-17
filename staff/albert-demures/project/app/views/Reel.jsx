@@ -10,7 +10,7 @@ import { logic } from '../logic'
 
 import { useParams } from 'react-router'
 
-export function Reel({onGoToReelDetail}) {
+export function Reel({ onGoToReelDetail }) {
     logger.debug('Reels -> call')
 
     const { userId } = useParams()
@@ -23,9 +23,12 @@ export function Reel({onGoToReelDetail}) {
         logger.debug('ArticleList -> useEffect')
 
         try {
-            logic.getPublicArticles(userId )
+            logic.getReelArticles(userId)
                 .then(articles => {
-                    setArticles(articles)
+                    const sortedArticles = [...articles].sort(
+                        (a, b) => new Date(b.date) - new Date(a.date)
+                    )
+                    setArticles(sortedArticles)
                 })
                 .catch(error => onError(error))
         } catch (error) {
@@ -38,9 +41,9 @@ export function Reel({onGoToReelDetail}) {
     logger.debug('ArticleList -> render')
 
     return <div className='"min-h-screen text-neutral-900 max-w-2xl mx-auto px-4 py-6'>
-    
+
         <ul className="flex flex-col space-y-6">
-            {articles.map(article => <ReelItem key={article.id} article={article} onGoToReelDetail={handleGoToReelDetail}/>)}
+            {articles.map(article => <ReelItem key={article.id} article={article} onGoToReelDetail={handleGoToReelDetail} />)}
         </ul>
 
     </div>

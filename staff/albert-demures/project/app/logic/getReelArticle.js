@@ -1,11 +1,12 @@
 import { data } from '../data'
-import { SystemError, AuthError, errorMap, validate } from 'com'
+import { validate, SystemError, AuthError, errorMap } from 'com'
 
-export function getPublicArticles(userId) {
+export function getReelArticle(userId, articleId) {
+    if (data.getToken() === null) throw new AuthError('user not logged in')
 
-    validate.id(userId, 'userId')
+    validate.id(articleId, 'articleId')
 
-    return fetch(`${import.meta.env.VITE_API_URL}/articles/reels/${userId}`,)
+    return fetch(`${import.meta.env.VITE_API_URL}/articles/reels/${userId}/${articleId}`)
 
         .catch(error => { throw new SystemError('connection error') })
         .then(res => {

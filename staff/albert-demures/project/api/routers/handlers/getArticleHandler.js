@@ -5,7 +5,7 @@ export const getArticleHandler = (req, res, next) => {
         const { userId, params: { articleId } } = req
 
         logic.getArticle(userId, articleId)
-            .then(pet => res.json(pet))
+            .then(article => res.json(article))
             .catch(error => next(error))
     } catch (error) {
         next

@@ -23,7 +23,7 @@ export function ReelDetail({onGoToReel}) {
 
     useEffect(() => {
         try {
-            logic.getPublicArticle(userId, articleId)
+            logic.getReelArticle(userId, articleId)
                 .then(article => setArticle(article))
                 .catch(error => onError(error))
         } catch (error) {

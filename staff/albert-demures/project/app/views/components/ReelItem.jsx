@@ -6,14 +6,11 @@ export function ReelItem({ article, onGoToReelDetail }) {
 
     logger.debug('ReelItem -> call')
 
-
-
     const { userId } = useParams()
 
     const handleGoToReelDetailClick = () => onGoToReelDetail(userId, article.id)
 
     logger.debug('ReelItem -> render')
-
 
     const zuluDate = new Date(article.date)
     const locaDateString = zuluDate.toLocaleDateString()

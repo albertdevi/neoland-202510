@@ -2,7 +2,7 @@ import { SystemError } from "com";
 import { ArticleModel } from '../mongoose/index.js'
 import { ArticleData } from './models/index.js'
 
-export function findPublicArticleById(articleId) {
+export function findReelArticleById(articleId) {
         return ArticleModel.findOne({ _id: articleId, visibility: 'public' })
         .catch(error => { throw new SystemError(error.message) })
         .then(articleModel => {

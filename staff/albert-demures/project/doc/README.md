@@ -19,6 +19,7 @@ User
 - remove new
 - modify new
 - filter news
+- modify reel colors (text and background color)
 
 ### UI/UX design
 
@@ -49,7 +50,7 @@ UserData
 - pasword (required, hashed, string)
 - image (string)
 
-NewData
+ArticleData
 - id (unique, string)
 - user (UserData.id, string)
 - title (required, string)
@@ -58,6 +59,12 @@ NewData
 - paragraphs (required, [string])
 - images ([string])
 - visibility (required, string, private | public)
+
+ReelData
+- id (unique, string)
+- user (UserData.id, string)
+- textColor (string)
+- backgroundColor (string)
 
 ### Techs
 

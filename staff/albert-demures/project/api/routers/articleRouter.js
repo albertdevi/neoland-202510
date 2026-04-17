@@ -8,17 +8,15 @@ import {
     getArticleHandler,
     removeArticleHandler,
     modifyArticleHandler,
-    getPublicArticlesHandler,
-    getPublicArticleHandler
+    getReelArticlesHandler,
+    getReelArticleHandler
 
 } from './handlers/index.js'
 
 export const articleRouter = new Router()
 
-
-
-articleRouter.get('/reels/:userId', getPublicArticlesHandler)
-articleRouter.get('/reels/:userId/:articleId', getPublicArticleHandler)
+articleRouter.get('/reels/:userId', getReelArticlesHandler)
+articleRouter.get('/reels/:userId/:articleId', getReelArticleHandler)
 
 articleRouter.post('', authMiddleware, addArticleHandler)
 articleRouter.get('', authMiddleware, getArticlesHandler)

@@ -1,0 +1,1 @@
+curl -X PUT -H 'Content-Type: application/json' -d '{"textColor":"#300080","backgroundColor":"#2DD8E6" }' http://localhost:8080/reels/69d566dcb87dd011a9ad166f/69e2bc94b9703dc44b7c2908 -v

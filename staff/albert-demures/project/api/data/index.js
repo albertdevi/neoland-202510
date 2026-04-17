@@ -14,9 +14,12 @@ import { findArticlesByUserId } from './findArticlesByUserId.js'
 import { deleteAllArticles } from './deleteAllArticles.js'
 import { updateArticle } from './updateArticle.js'
 import { deleteArticle } from './deleteArticle.js'
-import { findPublicArticlesByUserId } from './findPublicArticlesByUserId.js'
-import { findPublicArticleById } from './findPublicArticleById.js'
+import { findReelArticlesByUserId } from './findReelArticlesByUserId.js'
+import { findReelArticleById } from './findReelArticleById.js'
 
+
+import { findReelById } from './findReelById.js'
+import { updateReel } from './updateReel.js'
 
 export const data = {
     insertUser,
@@ -32,6 +35,9 @@ export const data = {
     deleteAllArticles,
     updateArticle,
     deleteArticle,
-    findPublicArticlesByUserId,
-    findPublicArticleById
+    findReelArticlesByUserId,
+    findReelArticleById,
+
+    findReelById,
+    updateReel
 }

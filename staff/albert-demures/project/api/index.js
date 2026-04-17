@@ -2,7 +2,7 @@ import express, { Router } from 'express'
 import cors from 'cors'
 import morganBody from 'morgan-body'
 
-import { userRouter, articleRouter } from './routers/index.js'
+import { userRouter, articleRouter, reelRouter } from './routers/index.js'
 import { errorHandler } from './middelwares/index.js'
 
 import { connect } from './mongoose/index.js'
@@ -28,6 +28,7 @@ api.get('/', (req, res) => res.json({ message: 'Hello! from API ;=' }))
 
 api.use ('/users', userRouter)
 api.use('/articles', articleRouter)
+api.use('/reels', reelRouter)
 
 api.use(errorHandler)
 
