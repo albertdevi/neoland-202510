@@ -3,9 +3,10 @@ import mongoose from "mongoose";
 const { Schema, ObjectId } = mongoose
 
 export const reelSchema = new Schema ({
-    owner: {
+    ownerId: {
         type: ObjectId,
-        ref: 'User'
+        ref: 'User',
+        required: true
     },
 
     textColor: {

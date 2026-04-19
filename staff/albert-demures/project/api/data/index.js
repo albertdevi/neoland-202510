@@ -18,8 +18,9 @@ import { findReelArticlesByUserId } from './findReelArticlesByUserId.js'
 import { findReelArticleById } from './findReelArticleById.js'
 
 
-import { findReelById } from './findReelById.js'
+import { findReelByUserId } from './findReelByUserId.js'
 import { updateReel } from './updateReel.js'
+import { insertReel } from './insertReel.js'
 
 export const data = {
     insertUser,
@@ -38,6 +39,7 @@ export const data = {
     findReelArticlesByUserId,
     findReelArticleById,
 
-    findReelById,
-    updateReel
+    findReelByUserId,
+    updateReel,
+    insertReel
 }

@@ -12,6 +12,8 @@ import { removeArticle } from './removeArticle'
 import { getReelArticles } from './getReelArticles'
 import { getReelArticle } from './getReelArticle'
 
+import { getReel } from './getReel'
+import { modifyReel } from './modifyReel'
 
 export const logic = {
     getLoggedInUser,
@@ -26,5 +28,8 @@ export const logic = {
     modifyArticle,
     removeArticle,
     getReelArticles,
-    getReelArticle
+    getReelArticle,
+
+    getReel,
+    modifyReel
 }

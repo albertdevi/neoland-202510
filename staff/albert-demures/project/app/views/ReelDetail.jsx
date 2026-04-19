@@ -12,7 +12,7 @@ import { useContext } from '../context'
 
 import { logic } from '../logic'
 
-export function ReelDetail({onGoToReel}) {
+export function ReelDetail({ onGoToReel}) {
     logger.debug('ArticleDetail -> call')
 
     const { onError } = useContext()
@@ -20,6 +20,8 @@ export function ReelDetail({onGoToReel}) {
     const [article, setArticle] = useState(null)
 
     const { userId, articleId } = useParams()
+
+    const [reel, setReel] = useState(null)
 
     useEffect(() => {
         try {
@@ -31,11 +33,20 @@ export function ReelDetail({onGoToReel}) {
         }
     }, [])
 
+    useEffect(() => {
+        logic.getReel(userId)
+            .then(setReel)
+            .catch(onError)
+    }, [userId])
+
     const handleGoToReel = event => {
         event.preventDefault()
 
         onGoToReel(userId)
     }
+
+    const textColor = reel?.textColor || '#000000'
+    const backgroundColor = reel?.backgroundColor || '#afafaf'
 
     logger.debug('ArticleDetail -> render')
 
@@ -45,9 +56,13 @@ export function ReelDetail({onGoToReel}) {
             const zuluDate = new Date(article.date)
             const locaDateString = zuluDate.toLocaleDateString()
 
-            return   <div className=" min-h-screen max-w-2xl mx-auto px-4 py-6 space-y-4">
+            return <div className=" min-h-screen max-w-2xl mx-auto px-4 py-6 space-y-4"
+                style={{
+                    color: textColor,
+                }}
+            >
 
-                <ButtonRound className='bg-neutral-600 hover:bg-neutral-800 transition'>
+                <ButtonRound className=' hover:bg-neutral-800 transition' style={{ backgroundColor }}>
                     <img src="/back.svg" alt="Back icon" className="w-5 h-5 object-cover" onClick={handleGoToReel} />
                 </ButtonRound>
 
@@ -61,7 +76,7 @@ export function ReelDetail({onGoToReel}) {
                         {article.title}
                     </h1>
 
-                    <h2 className="text-sm text-neutral-500 leading-snug">
+                    <h2 className="text-sm leading-snug">
 
                         {article.subtitle && (
                             <>
@@ -69,7 +84,7 @@ export function ReelDetail({onGoToReel}) {
                                 <span className="mx-1">•</span>
                             </>
                         )}
-{}
+                        { }
                         <span className=" italic">
                             {locaDateString}
                         </span>
@@ -81,7 +96,7 @@ export function ReelDetail({onGoToReel}) {
                     <div className="h-px w-full bg-neutral-200 my-2" />
                 </div>
 
-                <p className="text-sm leading-7 text-neutral-800">
+                <p className="text-sm leading-7 ">
                     {article.paragraph0}
                 </p>
 
@@ -92,7 +107,7 @@ export function ReelDetail({onGoToReel}) {
                     />
                 )}
 
-                <p className="text-sm leading-7 text-neutral-800">
+                <p className="text-sm leading-7 ">
                     {article.paragraph1}
                 </p>
 
@@ -103,18 +118,18 @@ export function ReelDetail({onGoToReel}) {
                     />
                 )}
 
-                <p className="text-sm leading-7 text-neutral-800">
+                <p className="text-sm leading-7 ">
                     {article.paragraph2}
                 </p>
 
-                 {article.image3 && (
+                {article.image3 && (
                     <img
                         src={article.image3}
                         className="w-full aspect-[16/9] object-cover rounded-2xl shadow-md my-4"
                     />
                 )}
 
-                <p className="text-sm leading-7 text-neutral-800">
+                <p className="text-sm leading-7 ">
                     {article.paragraph2}
                 </p>
 

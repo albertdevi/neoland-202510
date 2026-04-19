@@ -1,7 +1,7 @@
-import { ExistenceError, OwnershipError, validate } from 'com'
+import { ExistenceError, validate } from 'com'
 import { data, ReelData } from '../data/index.js'
 
-export function modifyReel(userId, reelId, textColor, backgroundColor) {
+export function modifyReel(userId, textColor, backgroundColor) {
     validate.id(userId, 'userId')
     validate.name(textColor, 'textColor')
     validate.name(backgroundColor, 'backgroundColor')
@@ -10,13 +10,18 @@ export function modifyReel(userId, reelId, textColor, backgroundColor) {
         .then(userData => {
             if (!userData) throw new ExistenceError('user not found')
 
-            return data.findReelById(reelId)
+            return data.findReelByUserId(userId)
         })
         .then(reelData => {
             if (!reelData) throw new ExistenceError('reel not found')
 
-            if (reelData.ownerId !== userId) throw new OwnershipError('user not owner of reel')
-
-            return data.updateReel(new ReelData(reelId, userId, textColor, backgroundColor))
+            return data.updateReel(
+                new ReelData(
+                    reelData.id,
+                    userId,
+                    textColor,
+                    backgroundColor
+                )
+            )
         })
 }

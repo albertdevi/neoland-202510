@@ -2,7 +2,12 @@ import { logger } from '../../logger'
 
 import { useParams } from 'react-router'
 
-export function ReelItem({ article, onGoToReelDetail }) {
+import { useState, useEffect } from 'react'
+
+import { logic } from '../../logic'
+
+export function ReelItem({ reel, article, onGoToReelDetail }) {
+  console.log('REEL:', reel)
 
     logger.debug('ReelItem -> call')
 
@@ -10,13 +15,20 @@ export function ReelItem({ article, onGoToReelDetail }) {
 
     const handleGoToReelDetailClick = () => onGoToReelDetail(userId, article.id)
 
+    const textColor = reel?.textColor || '#000000'
+    const backgroundColor = reel?.backgroundColor || '#afafaf'
+
     logger.debug('ReelItem -> render')
 
     const zuluDate = new Date(article.date)
     const locaDateString = zuluDate.toLocaleDateString()
 
-    return <li onClick={handleGoToReelDetailClick}
-        className="rounded-2xl shadow-md p-2 flex flex-col gap-2 bg-gray-200 p-4 ">
+    return <li  onClick={handleGoToReelDetailClick}
+             style={{
+                color: textColor,
+                backgroundColor: backgroundColor
+            }}
+        className="rounded-2xl shadow-md flex flex-col gap-2 p-4 ">
         <img
             src={article.image0}
             className="w-full h-full object-cover rounded-2xl shadow-lg"
@@ -28,15 +40,17 @@ export function ReelItem({ article, onGoToReelDetail }) {
         
       {article.subtitle && (
         <>
-          <h3 className="text-lg font-semibold leading-snug text-neutral-900">
+          <h3 className="text-lg font-semibold leading-snug ">
             {article.subtitle}
           </h3>
         </>
       )}
 
-        <p className="text-xs text-neutral-500">
+        <p className="text-xs ">
             {locaDateString}
         </p>
+
+
 
     </li>
 }

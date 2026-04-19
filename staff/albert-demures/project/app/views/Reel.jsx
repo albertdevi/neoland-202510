@@ -6,9 +6,9 @@ import { ReelItem } from './components/ReelItem'
 
 import { useContext } from '../context'
 
-import { logic } from '../logic'
-
 import { useParams } from 'react-router'
+
+import { logic } from '../logic'
 
 export function Reel({ onGoToReelDetail }) {
     logger.debug('Reels -> call')
@@ -17,7 +17,16 @@ export function Reel({ onGoToReelDetail }) {
 
     const { onError } = useContext()
 
+    const [reel, setReel] = useState(null)
+
     const [articles, setArticles] = useState([])
+
+
+    useEffect(() => {
+        logic.getReel(userId)
+            .then(setReel)
+            .catch(onError)
+    }, [userId])
 
     useEffect(() => {
         logger.debug('ArticleList -> useEffect')
@@ -43,7 +52,7 @@ export function Reel({ onGoToReelDetail }) {
     return <div className='"min-h-screen text-neutral-900 max-w-2xl mx-auto px-4 py-6'>
 
         <ul className="flex flex-col space-y-6">
-            {articles.map(article => <ReelItem key={article.id} article={article} onGoToReelDetail={handleGoToReelDetail} />)}
+            {articles.map(article => <ReelItem key={article.id} article={article} onGoToReelDetail={handleGoToReelDetail} reel={reel} />)}
         </ul>
 
     </div>

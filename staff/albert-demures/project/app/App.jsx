@@ -9,6 +9,7 @@ import { Home } from './views/Home'
 import { AddArticle } from './views/AddArticle'
 import { ArticleDetail } from './views/ArticleDetail'
 import { ModifyArticle } from './views/ModifyArticle'
+import  { ModifyReel } from './views/ModifyReel'
 import { Reel } from './views/Reel'
 import { ReelDetail } from './views/ReelDetail'
 import { Feedback } from './views/components/commons/Feedback'
@@ -55,7 +56,9 @@ export function App() {
 
     const handleGoToReelDetail = (userId, articleId) => clearFeedbackAndNavigate(`/reels/${userId}/${articleId}`)
 
-    const handleGoToReel = (userId) => clearFeedbackAndNavigate(`/reels/${userId}`)
+    const handleGoToReel = userId => clearFeedbackAndNavigate(`/reels/${userId}`)
+
+    const handleGoToModifyReel = userId => clearFeedbackAndNavigate(`/reels/${userId}/edit`)
 
     const handleError = error => {
         if (error instanceof AuthError) {
@@ -100,7 +103,7 @@ export function App() {
             <Route path="/" element={!loggedIn ?
                 <Landing onGoToLogin={handleGoToLogin} onGoToRegister={handleGoToRegister} />
                 :
-                <Home onGoToAddArticle={handleGoToAddArticle} onUserLoggedOut={handleGoToLogin} onGoToArticleDetail={handleGoToArticleDetail} onGoToModifyArticle={handleGoToModifyArticle} />
+                <Home onGoToAddArticle={handleGoToAddArticle} onUserLoggedOut={handleGoToLogin} onGoToArticleDetail={handleGoToArticleDetail} onGoToModifyArticle={handleGoToModifyArticle} onGoToModifyReel={handleGoToModifyReel} />
             } />
 
             <Route path="/login" element={!loggedIn ? <Login onUserLoggedIn={handleGoToHome} onGoToRegister={handleGoToRegister} /> : <Navigate to="/" />} />
@@ -116,6 +119,8 @@ export function App() {
             <Route path="/reels/:userId" element={<Reel onGoToReelDetail={handleGoToReelDetail} />} />
 
             <Route path="/reels/:userId/:articleId" element={< ReelDetail onGoToReel={handleGoToReel} />} />
+
+            <Route path="/reels/:userId/edit" element={loggedIn ? <ModifyReel onGoToHome={handleGoToHome} onUserLoggedOut={handleGoToLogin} onGoToHome={handleGoToHome } /> : <Navigate to="/login" />} />
 
         </Routes>
     </Context.Provider>
