@@ -5,11 +5,7 @@ import { ReelData } from './models/index.js'
 export function insertReel(reelData) {
     const { ownerId, textColor, backgroundColor } = reelData
 
-    const reelModel = new ReelModel({
-        ownerId,
-        textColor,
-        backgroundColor
-    })
+    const reelModel = new ReelModel({ ownerId, textColor, backgroundColor })
 
     return reelModel.save()
         .then(reelModel => {

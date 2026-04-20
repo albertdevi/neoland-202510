@@ -53,7 +53,7 @@ export function Home({ onUserLoggedOut, onGoToAddArticle, onGoToArticleDetail, o
 
     logger.debug('Home -> render')
 
-    return <div className=" flex flex-col justify-start py-2 px-4 items-center justify-center min-h-screen bg-gradient-to-b from-[#0A1F27] via-[#163f4f] to-[#24657D] sm:gap-4 md:gap-10 ">
+    return <div className="flex flex-col justify-start py-2 px-4 items-center justify-center min-h-screen bg-gradient-to-b from-[#0A1F27] via-[#163f4f] to-[#24657D] sm:gap-4 md:gap-10 ">
         <Header onUserLoggedOut={onUserLoggedOut}>
             <ButtonRound className='bg-[#FF7621] flex items-center justify-center' >
                 <img src="/plus.svg" alt="plus icon" className="w-[80%] h-[80%] object-cover" onClick={handleAddArticleClick} />
@@ -90,11 +90,11 @@ export function Home({ onUserLoggedOut, onGoToAddArticle, onGoToArticleDetail, o
 
                 <div className="flex justify-center gap-4">
                     <button className="bg-[#1C637D] py-3 px-8 rounded-3xl" onclick="copyData()">
-                        Copiar
+                        Copy
                     </button>
 
                     <button className="bg-[#1C637D] py-3 px-8 rounded-3xl" onClick={() => setShowReelModal(false)}>
-                        Volver
+                        Return
                     </button>
 
                 </div>

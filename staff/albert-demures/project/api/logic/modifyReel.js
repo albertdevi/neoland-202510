@@ -16,12 +16,6 @@ export function modifyReel(userId, textColor, backgroundColor) {
             if (!reelData) throw new ExistenceError('reel not found')
 
             return data.updateReel(
-                new ReelData(
-                    reelData.id,
-                    userId,
-                    textColor,
-                    backgroundColor
-                )
-            )
+                new ReelData( reelData.id, userId, textColor, backgroundColor))
         })
 }
