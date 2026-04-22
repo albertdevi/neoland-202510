@@ -3,13 +3,13 @@ import { ReelModel } from '../mongoose/index.js'
 import { ReelData } from './models/index.js'
 
 export function findReelByUserId(userId){
-    return ReelModel.findOne({ ownerId: userId })
+    return ReelModel.findOne({ owner: userId })
     .catch(error => { throw new SystemError(error.message) })
     .then(reelModel => {
         if (!reelModel) return null
 
-        const { id, ownerId, textColor, backgroundColor} = reelModel
+        const { id, owner, textColor, backgroundColor} = reelModel
 
-        return new ReelData ( id.toString() , ownerId.toString(), textColor, backgroundColor)
+        return new ReelData ( id, owner.toString(), textColor, backgroundColor)
     })
 }

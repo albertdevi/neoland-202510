@@ -5,7 +5,7 @@ export function ArticleItem({ article, onGoToArticleDetail, onRemoveArticleClick
 
   logger.debug('ArticleItem -> call')
 
-  const handleGoToArticleDetailClick = articleId => onGoToArticleDetail(articleId)
+  const handleGoToArticleDetailClick = (articleId) => onGoToArticleDetail(articleId)
 
   const handleRemoveArticleClick = articleId => onRemoveArticleClick(articleId)
 

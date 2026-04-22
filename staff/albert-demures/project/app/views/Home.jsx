@@ -33,7 +33,8 @@ export function Home({ onUserLoggedOut, onGoToAddArticle, onGoToArticleDetail, o
                 .then(user => {
                     setUser(user)
                     setName(user.name)
-                })
+                })// poner catch
+                .catch(error => onError(error))
         } catch (error) {
             onError(error)
         }

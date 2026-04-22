@@ -135,6 +135,6 @@ export function ReelDetail({ onGoToReel}) {
 
             </div>
 
-        })() : null}
+        })() : <p>Loading</p>}
     </div>
 }

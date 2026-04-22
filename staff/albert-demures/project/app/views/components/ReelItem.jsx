@@ -2,18 +2,13 @@ import { logger } from '../../logger'
 
 import { useParams } from 'react-router'
 
-import { useState, useEffect } from 'react'
-
-import { logic } from '../../logic'
-
 export function ReelItem({ reel, article, onGoToReelDetail }) {
-  console.log('REEL:', reel)
 
     logger.debug('ReelItem -> call')
 
     const { userId } = useParams()
 
-    const handleGoToReelDetailClick = () => onGoToReelDetail(userId, article.id)
+    const handleGoToReelDetailClick = (userId, articleId) => onGoToReelDetail(userId, articleId)
 
     const textColor = reel?.textColor || '#000000'
     const backgroundColor = reel?.backgroundColor || '#afafaf'
@@ -23,7 +18,7 @@ export function ReelItem({ reel, article, onGoToReelDetail }) {
     const zuluDate = new Date(article.date)
     const locaDateString = zuluDate.toLocaleDateString()
 
-    return <li  onClick={handleGoToReelDetailClick}
+    return <li onClick={() => handleGoToReelDetailClick(userId, article.id)}
              style={{
                 color: textColor,
                 backgroundColor: backgroundColor
@@ -49,8 +44,5 @@ export function ReelItem({ reel, article, onGoToReelDetail }) {
         <p className="text-xs ">
             {locaDateString}
         </p>
-
-
-
     </li>
 }

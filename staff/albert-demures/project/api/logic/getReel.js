@@ -12,6 +12,7 @@ export function getReel(userId) {
             return data.findReelByUserId(userId)
         })
         .then(reelData => {
+
             if (!reelData) throw new ExistenceError('reel not found')
 
             const { id, ownerId, textColor, backgroundColor } = reelData

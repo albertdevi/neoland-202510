@@ -32,7 +32,7 @@ export function ModifyReel({ onGoToHome, onUserLoggedOut, onGoBack }) {
         } catch (error) {
             onError(error)
         }
-    }, [userId])
+    }, [])
 
     const handleBackClick = event => {
         event.preventDefault()
@@ -79,7 +79,5 @@ export function ModifyReel({ onGoToHome, onUserLoggedOut, onGoBack }) {
             <ButtonCTA className="" type="submit">Modify</ButtonCTA>
 
         </Form>
-
-
     </div>
 }
