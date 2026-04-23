@@ -75,7 +75,7 @@ export function ModifyArticle({ onGoToHome, onUserLoggedOut, onGoBack }) {
     const isoString = zuluDate.toISOString().split('T')[0]
 
 
-    return <div className='flex flex-col justify-start py-2 px-4 items-center justify-center min-h-screen bg-gradient-to-b from-[#0A1F27] via-[#163f4f] to-[#24657D] sm:gap-4 md:gap-10'>
+    return <div className='flex flex-col py-2 px-4 items-center justify-center min-h-screen bg-gradient-to-b from-[#0A1F27] via-[#163f4f] to-[#24657D] sm:gap-4 md:gap-10'>
         <Header onUserLoggedOut={onUserLoggedOut}  >
             <ButtonRound className='bg-[#1C637D] flex items-center justify-center'>
                 <img src="/back.svg" alt="Back icon" className="w-[80%] h-f[80%] object-cover" onClick={handleBackClick} />
@@ -111,7 +111,6 @@ export function ModifyArticle({ onGoToHome, onUserLoggedOut, onGoBack }) {
             <SelectField alias='visibility' label="Visibility">
                 <option value='public'>Public</option>
                 <option value='draft'>Draft</option>
-                <option value='extra'>Extra</option>
             </SelectField>
 
             <ButtonCTA className="" type="submit">Modify</ButtonCTA>

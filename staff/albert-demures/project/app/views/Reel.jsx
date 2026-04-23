@@ -21,16 +21,6 @@ export function Reel({ onGoToReelDetail }) {
 
     const [articles, setArticles] = useState([])
 
-/* useEffect(() => {
-        try {
-            logic.getReel(userId)
-                .then(setReel)
-                .catch(onError)
-        } catch (error) {
-            onError(error)
-        }
-    }, [userId]) */
-
     useEffect(() => {
         try {
             logic.getReel(userId)
@@ -70,3 +60,13 @@ export function Reel({ onGoToReelDetail }) {
 
     </div>
 }
+
+/* useEffect(() => {
+        try {
+            logic.getReel(userId)
+                .then(setReel)
+                .catch(onError)
+        } catch (error) {
+            onError(error)
+        }
+    }, [userId]) */

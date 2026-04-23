@@ -2,7 +2,7 @@
 
 ## Introduction
 
-An app for web owners to create and modify news for their website.
+An app for web owners to create and modify articles for their website, creating a reel that can be embed to an iframe.
 
 ![spiderman newspaper](https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExb201OGo4dmF0MHJubTB4bmFtMWI0a2Npd2duZDE4bW05cXZsdHU3bSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/sRHX9qwNKQaQB48RAM/giphy.gif)
 
@@ -13,13 +13,14 @@ An app for web owners to create and modify news for their website.
 User
 - register
 - login
-- update credentials (username, password, email)
-- update profile (project name, profile image, )
-- create new
-- remove new
-- modify new
-- filter news
+- update credentials (username, password, email) (future version)
+- update profile (project name, profile image, ) (future version)
+- create article
+- remove article
+- modify article
+- filter articless (future version)
 - modify reel colors (text and background color)
+- generate embed code of reel for iframe 
 
 ### UI/UX design
 

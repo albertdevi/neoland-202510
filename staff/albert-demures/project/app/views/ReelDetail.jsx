@@ -34,10 +34,14 @@ export function ReelDetail({ onGoToReel}) {
     }, [])
 
     useEffect(() => {
-        logic.getReel(userId)
-            .then(setReel)
-            .catch(onError)
-    }, [userId])
+        try {
+            logic.getReel(userId)
+                .then(reel => setReel(reel))
+                .catch(error => onError(error))
+        } catch (error) {
+            onError(error)
+        }
+    }, [])
 
     const handleGoToReel = event => {
         event.preventDefault()
@@ -63,7 +67,7 @@ export function ReelDetail({ onGoToReel}) {
             >
 
                 <ButtonRound className=' hover:bg-neutral-800 transition' style={{ backgroundColor }}>
-                    <img src="/back.svg" alt="Back icon" className="w-5 h-5 object-cover" onClick={handleGoToReel} />
+                    <img src="/back.svg" alt="Back icon" className="w-5 h-5 object-cover invert" onClick={handleGoToReel} />
                 </ButtonRound>
 
                 <img

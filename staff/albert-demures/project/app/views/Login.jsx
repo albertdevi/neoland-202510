@@ -11,49 +11,49 @@ import { useContext } from '../context'
 import { logic } from '../logic'
 import { logger } from '../logger'
 
-export function Login({ onUserLoggedIn, onGoToRegister}) {
-//     logger.debug('Login -> call')
+export function Login({ onUserLoggedIn, onGoToRegister }) {
+    logger.debug('Login -> call')
 
-const { onError } = useContext()
+    const { onError } = useContext()
 
-const handleLoginSubmit = event => {
-    event.preventDefault()
+    const handleLoginSubmit = event => {
+        event.preventDefault()
 
-    const form = event.target
+        const form = event.target
 
-    const email = form.email.value 
-    const password = form.password.value
+        const email = form.email.value
+        const password = form.password.value
 
-    try {
-        logic.loginUser(email, password)
-        .then(() => onUserLoggedIn())
-        .catch(error => onError(error))
-    } catch (error) {
-        onError(error)
+        try {
+            logic.loginUser(email, password)
+                .then(() => onUserLoggedIn())
+                .catch(error => onError(error))
+        } catch (error) {
+            onError(error)
+        }
     }
-}
 
-const handleRegisterClick = event => {
-    event.preventDefault()
+    const handleRegisterClick = event => {
+        event.preventDefault()
 
-    onGoToRegister()
-}
+        onGoToRegister()
+    }
 
-logger.debug('Login -> render')
+    logger.debug('Login -> render')
 
-return <div className=" flex flex-col gap-6 py-4 items-center justify-center min-h-screen bg-gradient-to-b from-[#0A1F27] via-[#163f4f] to-[#24657D] sm:gap-8 md:gap-10 py-2 px-4  ">
-    <Title>Login</Title>
+    return <div className=" flex flex-col gap-6 py-4 items-center justify-center min-h-screen bg-gradient-to-b from-[#0A1F27] via-[#163f4f] to-[#24657D] sm:gap-8 md:gap-10 py-2 px-4  ">
+        <Title>Login</Title>
 
-     <img src='logo.svg' alt='News2Web logo' className='w-30 object-contain' />
+        <img src='logo.svg' alt='News2Web logo' className='w-30 object-contain' />
 
-    <Form onSubmit={handleLoginSubmit}>
-    <InputField alias='email' type='text'>Email</InputField>
+        <Form onSubmit={handleLoginSubmit}>
+            <InputField alias='email' type='text'>Email</InputField>
 
-    <PasswordField alias="password">Password</PasswordField>
+            <PasswordField alias="password">Password</PasswordField>
 
-    <ButtonCTA className="" type="submit">Login</ButtonCTA>
+            <ButtonCTA className="" type="submit">Login</ButtonCTA>
 
-    </Form>
+        </Form>
         <footer className="flex flex-col items-center gap-4 w-full max-w-sm mt-2" >
             <div className="flex items-center w-full gap-3">
                 <div className='h-px w-full bg-[#58B7DA]'></div>
@@ -63,6 +63,6 @@ return <div className=" flex flex-col gap-6 py-4 items-center justify-center min
             <p className='text-[#58B7DA] text-sm '>No tienes cuenta?</p>
             <Anchor className='text-[#D5EDF6]' onClick={handleRegisterClick}>Register</Anchor>
         </footer>
-     </div>
+    </div>
 }
 

@@ -4,7 +4,7 @@ import { InputField } from './components/commons/InputField'
 import { Anchor } from './components/commons/Anchor'
 import { PasswordField } from './components/commons/PasswordField'
 import { ButtonCTA } from './components/commons/ButtonCTA'
-
+import { logger } from '../logger'
 
 import { useContext } from '../context'
 
@@ -43,7 +43,7 @@ export function Register({ onGoToLogin }) {
         onGoToLogin()
     }
 
-    //logger.debug('Register -> render')
+    logger.debug('Register -> render')
 
     return <div className=" flex flex-col gap-10 py-10 items-center justify-center min-h-screen bg-gradient-to-b from-[#0A1F27] via-[#163f4f] to-[#24657D] sm:gap-8 md:gap-10 py-2 px-4 ">
 

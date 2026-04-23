@@ -1,8 +1,8 @@
 import bcrypt from 'bcryptjs'
 import { DuplicityError, SystemError, validate } from 'com'
 import { data, UserData } from '../data/index.js'
-import { UserModel } from '../mongoose/index.js'
 import { ReelData } from '../data/index.js'
+import { UserModel } from '../mongoose/index.js'
 
 export function registerUser(name, email, password, passwordRepeat) {
     validate.name(name)
@@ -25,14 +25,12 @@ export function registerUser(name, email, password, passwordRepeat) {
         .then(hash => {
             const userData = new UserData(null, name, email, hash, null, 'regular')
 
-            const userModel = new UserModel(userData)
-
-            return userModel.save()
+            return data.insertUser(userData)
 
         })
-        .then(user => {
+        .then(userId => {
 
-            const reel = new ReelData(null, user.id, '#000000', '#ffffff')
+            const reel = new ReelData(null, userId, '#000000', '#ffffff')
 
             return data.insertReel(reel)
         })
