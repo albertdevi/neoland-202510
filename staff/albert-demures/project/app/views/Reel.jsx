@@ -60,13 +60,3 @@ export function Reel({ onGoToReelDetail }) {
 
     </div>
 }
-
-/* useEffect(() => {
-        try {
-            logic.getReel(userId)
-                .then(setReel)
-                .catch(onError)
-        } catch (error) {
-            onError(error)
-        }
-    }, [userId]) */

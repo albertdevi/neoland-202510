@@ -2,7 +2,7 @@
 
 ## Introduction
 
-An app for web owners to create and modify articles for their website, creating a reel that can be embed to an iframe.
+An app to create and modify articles, then turn them into customizable reels that can be embedded in iframes and shared across multiple platforms.
 
 ![spiderman newspaper](https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExb201OGo4dmF0MHJubTB4bmFtMWI0a2Npd2duZDE4bW05cXZsdHU3bSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/sRHX9qwNKQaQB48RAM/giphy.gif)
 
@@ -20,7 +20,7 @@ User
 - modify article
 - filter articless (future version)
 - modify reel colors (text and background color)
-- generate embed code of reel for iframe 
+- generate a  embed code of the reel for iframe 
 
 ### UI/UX design
 
@@ -57,8 +57,14 @@ ArticleData
 - title (required, string)
 - subtitle (string)
 - date (required, date)
-- paragraphs (required, [string])
-- images ([string])
+- paragraph0 (required, string)
+- paragraph1 (string)
+- paragraph2 (string)
+- paragraph3 (string)
+- image0 (string)
+- image1 (string)
+- image2 (string)
+- image3 (string)
 - visibility (required, string, private | public)
 
 ReelData

@@ -76,5 +76,4 @@ export function Register({ onGoToLogin }) {
         </footer>
 
     </div>
-
 } 

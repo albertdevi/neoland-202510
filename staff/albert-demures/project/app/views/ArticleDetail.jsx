@@ -74,7 +74,6 @@ export function ArticleDetail({ onGoToHome, onUserLoggedOut, onGoToModifyArticle
                                 <span className="mx-1">•</span>
                             </>
                         )}
-{}
                         <span className="text-[#5F7D88] italic">
                             {locaDateString}
                         </span>
